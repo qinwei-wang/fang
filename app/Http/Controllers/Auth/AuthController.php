@@ -7,6 +7,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -68,5 +70,48 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+
+    public function login()
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * 用户登录
+     *
+     * @param LoginRequest $loginRequest
+     */
+    public function postLogin(Request $request)
+    {
+        //判断帐号是否激活
+        $parameters = [
+            'email' => $request->get('account'), // May be the username too
+            'password' => $request->get('password'),
+        ];
+        $login = Auth::attempt($parameters,$request->get('remember'));
+        if($login){
+            PPLog::create(null,LogType::WebLogin,'登录系统',$parameters['email']);
+            return Redirect::intended('/');
+        }else{
+            return Redirect::back()->withErrors(trans('login.alert.failure_login'));
+        }
+    }
+
+    /**
+     * 退出登录
+     *
+     * @return mixed
+     */
+    public function getLogout()
+    {
+        if (env('IS_SSO_AUTH')) {
+            return Redirect::to(env('SSO_API_BASE_URL').'/auth/logout');
+        }
+        if(Auth::check()){
+            Auth::logout();
+        }
+        return Redirect::intended('/');
     }
 }
