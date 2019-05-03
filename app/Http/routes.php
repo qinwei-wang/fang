@@ -12,5 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('base-config.banner.index');
 });
+
+Route::resource('base-config/banner', 'BaseConfig\BannerController');
