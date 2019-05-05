@@ -7,6 +7,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use Auth;
+use Redirect;
 
 class AuthController extends Controller
 {
@@ -68,5 +71,44 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+
+    public function login()
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * 用户登录
+     *
+     * @param LoginRequest $loginRequest
+     */
+    public function postLogin(Request $request)
+    {
+        //判断帐号是否激活
+        $parameters = [
+            'email' => $request->get('account'), // May be the username too
+            'password' => $request->get('password'),
+        ];
+        $login = Auth::attempt($parameters,$request->get('remember') ? true : false);
+        if($login){
+            return Redirect::intended('/');
+        }else{
+            return Redirect::back()->withErrors('login error');
+        }
+    }
+
+    /**
+     * 退出登录
+     *
+     * @return mixed
+     */
+    public function logout()
+    {
+        if(Auth::check()){
+            Auth::logout();
+        }
+        return Redirect::intended('/auth/login');
     }
 }

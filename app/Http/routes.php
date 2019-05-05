@@ -12,5 +12,41 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('home');
+});
+
+
+//dashboard
+Route::group(['prefix'=>'home','middleware'=>['auth']],function()
+{
+    Route::get('/', 'Home\HomeController@index')->name('home');
+});
+
+//用户认证
+Route::group(['prefix'=>'auth','middleware'=>[]],function()
+{
+    Route::get('login', 'Auth\AuthController@login');
+    Route::post('post-login', 'Auth\AuthController@postLogin')->name('post-login');
+    Route::get('logout', 'Auth\AuthController@logout')->name('logout');
+});
+
+
+//基础设置
+Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'=>['auth', 'web']],function()
+{
+    //banner设置
+    Route::group(['prefix' => 'banner'], function () {
+        Route::get('/', 'BannerController@index')->name('banner');
+        Route::get('/{id}', 'BannerController@edit')->name('banner.edit');
+        Route::delete('/', 'BannerController@delete')->name('banner.delete');
+        Route::get('/create', 'BannerController@create')->name('banner.create');
+        Route::post('/store', 'BannerController@store')->name('banner.store');
+    });
+
+});
+
+
+//文件上传
+Route::group(['prefix' => 'upload'], function () {
+    Route::post('/', 'UploadController@uploadToLocalStore')->name('upload_to_local');
 });
