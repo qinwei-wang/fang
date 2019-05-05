@@ -13,6 +13,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 //use GuzzleHttp\Client;
 use Storage;
+use App\Models\CountryModel;
 
 class GetCountries extends Command
 {
@@ -41,9 +42,21 @@ class GetCountries extends Command
     public function handle()
     {
         $contents = Storage::get('countries.json');
-        $countries = json_decode($countries, true);
+        $countries = json_decode($contents, true);
         foreach ($countries as $item) {
-            var_dump($item);die;
+            try {
+                $rescord = [
+                    'name' => $item['name'],
+                    'flag' => $item['flag'],
+                    'region' => $item['region']
+                ];
+                CountryModel::updateOrCreate(['name' => $rescord['name']], $rescord);
+            } catch (\Exception $e) {
+                $this->error($e->getMessage());
+                \Log::error($e->getMessage());
+                \Log::error($e->getTrace());
+            }
+
         }
 
     }

@@ -43,6 +43,10 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::post('/store', 'BannerController@store')->name('banner.store');
     });
 
+    Route::group(['prefix'=> 'country'], function () {
+        Route::get('/', 'CountryController@index')->name('country');
+    });
+
 });
 
 

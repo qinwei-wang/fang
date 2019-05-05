@@ -14,8 +14,6 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-
     protected $bannerService;
 
     public function __construct(BannerService $bannerService)

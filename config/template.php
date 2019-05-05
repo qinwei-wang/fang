@@ -26,6 +26,14 @@ return [
                     'roles' => '*',
                     'is_active' => false,
                 ],
+                [
+                    'icon' => 'fa fa-fire',
+                    'title' => '国家列表',
+                    'site' => '*',
+                    'link' => '/base-config/country',
+                    'roles' => '*',
+                    'is_active' => false,
+                ],
 
             ]
         ],
