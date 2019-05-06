@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2019-05-07 01:12:59
+Date: 2019-05-07 03:27:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,13 +30,14 @@ CREATE TABLE `cms_banners` (
   `sort` int(11) NOT NULL DEFAULT '0',
   `platform` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='banner图';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='banner图';
 
 -- ----------------------------
 -- Records of cms_banners
 -- ----------------------------
 INSERT INTO `cms_banners` VALUES ('1', 'test', 'test1', 'https://img.ppwebstatic.com/origin/product/000001013060/5c77b2557a70a.jpg/350x350', '0000-00-00 00:00:00', '2019-05-04 16:58:38', '0000-00-00 00:00:00', '555', 'PC');
-INSERT INTO `cms_banners` VALUES ('2', '123', '123', '', '2019-05-04 13:45:12', '2019-05-04 16:57:58', '0000-00-00 00:00:00', '12', 'PC');
+INSERT INTO `cms_banners` VALUES ('2', '123', '123', 'http://web.test/images/default/5cd07f907e57f.jpeg', '2019-05-04 13:45:12', '2019-05-06 18:40:19', '0000-00-00 00:00:00', '12', 'PC');
+INSERT INTO `cms_banners` VALUES ('3', 'test', '123', 'http://web.test/images/default/5cd07f82c85e5.jpeg', '2019-05-06 17:57:21', '2019-05-06 18:40:07', '0000-00-00 00:00:00', '2', 'PC');
 
 -- ----------------------------
 -- Table structure for cms_countries
@@ -314,16 +315,25 @@ DROP TABLE IF EXISTS `cms_country_details`;
 CREATE TABLE `cms_country_details` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `description` text NOT NULL COMMENT '详情',
-  `img_json` text NOT NULL,
+  `banner` text NOT NULL,
   `country_id` int(11) NOT NULL,
+  `migrate` varchar(255) NOT NULL DEFAULT '',
+  `ID_type` varchar(255) NOT NULL DEFAULT '',
+  `visa` varchar(255) NOT NULL DEFAULT '',
+  `img` varchar(255) NOT NULL DEFAULT '',
+  `live` varchar(255) NOT NULL DEFAULT '',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='国家详情';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='国家详情';
 
 -- ----------------------------
 -- Records of cms_country_details
 -- ----------------------------
+INSERT INTO `cms_country_details` VALUES ('2', '\r\n                                       234234 ', '{\"title\":\"banner\",\"img\":\"http:\\/\\/web.test\\/images\\/default\\/5cd0855311a1b.jpeg\",\"description\":\"123\"}', '1', '8', '1', '33', 'http://web.test/images/default/5cd085598c5f1.jpeg', '无', '2019-05-06 19:19:09', '2019-05-06 19:19:09', '1');
+INSERT INTO `cms_country_details` VALUES ('3', '\r\n                                       234234 ', '{\"title\":\"banner\",\"img\":\"http:\\/\\/web.test\\/images\\/default\\/5cd0855311a1b.jpeg\",\"description\":\"123\"}', '1', '8', '1', '33', 'http://web.test/images/default/5cd085598c5f1.jpeg', '无', '2019-05-06 19:19:16', '2019-05-06 19:19:16', '1');
+INSERT INTO `cms_country_details` VALUES ('4', '\r\n                                       234234 ', '{\"title\":\"banner\",\"img\":\"http:\\/\\/web.test\\/images\\/default\\/5cd0855311a1b.jpeg\",\"description\":\"123\"}', '1', '8', '1', '33', 'http://web.test/images/default/5cd085598c5f1.jpeg', '无', '2019-05-06 19:20:32', '2019-05-06 19:20:32', '1');
 
 -- ----------------------------
 -- Table structure for cms_users

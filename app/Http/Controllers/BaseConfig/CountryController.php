@@ -42,7 +42,7 @@ class CountryController extends Controller
      */
     public function detail(Request $request)
     {
-        $country_detail = $this->countryService->getDetail($request->id);
+        $country_detail = $this->countryService->getDetail($request->country_id);
         return view('countries.detail', compact('country_detail'));
     }
 
@@ -55,11 +55,11 @@ class CountryController extends Controller
     {
         try {
              $this->countryService->saveDetail($request->all());
-             $this->success();
+             return $this->success();
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             \Log::error($e->getTrace());
-            $this->failed($e->getMessage());
+            return $this->failed($e->getMessage());
         }
     }
 

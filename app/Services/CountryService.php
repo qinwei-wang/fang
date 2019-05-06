@@ -48,7 +48,9 @@ class CountryService
      */
     public function getDetail($country_id)
     {
-        return $this->countryDetailRepository->getDetailByCountryId($country_id);
+        $data = $this->countryDetailRepository->getDetailByCountryId($country_id);
+        $data->banner = $data->banner ? json_decode($data->banner, true) : '';
+        return $data;
     }
 
 
@@ -59,9 +61,9 @@ class CountryService
      */
     public function saveDetail($params)
     {
-        var_dump($params);die;
         $data = [
-            'banner_json' => $params['banner'],
+            'id'=> $params['id'],
+            'banner' => json_encode($params['banner']),
             'img' => $params['img'],
             'live' => $params['live'],
             'visa' => $params['visa'],
@@ -70,7 +72,6 @@ class CountryService
             'description' => $params['description'],
             'country_id'=> $params['country_id']
         ];
-        if ($params['id']) $data['id'] = $params['id'];
-        return $this->countryDetailRepository->save($data);
+        return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);
     }
 }

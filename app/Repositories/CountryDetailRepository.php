@@ -24,9 +24,4 @@ class CountryDetailRepository
         return $this->makeModel()->where('country_id', $country_id)->first();
     }
 
-
-    public function save($params)
-    {
-        return $this->makeModel()->update(['id' => $params['id'], $params]);
-    }
 }

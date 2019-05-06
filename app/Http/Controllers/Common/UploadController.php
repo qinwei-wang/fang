@@ -7,30 +7,36 @@
  */
 
 
-namespace App\Controllers\Common;
+namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Traits\ApiResponse;
 
 class UploadController extends Controller
 {
+    use ApiResponse;
     /**
      * 上传到本地
      */
-    public function uploadToLocalStore($file_name, $save_path)
+    public function uploadToLocalStore(Request $request)
     {
         try {
-            if (request()->file($file_name)->isValid()) {
-                request()->file($file_name)->move($save_path);
+            if ($request->file('file')->isValid()) {
+                $file = $request->file('file');
+                $file_name = uniqid() . '.' . $file->extension();
+                $path = 'images/default/';
+                request()->file('file')->move($path, $file_name);
+                return $this->success(asset($path . $file_name));
+
             } else {
                 throw new \Exception('文件上传失败');
             }
-            return ['status' => 'success'];
         } catch(\Exception $e) {
            \Log::error($e->getMessage());
            \Log::error($e->getTrace());
-           return ['status'=> 'fail', 'message' => $e->getMessage()];
+           $this->failed($e->getMessage());
         }
-
 
     }
 }

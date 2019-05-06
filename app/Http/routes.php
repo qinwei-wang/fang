@@ -53,6 +53,6 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
 
 
 //文件上传
-Route::group(['prefix' => 'upload'], function () {
-    Route::post('/', 'UploadController@uploadToLocalStore')->name('upload_to_local');
+Route::group(['prefix' => 'upload', 'namespace' => 'Common'], function () {
+    Route::post('/', 'UploadController@uploadToLocalStore')->name('upload');
 });

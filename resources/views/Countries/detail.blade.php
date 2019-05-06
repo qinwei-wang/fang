@@ -38,18 +38,16 @@
                             <div class="box-body" data-name="banner">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">标题</label>
-                                    <input type="text" name="banner[title]" value="{{$country_detail->banner['title'] or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
+                                    <input type="text"  name="banner[title]" value="{{$country_detail->banner['title'] or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">banner</label>
-                                    @if(!isset($country_detail) ||   empty($country_detail->banner['img']))
-                                        <input type="file" id="exampleInputFile">
-                                    @else
-                                        <div>
-                                            <img src="{{$country_detail->banner['img']}}" height="200" alt="">
-                                        </div>
-                                    @endif
-                                    <input type="hidden" name="banner['img']" value="{{$country_detail->banner['img'] or ''}}">
+                                    <div>
+                                        <img src="{{$country_detail->img or ''}}" height="200" alt="">
+                                    </div>
+                                    <input type="file" class="upload_file">
+
+                                    <input class="file_path" type="hidden" name="banner[img]" value="{{$banner->img or ''}}">
 
                                 </div>
                                 <div class="form-group">
@@ -60,10 +58,15 @@
                                 </div>
                             </div>
                             <div class="box-body" data-name="base-config" style="display:none">
-
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">主图</label>
-                                    <input type="file" name="img" value="{{$country_detail->img or ''}}"  id="exampleInputEmail1" placeholder="">
+                                    <label for="exampleInputFile">上传图片或视频</label>
+                                    <div>
+                                        <img src="{{$country_detail->img or ''}}" height="200" alt="">
+                                    </div>
+                                    <input type="file" class="upload_file">
+
+                                    <input class="file_path" type="hidden" name="img" value="{{$banner->img or ''}}">
+
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">居住要求</label>
@@ -96,7 +99,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <textarea name="description" id="" cols="120" rows="10">
-
+                                            {{$country_detail->description}}
                                         </textarea>
                                     </div>
                                 </div>
@@ -147,6 +150,37 @@
                         toastr.error('保存失败:' + msg.message);
                     }
                 }
+            })
+        })
+
+        //上传图片
+        $("input[type=file]").change(function () {
+            var _this = $(this);
+            var formData = new FormData();
+            formData.append("file", _this.parent().find('.upload_file')[0].files[0]);
+            formData.append("_token", '{{csrf_token()}}');
+            $.ajax({
+                'type': 'POST',
+                'url': '{{route('upload')}}',
+                'data': formData,
+                /**
+                 *必须false才会自动加上正确的Content-Type
+                 */
+                contentType: false,
+                /**
+                 * 必须false才会避开jQuery对 formdata 的默认处理
+                 * XMLHttpRequest会对 formdata 进行正确的处理
+                 */
+                processData: false,
+                success: function (msg) {
+                    if (msg.status == 'success') {
+                        toastr.success('上传成功!');
+                        _this.parent().find('.file_path').val(msg.data);
+                        _this.parent().find('img').attr('src', msg.data);
+                    } else {
+                        toastr.error('上传失败:' + msg.message);
+                    }
+                },
             })
         })
 

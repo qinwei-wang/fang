@@ -57,7 +57,7 @@
                                         <tr data-id="{{$item->id}}">
                                             <td>{{$item->sort}}</td>
                                             <td>{{$item->title}}</td>
-                                            <td><img src="{{$item->img}}" height="100" alt=""></td>
+                                            <td><img src="{{asset($item->img)}}" height="80" alt=""></td>
                                             <td>{{$item->description}}</td>
                                             <td>
                                                 <a href="{{route('banner.edit', ['id' => $item->id])}}" class="edit">
