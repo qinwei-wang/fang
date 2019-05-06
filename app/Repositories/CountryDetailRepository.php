@@ -17,4 +17,10 @@ class CountryDetailRepository
     {
         return app(\App\Models\CountryDetailModel::class);
     }
+
+
+    public function getDetailByCountryId($country_id)
+    {
+        return $this->makeModel()->where('country_id', $country_id)->first();
+    }
 }

@@ -23,6 +23,7 @@ class CountryController extends Controller
         $this->countryService = $countryService;
     }
 
+
     public function index(Request $request)
     {
         $list = $this->countryService->getList($request->all());
@@ -35,6 +36,7 @@ class CountryController extends Controller
      */
     public function detail(Request $request)
     {
-        $this->countryService->getDetail($request->id);
+        $country_detail = $this->countryService->getDetail($request->id);
+        return view('countries.detail', compact('country_detail'));
     }
 }

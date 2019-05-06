@@ -10,6 +10,7 @@
 namespace App\Services;
 
 use App\Repositories\CountryRepository;
+use App\Repositories\CountryDetailRepository;
 
 class CountryService
 {
@@ -17,9 +18,12 @@ class CountryService
 
     protected $countryRepository;
 
-    public function __construct(CountryRepository $countryRepository)
+    protected $countryDetailRepository;
+
+    public function __construct(CountryRepository $countryRepository, CountryDetailRepository $countryDetailRepository)
     {
         $this->countryRepository = $countryRepository;
+        $this->countryDetailRepository = $countryDetailRepository;
     }
 
 
@@ -44,6 +48,6 @@ class CountryService
      */
     public function getDetail($country_id)
     {
-
+        return $this->countryDetailRepository->getDetailByCountryId($country_id);
     }
 }

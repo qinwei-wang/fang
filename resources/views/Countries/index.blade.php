@@ -2,7 +2,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            banner
+            国家列表
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
@@ -10,15 +10,13 @@
             <li><a href="#"><i class="fa fa-dashboard"></i>国家</a></li>
             <li class="active">列表</li>
         </ol>
-
-
     </section>
 
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="box-body">
-                <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="box-body">
                     <form action="">
                         <div class="row">
                             <div class="col-md-3">
@@ -29,7 +27,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>是否签证:&nbsp;&nbsp;</label>
+                                    <label>是否加入移居计划:&nbsp;&nbsp;</label>
                                     <input type="checkbox" name="name" value="1">
                                 </div>
                             </div>
@@ -40,19 +38,12 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                     </form>
                 </div>
             </div>
-
-
         </div>
-
         <div class="row">
             <div class="col-md-12">
-
                 <div class="box box-default">
                     <div class="box-content">
                         <div class="box-body">
@@ -74,9 +65,9 @@
                                         </td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
-                                            <a href="">
+                                            <a href="{{route('country_detail')}}">
                                                 <button class="btn btn-info">
-                                                    设置详情
+                                                    加入移居计划
                                                 </button>
                                             </a>
 

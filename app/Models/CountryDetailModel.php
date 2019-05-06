@@ -12,7 +12,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CountryModel extends Model
+class CountryDetailModel extends Model
 {
 
     protected $table = 'cms_country_details';
