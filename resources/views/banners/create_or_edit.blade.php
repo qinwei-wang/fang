@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputFile">上传图片或视频</label>
-                                            @if(!isset($banner))
+                                            @if(!isset($banner) || empty($banner->img))
                                             <input type="file" id="exampleInputFile">
                                             @else
                                             <div>

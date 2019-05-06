@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\BaseConfig;
 
-use Illuminate\Cache\Repository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\BannerService;
+use App\Traits\ApiResponse;
 
 class BannerController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      *
@@ -47,11 +48,11 @@ class BannerController extends Controller
     {
         try {
             $this->bannerService->save($request->all());
-            return ['status' => 'success'];
+            return $this->success();
         } catch(\Exception $e) {
            \Log::error($e->getMessage());
            \Log::error($e->getTrace());
-           return ['status' => 'fail', 'message'=> $e->getMessage()];
+           return $this->failed($e->getMessage());
         }
     }
 
@@ -80,12 +81,12 @@ class BannerController extends Controller
     {
         try {
             $this->bannerService->delete($request->id);
-            return ['status' => 'success'];
+            return $this->success();
 
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             \Log::error($e->getTrace());
-            return ['status' => 'fail', 'message' => $e->getMessage()];
+            $this->failed($e->getMessage());
 
         }
     }

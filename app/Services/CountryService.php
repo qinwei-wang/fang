@@ -50,4 +50,27 @@ class CountryService
     {
         return $this->countryDetailRepository->getDetailByCountryId($country_id);
     }
+
+
+    /**
+     * 保存详情设置
+     * @param $params
+     * @return mixed
+     */
+    public function saveDetail($params)
+    {
+        var_dump($params);die;
+        $data = [
+            'banner_json' => $params['banner'],
+            'img' => $params['img'],
+            'live' => $params['live'],
+            'visa' => $params['visa'],
+            'migrate' => $params['migrate'],
+            'ID_type' => $params['ID_type'],
+            'description' => $params['description'],
+            'country_id'=> $params['country_id']
+        ];
+        if ($params['id']) $data['id'] = $params['id'];
+        return $this->countryDetailRepository->save($data);
+    }
 }

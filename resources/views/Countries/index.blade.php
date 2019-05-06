@@ -65,7 +65,7 @@
                                         </td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
-                                            <a href="{{route('country_detail')}}">
+                                            <a href="{{route('country_detail', ['country_id' => $item->id])}}">
                                                 <button class="btn btn-info">
                                                     加入移居计划
                                                 </button>

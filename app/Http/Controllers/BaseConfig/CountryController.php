@@ -11,10 +11,12 @@ namespace App\Http\Controllers\BaseConfig;
 
 use App\Http\Controllers\Controller;
 use App\Services\CountryService;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
+    use ApiResponse;
 
     protected $countryService;
 
@@ -23,7 +25,11 @@ class CountryController extends Controller
         $this->countryService = $countryService;
     }
 
-
+    /**
+     * 首页国家列表
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $list = $this->countryService->getList($request->all());
@@ -32,11 +38,29 @@ class CountryController extends Controller
 
 
     /**
-     * 详情
+     * 移民详情
      */
     public function detail(Request $request)
     {
         $country_detail = $this->countryService->getDetail($request->id);
         return view('countries.detail', compact('country_detail'));
     }
+
+
+    /**
+     * 保存国家移民详情设置
+     * @param Request $request
+     */
+    public function saveDetail(Request $request)
+    {
+        try {
+             $this->countryService->saveDetail($request->all());
+             $this->success();
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            \Log::error($e->getTrace());
+            $this->failed($e->getMessage());
+        }
+    }
+
 }
