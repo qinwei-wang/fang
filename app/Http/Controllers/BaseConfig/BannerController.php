@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\BaseConfig;
 
+use Illuminate\Cache\Repository;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Services\BannerService;
 
 class BannerController extends Controller
 {
@@ -14,9 +14,17 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    protected $bannerService;
+
+    public function __construct(BannerService $bannerService)
     {
-        return view('banners.index');
+        $this->bannerService = $bannerService;
+    }
+
+    public function index(Request $request)
+    {
+        $list = $this->bannerService->getList($request->input('platform', 'PC'));
+        return view('banners.index', compact('list'));
     }
 
     /**
@@ -26,7 +34,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        return view('banners.create_or_edit');
     }
 
     /**
@@ -37,19 +45,16 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $this->bannerService->save($request->all());
+            return ['status' => 'success'];
+        } catch(\Exception $e) {
+           \Log::error($e->getMessage());
+           \Log::error($e->getTrace());
+           return ['status' => 'fail', 'message'=> $e->getMessage()];
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -59,20 +64,11 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $banner = $this->bannerService->getBannerById($id);
+        return view('banners.create_or_edit', compact('banner'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -80,8 +76,17 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        try {
+            $this->bannerService->delete($request->id);
+            return ['status' => 'success'];
+
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            \Log::error($e->getTrace());
+            return ['status' => 'fail', 'message' => $e->getMessage()];
+
+        }
     }
 }

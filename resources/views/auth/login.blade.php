@@ -28,31 +28,32 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b></a>
+        <a href="{{route('home')}}"><b>Admin</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form action="../../index2.html" method="post">
+        <form action="{{route('post-login')}}" method="post">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email">
+                <input type="email" class="form-control" placeholder="Email" name="account">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" class="form-control" placeholder="Password" name="password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Remember Me
+                            <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" name="remember" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Remember Me
                         </label>
                     </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
+                    {!! csrf_field() !!}
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
                 </div>
                 <!-- /.col -->

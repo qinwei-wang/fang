@@ -23,6 +23,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         /**bind order view*/
         View::composer('templates.sidebar', 'App\ViewComposers\SidebarComposer');
+        View::composer('templates.header', 'App\ViewComposers\HeaderComposer');
     }
 
     /**
