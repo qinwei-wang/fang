@@ -39,4 +39,10 @@ class BannerRepository
     {
         return $this->makeModel()->where('id', $id)->delete();
     }
+
+
+    public function getAll()
+    {
+        return $this->makeModel()->orderBy('sort')->groupBy('platform')->get();
+    }
 }

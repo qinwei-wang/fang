@@ -56,3 +56,8 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
 Route::group(['prefix' => 'upload', 'namespace' => 'Common'], function () {
     Route::post('/', 'UploadController@uploadToLocalStore')->name('upload');
 });
+
+
+
+
+

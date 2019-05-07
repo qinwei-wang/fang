@@ -14,21 +14,34 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Traits\ApiResponse;
-use App\Services\Api\HomeService;
+use App\Services\Api\Managers\HomeManager;
+use App\Services\Api\Managers\ContactManager;
+use App\Http\Requests\CreateCustomerRequest;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     use ApiResponse;
 
-    protected $homeService;
+    protected $homeManager;
+    protected $contactManager;
 
-    public function index(HomeService $homeService, Request $request)
+
+    public function index(HomeManager $contactManager, Request $request)
+    {
+        return $this->success($contactManager->run($request->all()));
+    }
+
+    public function contact(ContactManager $contactManager, CreateCustomerRequest $request)
     {
         try {
-           return $this->success($homeService->run($request->all()));
-        } catch (\Exception $e) {
+            $contactManager->run($request->all());
+            return $this->success();
+        } catch (\Exception $e){
+            \Log::error($e->getMessage());
+            \Log::error($e->getTraceAsString());
             return $this->failed($e->getMessage());
+
         }
     }
 }

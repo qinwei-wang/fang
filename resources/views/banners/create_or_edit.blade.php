@@ -43,7 +43,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputFile">上传图片</label>
                                             <div>
-                                                <img src="{{asset($banner->img)}}" height="200" alt="">
+                                                <img src="{{$banner->img or ''}}" height="200" alt="">
                                             </div>
                                             <input type="file" id="upload_file">
 

@@ -70,7 +70,8 @@ class CountryService
             'migrate' => $params['migrate'],
             'ID_type' => $params['ID_type'],
             'description' => $params['description'],
-            'country_id'=> $params['country_id']
+            'country_id'=> $params['country_id'],
+            'status' => $params['status']
         ];
         return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);
     }
