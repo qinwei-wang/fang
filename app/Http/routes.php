@@ -58,6 +58,11 @@ Route::group(['prefix' => 'upload', 'namespace' => 'Common'], function () {
 });
 
 
+Route::group(['prefix' => 'customers', 'namespace' => 'Customer'], function () {
+    Route::get('/', 'CustomerController@index');
+});
+
+
 
 
 

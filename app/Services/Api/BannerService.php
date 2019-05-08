@@ -22,11 +22,8 @@ class BannerService
     public function getBanners()
     {
         $data = $this->bannerRepository->getAll();
-        $result = [];
-        foreach ($data as $item) {
-            $key = $item->platform == 'PC' ? 'web' : 'wap';
-            $result[$key] = $item;
-        }
-        return $result;
+        $web = $data->where('platform', 'PC')->toArray();
+        $wap = $data->where('platform', 'H5')->toArray();
+        return compact('web', 'wap');
     }
 }

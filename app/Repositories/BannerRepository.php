@@ -43,6 +43,6 @@ class BannerRepository
 
     public function getAll()
     {
-        return $this->makeModel()->orderBy('sort')->groupBy('platform')->get();
+        return $this->makeModel()->orderBy('sort')->get();
     }
 }

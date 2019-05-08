@@ -42,14 +42,14 @@ return [
             'is_open' => false,
             'icon' => 'fa fa-gear',
             'site' => '*',
-            'title' => '内容管理',
+            'title' => '客户管理',
             'menus' => [
 
                 [
                     'icon' => 'fa fa-fire',
-                    'title' => '签证国家',
+                    'title' => '咨询客户',
                     'site' => '*',
-                    'link' => '/base-config/banner',
+                    'link' => '/customers',
                     'roles' => '*',
                     'is_active' => false,
                 ],

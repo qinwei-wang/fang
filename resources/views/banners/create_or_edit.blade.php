@@ -98,7 +98,7 @@
                     if (msg.status == 'success') {
                         toastr.success('保存成功!');
                         setTimeout(function () {
-                            window.location.href = '{{route('banner')}}';
+                            window.location.href = '{{route('banner', ['platform' => request()->input('platform', 'PC')])}}';
                         }, 2000);
 
                     } else {
