@@ -31,6 +31,7 @@
                     <li class="active" data-name="base-config"><a href="#activity" data-toggle="tab">基础信息设置</a></li>
                     <li  data-name="banner"><a href="#timeline" data-toggle="tab">banner图设置</a></li>
                     <li data-name="detail"><a href="#timeline" data-toggle="tab">详情</a></li>
+                    <li data-name="passport"><a href="#timeline" data-toggle="tab">护照</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="box-content">
@@ -38,7 +39,7 @@
                             <div class="box-body" data-name="base-config">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">状态：</label>
-                                    <input type="radio" name="status" value="1" @if (!isset($country_detail) || $country_detail->status == 1) checked @endif> 开启
+                                    <input type="radio" name="status" value="1" @if (!isset($country_detail) || $country_detail->status == 1) checked @endif> 展示
                                     <input type="radio" name="status" value="0" @if (isset($country_detail) && $country_detail->status == 0) checked @endif>  关闭
                                 </div>
                                 <div class="form-group">
@@ -110,6 +111,19 @@
                                             {{$country_detail->description}}
                                         </textarea>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="box-body" data-name="passport" style="display:none">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">上传护照</label>
+                                    <div>
+                                        <img src="{{$country_detail->img or ''}}" height="200" alt="">
+                                    </div>
+                                    <input type="file" class="upload_file">
+
+                                    <input class="file_path" type="hidden" name="img" value="{{$banner->img or ''}}">
+
                                 </div>
                             </div>
 

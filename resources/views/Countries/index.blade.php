@@ -19,16 +19,16 @@
                 <div class="box-body">
                     <form action="">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label>国家名称:</label>
                                     <input type="text" name="name" value="{{request()->input('name', '')}}">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>是否加入移居计划:&nbsp;&nbsp;</label>
-                                    <input type="checkbox" name="name" value="1">
+                                    <label>是否网站展示:&nbsp;&nbsp;</label>
+                                    <input type="checkbox" name="status" value="1" @if(request()->input('status') == 1) checked @endif>
                                 </div>
                             </div>
                             <div class="pull-right">
@@ -67,10 +67,9 @@
                                         <td>
                                             <a href="{{route('country_detail', ['country_id' => $item->id])}}">
                                                 <button class="btn btn-info">
-                                                    加入移居计划
+                                                    编辑详情
                                                 </button>
                                             </a>
-
                                         </td>
                                     </tr>
                                 @endforeach

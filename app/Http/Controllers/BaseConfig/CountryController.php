@@ -63,4 +63,10 @@ class CountryController extends Controller
         }
     }
 
+
+    public function passport()
+    {
+
+    }
+
 }

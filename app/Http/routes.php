@@ -47,6 +47,7 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::get('/', 'CountryController@index')->name('country');
         Route::get('/detail', 'CountryController@detail')->name('country_detail');
         Route::post('/detail', 'CountryController@saveDetail')->name('country_detail.save');
+        Route::post('/passport', 'CountryController@possport')->name('passport');
     });
 
 });
@@ -58,7 +59,7 @@ Route::group(['prefix' => 'upload', 'namespace' => 'Common'], function () {
 });
 
 
-Route::group(['prefix' => 'customers', 'namespace' => 'Customer'], function () {
+Route::group(['prefix' => 'customers', 'namespace' => 'Customer', 'middleware' => ['auth']], function () {
     Route::get('/', 'CustomerController@index');
 });
 

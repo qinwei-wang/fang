@@ -34,10 +34,14 @@ class CountryService
      */
     public function getList($params)
     {
-        $model = $this->countryRepository->makeModel();
+        $model = $this->countryRepository->makeModel()->select('cms_countries.*');
         if (isset($params['name']) && !empty($params['name'])) {
             $model = $model->where('name', 'like', '%' . $params['name'] . '%');
         }
+        if (isset($params['status']) && $params['status'] !== '') {
+            $model = $model->leftJoin('cms_country_details', 'cms_country_details.country_id', '=', 'cms_countries.id')->where('cms_country_details.status',  $params['status'])->groupBy('cms_countries.id');
+        }
+
         return $model->paginate(20);
     }
 
