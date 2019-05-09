@@ -54,7 +54,7 @@ class CountryService
     public function getDetail($country_id)
     {
         $data = $this->countryDetailRepository->getDetailByCountryId($country_id);
-        $data->banner = $data->banner ? json_decode($data->banner, true) : '';
+        $data->banner = isset($data->banner) ? json_decode($data->banner, true) : '';
         return $data;
     }
 
