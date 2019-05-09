@@ -84,7 +84,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">证件类型</label>
                                         <select name="ID_type" id="" class="form-control">
-                                            <option value="1" @if ($country_detail->ID_type == 1) selected @endif>护照</option>
+                                            <option value="1" @if (!empty($country_detail) && $country_detail->ID_type == 1) selected @endif>护照</option>
                                         </select>
                                     </div>
                                 </div>
