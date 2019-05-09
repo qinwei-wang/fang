@@ -27,15 +27,14 @@
 
         <div class="row">
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs switch">
                     <li class="active" data-name="base-config"><a href="#activity" data-toggle="tab">基础信息设置</a></li>
-                    <li  data-name="banner"><a href="#timeline" data-toggle="tab">banner图设置</a></li>
+                    <li  data-name="banner"><a href="#timeline" data-toggle="tab">主页banner图设置</a></li>
                     <li data-name="detail"><a href="#timeline" data-toggle="tab">详情</a></li>
-                    <li data-name="passport"><a href="#timeline" data-toggle="tab">护照</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="box-content">
-                        <form role="form">
+                        <form role="form" id="my_form">
                             <div class="box-body" data-name="base-config">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">状态：</label>
@@ -43,13 +42,24 @@
                                     <input type="radio" name="status" value="0" @if (isset($country_detail) && $country_detail->status == 0) checked @endif>  关闭
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputFile">上传图片或视频</label>
+                                    <label for="exampleInputFile">国家主图</label>
                                     <div>
                                         <img src="{{$country_detail->img or ''}}" height="200" alt="">
                                     </div>
                                     <input type="file" class="upload_file">
 
                                     <input class="file_path" type="hidden" name="img" value="{{$banner->img or ''}}">
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputFile">护照</label>
+                                    <div>
+                                        <img src="{{$country_detail->passport or ''}}" height="200" alt="">
+                                    </div>
+                                    <input type="file" class="upload_file">
+
+                                    <input class="file_path" type="hidden" name="img" value="{{$banner->passport or ''}}">
 
                                 </div>
                                 <div class="form-group">
@@ -114,19 +124,6 @@
                                 </div>
                             </div>
 
-                            <div class="box-body" data-name="passport" style="display:none">
-                                <div class="form-group">
-                                    <label for="exampleInputFile">上传护照</label>
-                                    <div>
-                                        <img src="{{$country_detail->img or ''}}" height="200" alt="">
-                                    </div>
-                                    <input type="file" class="upload_file">
-
-                                    <input class="file_path" type="hidden" name="img" value="{{$banner->img or ''}}">
-
-                                </div>
-                            </div>
-
                             {!! csrf_field() !!}
                             <input type="hidden" name="id" value="{{$country_detail->id or ''}}">
                             <input type="hidden" name="country_id" value="{{request()->country_id}}">
@@ -145,14 +142,11 @@
 @section('scripts')
     <script type="text/javascript">
         //tab切换
-        $('ul li').click(function () {
+        $('.switch li').click(function () {
             var tabName = $(this).attr('data-name');
-            console.log(tabName);
-            $('form').children().hide();
+            $('#my_form').children().hide();
             $('div[data-name=' + tabName + ']').show();
-            $('form').find('.box-footer').show();
-
-
+            $('#my_form').find('.box-footer').show();
         })
 
         //保存

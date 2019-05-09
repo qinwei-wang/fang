@@ -47,7 +47,7 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::get('/', 'CountryController@index')->name('country');
         Route::get('/detail', 'CountryController@detail')->name('country_detail');
         Route::post('/detail', 'CountryController@saveDetail')->name('country_detail.save');
-        Route::post('/passport', 'CountryController@possport')->name('passport');
+        Route::get('/passport', 'CountryController@passport')->name('passport');
     });
 
 });

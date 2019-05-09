@@ -20,6 +20,7 @@ class CountryService
 
     protected $countryDetailRepository;
 
+
     public function __construct(CountryRepository $countryRepository, CountryDetailRepository $countryDetailRepository)
     {
         $this->countryRepository = $countryRepository;
@@ -78,5 +79,11 @@ class CountryService
             'status' => $params['status']
         ];
         return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);
+    }
+
+
+    public function getVisaCountries($params)
+    {
+        return [];
     }
 }

@@ -64,9 +64,10 @@ class CountryController extends Controller
     }
 
 
-    public function passport()
+    public function passport(Request $request)
     {
-
+        $list = $this->countryService->getVisaCountries($request->all());
+        return view('countries.passport', compact('list'));
     }
 
 }
