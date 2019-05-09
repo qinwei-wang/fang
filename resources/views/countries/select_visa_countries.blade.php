@@ -9,6 +9,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
+                                    <input type="hidden" name="country_id" value="{{request()->country_id}}">
                                     <input type="text" name="name" value="{{request()->input('name', '')}}" placeholder="国家名称">
                                     <button type="submit" class="btn btn-success" id="search">搜索</button>
 

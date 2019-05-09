@@ -60,13 +60,21 @@ class CountryService
     public function getSelectCountries($params)
     {
         $country_ids= $this->countryDetailRepository->makeModel()->pluck('country_id')->toArray();
-        return $this->countryRepository->makeModel()->whereNotIn('id', $country_ids)->paginate(10);
+        $model = $this->countryRepository->makeModel()->whereNotIn('id', $country_ids);
+        if (isset($params['name']) && !empty($params['name'])) {
+            $model = $model->where('name', 'like', '%' . $params['name'] .'%');
+        }
+        return $model->paginate(10);
     }
 
 
-    public function selectVisaCountries($country_id)
+    public function selectVisaCountries($params)
     {
-        return $this->countryRepository->makeModel()->where('id', '!=', $country_id)->paginate(10);
+        $model = $this->countryRepository->makeModel()->where('id','!=', $params['country_id']);
+        if (isset($params['name']) && !empty($params['name'])) {
+            $model = $model->where('name', 'like', '%' . $params['name'] .'%');
+        }
+        return $model->paginate(10);
     }
 
 

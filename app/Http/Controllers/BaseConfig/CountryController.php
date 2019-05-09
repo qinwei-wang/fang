@@ -106,7 +106,7 @@ class CountryController extends Controller
 
     public function selectVisaCountries(Request $request)
     {
-        $list = $this->countryService->selectVisaCountries($request->country_id);
+        $list = $this->countryService->selectVisaCountries($request->all());
         return view('countries.select_visa_countries', compact('list'));
     }
 
