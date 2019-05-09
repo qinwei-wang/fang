@@ -47,6 +47,7 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::get('/', 'CountryController@index')->name('country');
         Route::get('/detail', 'CountryController@detail')->name('country_detail');
         Route::post('/detail', 'CountryController@saveDetail')->name('country_detail.save');
+        Route::get('/passport', 'CountryController@passport')->name('passport');
     });
 
 });
@@ -56,3 +57,13 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
 Route::group(['prefix' => 'upload', 'namespace' => 'Common'], function () {
     Route::post('/', 'UploadController@uploadToLocalStore')->name('upload');
 });
+
+
+Route::group(['prefix' => 'customers', 'namespace' => 'Customer', 'middleware' => ['auth']], function () {
+    Route::get('/', 'CustomerController@index');
+});
+
+
+
+
+

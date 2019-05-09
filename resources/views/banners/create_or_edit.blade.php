@@ -43,7 +43,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputFile">上传图片</label>
                                             <div>
-                                                <img src="{{asset($banner->img)}}" height="200" alt="">
+                                                <img src="{{$banner->img or ''}}" height="200" alt="">
                                             </div>
                                             <input type="file" id="upload_file">
 
@@ -98,7 +98,7 @@
                     if (msg.status == 'success') {
                         toastr.success('保存成功!');
                         setTimeout(function () {
-                            window.location.href = '{{route('banner')}}';
+                            window.location.href = '{{route('banner', ['platform' => request()->input('platform', 'PC')])}}';
                         }, 2000);
 
                     } else {

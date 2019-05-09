@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body">
-                    <a href="{{route('banner.create')}}">
+                    <a href="{{route('banner.create', ['platform' => request()->input('platform', 'PC')])}}">
                         <button class="btn btn-success pull-right">添加</button>
                     </a>
                 </div>
@@ -60,7 +60,7 @@
                                             <td><img src="{{asset($item->img)}}" height="80" alt=""></td>
                                             <td>{{$item->description}}</td>
                                             <td>
-                                                <a href="{{route('banner.edit', ['id' => $item->id])}}" class="edit">
+                                                <a href="{{route('banner.edit', ['id' => $item->id, 'platform' => request()->input('platform', 'PC')])}}" class="edit">
                                                     <button class="btn btn-primary btn-sm">编辑</button>
                                                 </a>
                                                 <button class="btn btn-danger btn-sm delete">删除</button>

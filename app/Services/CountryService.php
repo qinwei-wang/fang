@@ -20,6 +20,7 @@ class CountryService
 
     protected $countryDetailRepository;
 
+
     public function __construct(CountryRepository $countryRepository, CountryDetailRepository $countryDetailRepository)
     {
         $this->countryRepository = $countryRepository;
@@ -34,10 +35,14 @@ class CountryService
      */
     public function getList($params)
     {
-        $model = $this->countryRepository->makeModel();
+        $model = $this->countryRepository->makeModel()->select('cms_countries.*');
         if (isset($params['name']) && !empty($params['name'])) {
             $model = $model->where('name', 'like', '%' . $params['name'] . '%');
         }
+        if (isset($params['status']) && $params['status'] !== '') {
+            $model = $model->leftJoin('cms_country_details', 'cms_country_details.country_id', '=', 'cms_countries.id')->where('cms_country_details.status',  $params['status'])->groupBy('cms_countries.id');
+        }
+
         return $model->paginate(20);
     }
 
@@ -49,7 +54,9 @@ class CountryService
     public function getDetail($country_id)
     {
         $data = $this->countryDetailRepository->getDetailByCountryId($country_id);
-        $data->banner = $data->banner ? json_decode($data->banner, true) : '';
+        if (!empty($data)) {
+            $data->banner = $data->banner ? json_decode($data->banner, true) : '';
+        }
         return $data;
     }
 
@@ -70,8 +77,15 @@ class CountryService
             'migrate' => $params['migrate'],
             'ID_type' => $params['ID_type'],
             'description' => $params['description'],
-            'country_id'=> $params['country_id']
+            'country_id'=> $params['country_id'],
+            'status' => $params['status']
         ];
         return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);
+    }
+
+
+    public function getVisaCountries($params)
+    {
+        return [];
     }
 }
