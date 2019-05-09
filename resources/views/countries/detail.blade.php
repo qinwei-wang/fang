@@ -118,7 +118,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <textarea name="description" id="" cols="120" rows="10">
-                                            {{$country_detail->description}}
+                                            {{$country_detail->description or ''}}
                                         </textarea>
                                     </div>
                                 </div>
