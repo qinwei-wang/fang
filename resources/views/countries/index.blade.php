@@ -2,7 +2,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            国家列表
+            精选国家列表
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
@@ -19,22 +19,21 @@
                 <div class="box-body">
                     <form action="">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>国家名称:</label>
                                     <input type="text" name="name" value="{{request()->input('name', '')}}">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>是否网站展示:&nbsp;&nbsp;</label>
-                                    <input type="checkbox" name="status" value="1" @if(request()->input('status') == 1) checked @endif>
+                                    <button type="submit" class="btn btn-success" id="search">搜索</button>
                                 </div>
                             </div>
                             <div class="pull-right">
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success" id="search">搜索</button>
+                                    <button type="button" class="btn btn-success" id="add">添加</button>
                                 </div>
                             </div>
                         </div>
@@ -58,21 +57,21 @@
                                 </tr>
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}">
-                                        <td>{{$item->name}}</td>
-                                        <td><img src="{{$item->flag}}" height="50" alt=""></td>
+                                        <td>{{$item->country->name}}</td>
+                                        <td><img src="{{$item->country->flag}}" height="50" alt=""></td>
                                         <td>
-                                            {{$item->region}}
+                                            {{$item->country->region}}
                                         </td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
-                                            <a href="{{route('country_detail', ['country_id' => $item->id])}}">
+                                            <a href="{{route('country_detail', ['country_id' => $item->country->id])}}">
                                                 <button class="btn btn-info">
                                                     编辑
                                                 </button>
                                             </a>
-                                            <a href="{{route('passport', ['country_id' => $item->id])}}">
+                                            <a href="{{route('visa_countries', ['country_id' => $item->country->id])}}">
                                                 <button class="btn btn-info">
-                                                    设置护照
+                                                    签证国家
                                                 </button>
                                             </a>
                                         </td>
@@ -95,4 +94,16 @@
     </section>
 @endsection
 @section('scripts')
+    <script>
+        $("#add").click(function() {
+            layer.open({
+                type: 2,
+                title: 'select country',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['50%', '90%'],
+                content: "{{route('select_countries')}}" //iframe的url
+            });
+        })
+    </script>
 @endsection

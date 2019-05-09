@@ -20,4 +20,9 @@ class CountryDetailModel extends Model
     protected $guarded = [];
 
 
+    public function country()
+    {
+        return $this->belongsTo('App\Models\CountryModel', 'country_id');
+    }
+
 }

@@ -47,7 +47,13 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::get('/', 'CountryController@index')->name('country');
         Route::get('/detail', 'CountryController@detail')->name('country_detail');
         Route::post('/detail', 'CountryController@saveDetail')->name('country_detail.save');
-        Route::get('/passport', 'CountryController@passport')->name('passport');
+        Route::get('/visa_countries', 'CountryController@visaCountries')->name('visa_countries');
+        Route::get('/select_countries', 'CountryController@selectCountries')->name('select_countries');
+        Route::post('/save_select_country', 'CountryController@saveSelectCountry')->name('save_select_country');
+        Route::get('/select_visa_countries', 'CountryController@selectVisaCountries')->name('select_visa_countries');
+        Route::post('/visa_country', 'CountryController@saveVisaCountry')->name('save_visa_country');
+        Route::delete('/visa_country', 'CountryController@deleteVisaCountry')->name('visa_country.delete');
+        Route::get('/visa_country', 'CountryController@showVisaCountry')->name('visa_country.show');
     });
 
 });

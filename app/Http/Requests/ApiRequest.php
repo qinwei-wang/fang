@@ -16,6 +16,6 @@ class ApiRequest extends Request
 
     public function response(array $errors)
     {
-        return $this->failed(current($errors));
+        return $this->failed(current(current(($errors))));
     }
 }

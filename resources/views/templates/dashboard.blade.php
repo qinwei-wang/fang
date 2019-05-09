@@ -88,6 +88,7 @@ desired effect
 <!-- AdminLTE App -->
 <script src="{{asset('bower_components/admin-lte/dist/js/adminlte.min.js')}}"></script>
 <script src="{{asset('bower_components/toastr/toastr.min.js')}}"></script>
+<script src="{{asset('bower_components/layer/layer.js')}}"></script>
 <script>
     toastr.options = {
         closeButton: false,

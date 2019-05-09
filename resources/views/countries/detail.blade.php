@@ -7,7 +7,7 @@
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="{{route('banner')}}"><i class="fa fa-dashboard"></i>移居国家</a></li>
+            <li><a href="{{route('country')}}"><i class="fa fa-dashboard"></i>移居国家</a></li>
             <li class="active">设置</li>
         </ol>
     </section>
@@ -48,7 +48,7 @@
                                     </div>
                                     <input type="file" class="upload_file">
 
-                                    <input class="file_path" type="hidden" name="img" value="{{$banner->img or ''}}">
+                                    <input class="file_path" type="hidden" name="img" value="{{$country_detail->img or ''}}">
 
                                 </div>
 
@@ -59,7 +59,7 @@
                                     </div>
                                     <input type="file" class="upload_file">
 
-                                    <input class="file_path" type="hidden" name="img" value="{{$banner->passport or ''}}">
+                                    <input class="file_path" type="hidden" name="passport" value="{{$country_detail->passport or ''}}">
 
                                 </div>
                                 <div class="form-group">
@@ -70,7 +70,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">免签国家</label>
-                                        <input type="text" name="visa" value="{{$country_detail->visa or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
+                                        <input type="text" name="visa_free" value="{{$country_detail->visa_free or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
                                     </div>
                                 </div>
 
@@ -171,6 +171,7 @@
 
         //上传图片
         $("input[type=file]").change(function () {
+            console.log(33);
             var _this = $(this);
             var formData = new FormData();
             formData.append("file", _this.parent().find('.upload_file')[0].files[0]);
@@ -190,8 +191,10 @@
                 processData: false,
                 success: function (msg) {
                     if (msg.status == 'success') {
+                        console.log(msg.data);
                         toastr.success('上传成功!');
                         _this.parent().find('.file_path').val(msg.data);
+                        console.log(_this.parent().find('.file_path'));
                         _this.parent().find('img').attr('src', msg.data);
                     } else {
                         toastr.error('上传失败:' + msg.message);

@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Services\CountryService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use App\Http\Requests\SaveVisaCountryRequest;
 
 class CountryController extends Controller
 {
@@ -31,6 +32,12 @@ class CountryController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
+    {
+        $list = $this->countryService->getList($request->all());
+        return view('countries.index', compact('list'));
+    }
+
+    public function index3(Request $request)
     {
         $list = $this->countryService->getList($request->all());
         return view('countries.index', compact('list'));
@@ -64,10 +71,73 @@ class CountryController extends Controller
     }
 
 
+    public function saveSelectCountry(Request $request)
+    {
+        try {
+            $this->countryService->saveSelectCountry($request->country_id);
+            return $this->success();
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            \Log::error($e->getTrace());
+            return $this->failed($e->getMessage());
+        }
+    }
+
+
     public function passport(Request $request)
     {
         $list = $this->countryService->getVisaCountries($request->all());
         return view('countries.passport', compact('list'));
     }
 
+
+    public function visaCountries(Request $request)
+    {
+        $list = $this->countryService->getVisaCountries($request->all());
+        return view('countries.passport', compact('list'));
+    }
+
+
+    public function selectCountries(Request $request)
+    {
+        $list = $this->countryService->getSelectCountries($request->all());
+        return view('countries.select_countries', compact('list'));
+    }
+
+    public function selectVisaCountries(Request $request)
+    {
+        $list = $this->countryService->selectVisaCountries($request->country_id);
+        return view('countries.select_visa_countries', compact('list'));
+    }
+
+
+    public function saveVisaCountry(SaveVisaCountryRequest $request)
+    {
+        try {
+            $this->countryService->saveVisaCountry($request->all());
+            return $this->success();
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            \Log::error($e->getTrace());
+            return $this->failed($e->getMessage());
+        }
+    }
+
+    public function showVisaCountry(Request $request)
+    {
+        $visa_country = $this->countryService->showVisaCountry($request->id);
+        return view('countries.create_or_edit_visa_country', compact('visa_country'));
+    }
+
+    public function deleteVisaCountry(Request $request)
+    {
+        try {
+            $this->countryService->deleteVisaCountry($request->id);
+            return $this->success();
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            \Log::error($e->getTrace());
+            return $this->failed($e->getMessage());
+        }
+    }
 }

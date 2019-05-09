@@ -11,6 +11,7 @@ namespace App\Services;
 
 use App\Repositories\CountryRepository;
 use App\Repositories\CountryDetailRepository;
+use App\Repositories\VisaCountryRepository;
 
 class CountryService
 {
@@ -20,11 +21,14 @@ class CountryService
 
     protected $countryDetailRepository;
 
+    protected $visaCountryRepository;
 
-    public function __construct(CountryRepository $countryRepository, CountryDetailRepository $countryDetailRepository)
+
+    public function __construct(CountryRepository $countryRepository, CountryDetailRepository $countryDetailRepository, VisaCountryRepository $visaCountryRepository)
     {
         $this->countryRepository = $countryRepository;
         $this->countryDetailRepository = $countryDetailRepository;
+        $this->visaCountryRepository = $visaCountryRepository;
     }
 
 
@@ -35,15 +39,34 @@ class CountryService
      */
     public function getList($params)
     {
-        $model = $this->countryRepository->makeModel()->select('cms_countries.*');
-        if (isset($params['name']) && !empty($params['name'])) {
-            $model = $model->where('name', 'like', '%' . $params['name'] . '%');
-        }
-        if (isset($params['status']) && $params['status'] !== '') {
-            $model = $model->leftJoin('cms_country_details', 'cms_country_details.country_id', '=', 'cms_countries.id')->where('cms_country_details.status',  $params['status'])->groupBy('cms_countries.id');
-        }
+        return $this->countryDetailRepository->makeModel()->paginate(20);
+    }
 
-        return $model->paginate(20);
+    /**
+     * 获取国家列表
+     * @param $params
+     * @return mixed
+     */
+    public function getCountries($params)
+    {
+        return $this->countryRepository->makeModel()->paginate(10);
+    }
+
+    /**
+     * 获取国家列表
+     * @param $params
+     * @return mixed
+     */
+    public function getSelectCountries($params)
+    {
+        $country_ids= $this->countryDetailRepository->makeModel()->pluck('country_id')->toArray();
+        return $this->countryRepository->makeModel()->whereNotIn('id', $country_ids)->paginate(10);
+    }
+
+
+    public function selectVisaCountries($country_id)
+    {
+        return $this->countryRepository->makeModel()->where('id', '!=', $country_id)->paginate(10);
     }
 
 
@@ -73,19 +96,47 @@ class CountryService
             'banner' => json_encode($params['banner']),
             'img' => $params['img'],
             'live' => $params['live'],
-            'visa' => $params['visa'],
+            'visa_free' => $params['visa_free'],
             'migrate' => $params['migrate'],
             'ID_type' => $params['ID_type'],
             'description' => $params['description'],
             'country_id'=> $params['country_id'],
-            'status' => $params['status']
+            'status' => $params['status'],
+            'passport' => $params['passport']
+
         ];
         return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);
     }
 
 
+    public function saveSelectCountry($country_id)
+    {
+        return $this->countryDetailRepository->makeModel()->create(['country_id' => $country_id]);
+    }
+
+
     public function getVisaCountries($params)
     {
-        return [];
+        return $this->visaCountryRepository->makeModel()->where('country_id', $params['country_id'])->paginate(20);
+    }
+
+
+    public function saveVisaCountry($params)
+    {
+         $this->visaCountryRepository->makeModel()->updateOrCreate(['country_id' => $params['country_id'], 'visa_country_id' => $params['visa_country_id']], [
+             'country_id' => $params['country_id'],
+             'type' => array_get($params, 'type', 0)
+         ]);
+    }
+
+
+    public function showVisaCountry($id)
+    {
+        return $this->visaCountryRepository->makeModel()->where('id', $id)->first();
+    }
+
+    public function deleteVisaCountry($id)
+    {
+        return $this->visaCountryRepository->makeModel()->where('id', $id)->delete();
     }
 }

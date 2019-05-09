@@ -78,7 +78,7 @@ trait ApiResponse
      * @param string $status
      * @return mixed
      */
-    public function failed($message, $code= Foundationresponse::HTTP_BAD_REQUEST, $status = "error"){
+    public function failed($message, $code= Foundationresponse::HTTP_OK, $status = "error"){
 
         return $this->status($status,[
             'message' => $message
