@@ -19,4 +19,9 @@ class CountryModel extends Model
     protected $guarded = [];
 
 
+    protected function  hasManyVisaCountries()
+    {
+        return $this->hasMany('App\Models\VisaCountryModel', 'country_id');
+
+    }
 }

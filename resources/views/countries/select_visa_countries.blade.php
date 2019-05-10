@@ -83,11 +83,12 @@
         var index = parent.layer.getFrameIndex(window.name);
         $("#add").click(function () {
             var visa_country_id = $('input[type=radio]:checked').val();
+            var type = $('select[name=type]').val();
 
             $.ajax({
                 'type': 'POST',
                 'url': '{{route('save_visa_country')}}',
-                'data': {'country_id': country_id, 'visa_country_id': visa_country_id, '_token': "{{csrf_token()}}"},
+                'data': {'country_id': country_id, 'visa_country_id': visa_country_id, '_token': "{{csrf_token()}}", 'type' : type},
                 success: function (msg) {
                     if (msg.status == 'success') {
                         toastr.success('保存成功!');

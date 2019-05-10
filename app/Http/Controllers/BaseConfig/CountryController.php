@@ -65,7 +65,7 @@ class CountryController extends Controller
              return $this->success();
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            \Log::error($e->getTrace());
+            \Log::error($e->getTraceAsString());
             return $this->failed($e->getMessage());
         }
     }
@@ -78,7 +78,7 @@ class CountryController extends Controller
             return $this->success();
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            \Log::error($e->getTrace());
+            \Log::error($e->getTraceAsString());
             return $this->failed($e->getMessage());
         }
     }
@@ -118,7 +118,7 @@ class CountryController extends Controller
             return $this->success();
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            \Log::error($e->getTrace());
+            \Log::error($e->getTraceAsString());
             return $this->failed($e->getMessage());
         }
     }
@@ -136,7 +136,7 @@ class CountryController extends Controller
             return $this->success();
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            \Log::error($e->getTrace());
+            \Log::error($e->getTraceAsString());
             return $this->failed($e->getMessage());
         }
     }

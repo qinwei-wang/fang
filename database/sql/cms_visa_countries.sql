@@ -3,7 +3,7 @@ create table cms_visa_countries(
 	country_id int unsigned not null,
 	visa_country_id int unsigned not null,
 	type tinyint unsigned not null default 0,
-	created_at timestamp not null default '0000-00-00 00:00:00',
+	created_at timestamp not null default CURRENT_TIMESTAMP ,
 	updated_at timestamp not null default current_timestamp on update current_timestamp,
 	primary key(id),
 	key country_id(country_id),

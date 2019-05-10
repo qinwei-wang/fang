@@ -34,6 +34,22 @@ return [
                     'roles' => '*',
                     'is_active' => false,
                 ],
+                [
+                    'icon' => 'fa fa-fire',
+                    'title' => '优势板块',
+                    'site' => '*',
+                    'link' => '/base-config/advantage',
+                    'roles' => '*',
+                    'is_active' => false,
+                ],
+                [
+                    'icon' => 'fa fa-fire',
+                    'title' => '适用人群',
+                    'site' => '*',
+                    'link' => '/base-config/user_type',
+                    'roles' => '*',
+                    'is_active' => false,
+                ],
 
             ]
         ],

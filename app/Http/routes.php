@@ -55,6 +55,24 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::delete('/visa_country', 'CountryController@deleteVisaCountry')->name('visa_country.delete');
         Route::get('/visa_country', 'CountryController@showVisaCountry')->name('visa_country.show');
     });
+    //advantage
+
+    Route::group(['prefix' => 'advantage'], function () {
+        Route::get('/', 'AdvantageController@index')->name('advantage.index');
+        Route::get('/create', 'AdvantageController@create')->name('advantage.create');
+        Route::post('/save', 'AdvantageController@save')->name('advantage.save');
+        Route::get('/edit', 'AdvantageController@edit')->name('advantage.edit');
+        Route::delete('/delete', 'AdvantageController@delete')->name('advantage.delete');
+    });
+
+    //适用群体
+    Route::group(['prefix' => 'user_type'], function () {
+        Route::get('/', 'UserTypeController@index')->name('user_type.index');
+        Route::get('/create', 'UserTypeController@create')->name('user_type.create');
+        Route::post('/save', 'UserTypeController@save')->name('user_type.save');
+        Route::get('/edit', 'UserTypeController@edit')->name('user_type.edit');
+        Route::delete('/delete', 'UserTypeController@delete')->name('user_type.delete');
+    });
 
 });
 
