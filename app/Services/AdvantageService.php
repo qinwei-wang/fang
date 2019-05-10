@@ -50,5 +50,10 @@ class AdvantageService
     }
 
 
+    public function getAll()
+    {
+        return $this->advantageRepository->makeModel()->get();
+    }
+
 
 }

@@ -50,6 +50,14 @@ return [
                     'roles' => '*',
                     'is_active' => false,
                 ],
+                [
+                    'icon' => 'fa fa-fire',
+                    'title' => '申请条件',
+                    'site' => '*',
+                    'link' => '/base-config/apply_condition',
+                    'roles' => '*',
+                    'is_active' => false,
+                ],
 
             ]
         ],

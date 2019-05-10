@@ -74,6 +74,16 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::delete('/delete', 'UserTypeController@delete')->name('user_type.delete');
     });
 
+
+    //申请条件
+    Route::group(['prefix' => 'apply_condition'], function () {
+        Route::get('/', 'ApplyConditionController@index')->name('apply_condition.index');
+        Route::get('/create', 'ApplyConditionController@create')->name('apply_condition.create');
+        Route::post('/save', 'ApplyConditionController@save')->name('apply_condition.save');
+        Route::get('/edit', 'ApplyConditionController@edit')->name('apply_condition.edit');
+        Route::delete('/delete', 'ApplyConditionController@delete')->name('apply_condition.delete');
+    });
+
 });
 
 

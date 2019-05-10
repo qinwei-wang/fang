@@ -12,6 +12,7 @@ namespace App\Services;
 use App\Repositories\CountryRepository;
 use App\Repositories\CountryDetailRepository;
 use App\Repositories\VisaCountryRepository;
+use App\Services\AdvantageService;
 
 class CountryService
 {
@@ -23,12 +24,19 @@ class CountryService
 
     protected $visaCountryRepository;
 
+    protected $advantageService;
 
-    public function __construct(CountryRepository $countryRepository, CountryDetailRepository $countryDetailRepository, VisaCountryRepository $visaCountryRepository)
+    public function __construct(
+        CountryRepository $countryRepository,
+        CountryDetailRepository $countryDetailRepository,
+        VisaCountryRepository $visaCountryRepository,
+        AdvantageService $advantageService
+    )
     {
         $this->countryRepository = $countryRepository;
         $this->countryDetailRepository = $countryDetailRepository;
         $this->visaCountryRepository = $visaCountryRepository;
+        $this->advantageService = $advantageService;
     }
 
 
@@ -87,8 +95,16 @@ class CountryService
         $data = $this->countryDetailRepository->getDetailByCountryId($country_id);
         if (!empty($data)) {
             $data->banner = $data->banner ? json_decode($data->banner, true) : '';
+            $data->advantage_ids = !empty($data->advantage_ids) ? json_decode($data->advantage_ids,true) : '';
+
         }
         return $data;
+    }
+
+
+    public function getAdvantages()
+    {
+        return $this->advantageService->getAll();
     }
 
 
@@ -109,8 +125,10 @@ class CountryService
             'ID_type' => $params['ID_type'],
             'description' => $params['description'],
             'country_id'=> $params['country_id'],
-            'status' => $params['status'],
-            'passport' => $params['passport']
+            'passport' => $params['passport'],
+            'process' => $params['process'],
+            'advantage_ids' => $params['advantage_ids'] ? json_encode($params['advantage_ids']) : '',
+            'rank' => $params['rank']
 
         ];
         return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);

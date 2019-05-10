@@ -50,7 +50,8 @@ class CountryController extends Controller
     public function detail(Request $request)
     {
         $country_detail = $this->countryService->getDetail($request->country_id);
-        return view('countries.detail', compact('country_detail'));
+        $advantages = $this->countryService->getAdvantages();
+        return view('countries.detail', compact('country_detail', 'advantages'));
     }
 
 

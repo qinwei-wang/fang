@@ -2,12 +2,12 @@
 @section('content')
     <section class="content-header">
         <h1>
-            移居国家设置
+            国家签证设置
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="{{route('country')}}"><i class="fa fa-dashboard"></i>移居国家</a></li>
+            <li><a href="{{route('country')}}"><i class="fa fa-dashboard"></i>国家签证</a></li>
             <li class="active">设置</li>
         </ol>
     </section>
@@ -26,9 +26,10 @@
         </div>
 
         <div class="row">
-            <div class="nav-tabs-custom">
+            <div class="col-md-12">
+                <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs switch">
-                    <li class="active" data-name="base-config"><a href="#activity" data-toggle="tab">基础信息设置</a></li>
+                    <li class="active" data-name="base-config"><a href="#activity" data-toggle="tab">签证信息设置</a></li>
                     <li  data-name="banner"><a href="#timeline" data-toggle="tab">主页banner图设置</a></li>
                     <li data-name="detail"><a href="#timeline" data-toggle="tab">详情</a></li>
                 </ul>
@@ -36,11 +37,6 @@
                     <div class="box-content">
                         <form role="form" id="my_form">
                             <div class="box-body" data-name="base-config">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">状态：</label>
-                                    <input type="radio" name="status" value="1" @if (!isset($country_detail) || $country_detail->status == 1) checked @endif> 展示
-                                    <input type="radio" name="status" value="0" @if (isset($country_detail) && $country_detail->status == 0) checked @endif>  关闭
-                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">国家主图</label>
                                     <div>
@@ -61,6 +57,10 @@
 
                                     <input class="file_path" type="hidden" name="passport" value="{{$country_detail->passport or ''}}">
 
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">排名</label>
+                                    <input type="text" name="rank" value="{{$country_detail->rank or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">居住要求</label>
@@ -116,11 +116,29 @@
 
                             <div class="box-body" data-name="detail" style="display:none">
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <textarea name="description" id="" cols="120" rows="10">
-                                            {{$country_detail->description or ''}}
-                                        </textarea>
+                                    <div>
+                                        <label for="">描述</label>
                                     </div>
+                                    <textarea name="description" id="" cols="120" rows="10">
+                                            {{$country_detail->description or ''}}
+                                    </textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">优势模块</label>
+                                    @foreach ($advantages as $item)
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="advantage_ids[]" value="{{$item->id}}" @if (isset($country_detail) && in_array($item->id, $country_detail->advantage_ids)) checked @endif>
+                                            {{$item->title}}
+                                        </label>
+                                    </div>
+                                    @endforeach
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="">申请流程</label>
+                                    <input type="text" class="form-control" name="process" value="{{$country_detail->process or ''}}">
+                                    <div class="help-buoy">每个流程按英文分号分开。 举例:  a;b</div>
                                 </div>
                             </div>
 
@@ -132,6 +150,7 @@
 
                     </div>
                 </div>
+            </div>
             </div>
         </div>
 
