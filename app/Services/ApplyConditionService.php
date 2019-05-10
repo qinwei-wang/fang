@@ -49,5 +49,12 @@ class ApplyConditionService
     }
 
 
+    public function getAll()
+    {
+        return $this->applyConditionRepository->makeModel()->get();
+
+    }
+
+
 
 }

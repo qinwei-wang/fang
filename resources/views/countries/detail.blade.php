@@ -101,7 +101,7 @@
                                     </div>
                                     <input type="file" class="upload_file">
 
-                                    <input class="file_path" type="hidden" name="banner[img]" value="{{$banner->banner['img'] or ''}}">
+                                    <input class="file_path" type="hidden" name="banner[img]" value="{{$country_detail->banner['img'] or ''}}">
 
                                 </div>
                                 <div class="form-group">
@@ -119,7 +119,7 @@
                                     <div>
                                         <label for="">描述</label>
                                     </div>
-                                    <textarea name="description" id="" cols="120" rows="10">
+                                    <textarea name="description" id="" cols="120" rows="5">
                                             {{$country_detail->description or ''}}
                                     </textarea>
                                 </div>
@@ -132,6 +132,30 @@
                                             {{$item->title}}
                                         </label>
                                     </div>
+                                    @endforeach
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="">适用人群</label>
+                                    @foreach ($user_types as $item)
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="user_type_ids[]" value="{{$item->id}}" @if (isset($country_detail) && in_array($item->id, $country_detail->user_type_ids)) checked @endif>
+                                                {{$item->title}}
+                                            </label>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="">申请条件</label>
+                                    @foreach ($apply_conditions as $item)
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="apply_condition_ids[]" value="{{$item->id}}" @if (isset($country_detail) && in_array($item->id, $country_detail->apply_condition_ids)) checked @endif>
+                                                {{$item->condition}}
+                                            </label>
+                                        </div>
                                     @endforeach
 
                                 </div>

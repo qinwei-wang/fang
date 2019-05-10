@@ -51,5 +51,12 @@ class UserTypeService
     }
 
 
+    public function getAll()
+    {
+        return $this->userTypeRepository->makeModel()->get();
+
+    }
+
+
 
 }

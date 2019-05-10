@@ -13,6 +13,8 @@ use App\Repositories\CountryRepository;
 use App\Repositories\CountryDetailRepository;
 use App\Repositories\VisaCountryRepository;
 use App\Services\AdvantageService;
+use App\Services\UserTypeService;
+use App\Services\ApplyConditionService;
 
 class CountryService
 {
@@ -26,17 +28,25 @@ class CountryService
 
     protected $advantageService;
 
+    protected $userTypeService;
+
+    protected $applyConditionService;
+
     public function __construct(
         CountryRepository $countryRepository,
         CountryDetailRepository $countryDetailRepository,
         VisaCountryRepository $visaCountryRepository,
-        AdvantageService $advantageService
+        AdvantageService $advantageService,
+        UserTypeService $userTypeService,
+        ApplyConditionService $applyConditionService
     )
     {
         $this->countryRepository = $countryRepository;
         $this->countryDetailRepository = $countryDetailRepository;
         $this->visaCountryRepository = $visaCountryRepository;
         $this->advantageService = $advantageService;
+        $this->userTypeService = $userTypeService;
+        $this->applyConditionService = $applyConditionService;
     }
 
 
@@ -94,8 +104,10 @@ class CountryService
     {
         $data = $this->countryDetailRepository->getDetailByCountryId($country_id);
         if (!empty($data)) {
-            $data->banner = $data->banner ? json_decode($data->banner, true) : '';
-            $data->advantage_ids = !empty($data->advantage_ids) ? json_decode($data->advantage_ids,true) : '';
+            $data->banner = $data->banner ? json_decode($data->banner, true) : [];
+            $data->advantage_ids = !empty($data->advantage_ids) ? json_decode($data->advantage_ids,true) : [];
+            $data->apply_condition_ids = !empty($data->apply_condition_ids) ? json_decode($data->apply_condition_ids,true) : [];
+            $data->user_type_ids = !empty($data->user_type_ids) ? json_decode($data->user_type_ids,true) : [];
 
         }
         return $data;
@@ -105,6 +117,16 @@ class CountryService
     public function getAdvantages()
     {
         return $this->advantageService->getAll();
+    }
+
+    public function getApplyConditions()
+    {
+        return $this->applyConditionService->getAll();
+    }
+
+    public function getUserTypes()
+    {
+        return $this->userTypeService->getAll();
     }
 
 
@@ -128,7 +150,9 @@ class CountryService
             'passport' => $params['passport'],
             'process' => $params['process'],
             'advantage_ids' => $params['advantage_ids'] ? json_encode($params['advantage_ids']) : '',
-            'rank' => $params['rank']
+            'user_type_ids' => $params['advantage_ids'] ? json_encode($params['user_type_ids']) : '',
+            'apply_condition_ids' => $params['apply_condition_ids'] ? json_encode($params['apply_condition_ids']) : '',
+            'rank' => $params['rank'],
 
         ];
         return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);
