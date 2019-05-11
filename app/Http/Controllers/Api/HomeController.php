@@ -18,6 +18,7 @@ use App\Services\Api\Managers\HomeManager;
 use App\Services\Api\Managers\ContactManager;
 use App\Http\Requests\CreateCustomerRequest;
 use Illuminate\Http\Request;
+use App\Services\Api\CountryService;
 
 class HomeController extends Controller
 {
@@ -40,5 +41,23 @@ class HomeController extends Controller
             return $this->failed($e->getMessage());
 
         }
+    }
+
+
+    public function getRecommendCountries(CountryService $countryService, Request $request)
+    {
+        return $this->success($countryService->getRecommendCountries($request->all()));
+    }
+
+    public function getCountryInfo(CountryService $countryService, $id)
+    {
+        return $this->success($countryService->getCountryInfoById($id));
+    }
+
+
+    public function getPassportInfo(CountryService $countryService, $id)
+    {
+        $passport_info = $countryService->getPassportInfoByCountryId($id);
+        return $this->success($passport_info);
     }
 }

@@ -27,8 +27,8 @@ class HomeManager
     public function run($params)
     {
         $banners = $this->bannerService->getBanners();
-        $countries = $this->countryService->getCountryInfo($params);
-        $passports = $this->countryService->getPassports($params);
-        return compact('banners', 'countries', 'passports');
+//        $countries = $this->countryService->getCountryInfo($params);
+//        $passports = $this->countryService->getPassports($params);
+        return compact('banners');
     }
 }

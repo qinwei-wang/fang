@@ -3,12 +3,12 @@
 
     <section class="content-header">
         <h1>
-            优势模块
+            申请条件
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="{{route('apply_condition.index')}}"><i class="fa fa-dashboard"></i> 优势模块</a></li>
+            <li><a href="{{route('apply_condition.index')}}"><i class="fa fa-dashboard"></i> 申请条件</a></li>
             <li class="active">设置</li>
         </ol>
     </section>
@@ -30,11 +30,11 @@
                             <div class="form-group">
                                 <label for="exampleInputFile">图标</label>
                                 <div>
-                                    <img src="{{$apply_condition->img or ''}}" height="200" alt="">
+                                    <img src="{{$apply_condition->icon or ''}}" height="200" alt="">
                                 </div>
                                 <input type="file" class="upload_file">
 
-                                <input class="file_path" type="hidden" name="img" value="{{$apply_condition->img or ''}}">
+                                <input class="file_path" type="hidden" name="icon" value="{{$apply_condition->icon or ''}}">
 
                             </div>
                             <!-- /.box-body -->

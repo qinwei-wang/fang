@@ -32,7 +32,7 @@ class ApplyConditionService
     {
         return $this->applyConditionRepository->makeModel()->updateOrCreate(['id' => array_get($params, 'id', -1)], [
             'condition' => $params['condition'],
-            'img' => $params['img'],
+            'icon' => $params['icon'],
         ]);
     }
 

@@ -41,7 +41,7 @@
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}">
                                         <td>{{$item->condition}}</td>
-                                        <td><img src="{{$item->img}}" height="50" alt=""></td>
+                                        <td><img src="{{$item->icon}}" height="50" alt=""></td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
                                             <a href="{{route('apply_condition.edit', ['id' => $item->id])}}">
