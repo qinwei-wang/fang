@@ -79,8 +79,8 @@ class CountryService
     {
         $country_ids= $this->countryDetailRepository->makeModel()->pluck('country_id')->toArray();
         $model = $this->countryRepository->makeModel()->whereNotIn('id', $country_ids);
-        if (isset($params['name']) && !empty($params['name'])) {
-            $model = $model->where('name', 'like', '%' . $params['name'] .'%');
+        if (isset($params['ch_name']) && !empty($params['ch_name'])) {
+            $model = $model->where('ch_name', 'like', '%' . $params['ch_name'] .'%');
         }
         return $model->paginate(10);
     }
@@ -89,8 +89,8 @@ class CountryService
     public function selectVisaCountries($params)
     {
         $model = $this->countryRepository->makeModel()->where('id','!=', $params['country_id']);
-        if (isset($params['name']) && !empty($params['name'])) {
-            $model = $model->where('name', 'like', '%' . $params['name'] .'%');
+        if (isset($params['ch_name']) && !empty($params['ch_name'])) {
+            $model = $model->where('ch_name', 'like', '%' . $params['ch_name'] .'%');
         }
         return $model->paginate(10);
     }
@@ -153,6 +153,7 @@ class CountryService
             'user_type_ids' => $params['advantage_ids'] ? json_encode($params['user_type_ids']) : '',
             'apply_condition_ids' => $params['apply_condition_ids'] ? json_encode($params['apply_condition_ids']) : '',
             'rank' => $params['rank'],
+            'introduction' => $params['introduction']
 
         ];
         return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);

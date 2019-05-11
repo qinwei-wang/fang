@@ -37,11 +37,6 @@ class CountryController extends Controller
         return view('countries.index', compact('list'));
     }
 
-    public function index3(Request $request)
-    {
-        $list = $this->countryService->getList($request->all());
-        return view('countries.index', compact('list'));
-    }
 
 
     /**

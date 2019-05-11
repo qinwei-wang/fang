@@ -10,7 +10,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <input type="hidden" name="country_id" value="{{request()->country_id}}">
-                                    <input type="text" name="name" value="{{request()->input('name', '')}}" placeholder="国家名称">
+                                    <input type="text" name="ch_name" value="{{request()->input('ch_name', '')}}" placeholder="国家名称">
                                     <button type="submit" class="btn btn-success" id="search">搜索</button>
 
                                 </div>
@@ -55,6 +55,7 @@
                                     <tr data-id="{{$item->id}}">
                                         <td><input type="radio" name="select" value="{{$item->id}}"></td>
                                         <td>{{$item->name}}</td>
+                                        <td>{{$item->ch_name}}</td>
                                         <td><img src="{{$item->flag}}" height="50" alt=""></td>
                                         <td>
                                             {{$item->region}}

@@ -47,7 +47,10 @@
                                     <input class="file_path" type="hidden" name="img" value="{{$country_detail->img or ''}}">
 
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">简介</label>
+                                    <input type="text" name="introduction" value="{{$country_detail->introduction or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
+                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">护照</label>
                                     <div>
@@ -119,9 +122,7 @@
                                     <div>
                                         <label for="">描述</label>
                                     </div>
-                                    <textarea name="description" id="" cols="120" rows="5">
-                                            {{$country_detail->description or ''}}
-                                    </textarea>
+                                    <textarea name="description" id="" cols="120" rows="5">{{$country_detail->description or ''}}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="">优势模块</label>

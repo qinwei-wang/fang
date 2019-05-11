@@ -162,6 +162,7 @@ class CountryService
             $arr['migrate_cycle'] = $country->migrate;
             $arr['visa_free_number'] = $country->visa_free;
             $arr['rank'] = $country->rank;
+            $arr['introduction'] = $country->introduction;
             $result[] = $arr;
         }
         return $result;

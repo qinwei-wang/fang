@@ -19,17 +19,6 @@
                 <div class="box-body">
                     <form action="">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>国家名称:</label>
-                                    <input type="text" name="name" value="{{request()->input('name', '')}}">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-success" id="search">搜索</button>
-                                </div>
-                            </div>
                             <div class="pull-right">
 
                                 <div class="form-group">
@@ -50,6 +39,7 @@
                                 <tbody>
                                 <tr>
                                     <th>国家</th>
+                                    <th>中文名称</th>
                                     <th>国旗</th>
                                     <th>所属州</th>
                                     <th>创建时间</th>
@@ -58,6 +48,7 @@
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}">
                                         <td>{{$item->country->name}}</td>
+                                        <td>{{$item->country->ch_name}}</td>
                                         <td><img src="{{$item->country->flag}}" height="50" alt=""></td>
                                         <td>
                                             {{$item->country->region}}
