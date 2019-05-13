@@ -57,7 +57,7 @@ class CountryService
      */
     public function getList($params)
     {
-        return $this->countryDetailRepository->makeModel()->paginate(20);
+        return $this->countryDetailRepository->makeModel()->orderBy('sort','desc')->paginate(20);
     }
 
     /**
@@ -108,6 +108,8 @@ class CountryService
             $data->advantage_ids = !empty($data->advantage_ids) ? json_decode($data->advantage_ids,true) : [];
             $data->apply_condition_ids = !empty($data->apply_condition_ids) ? json_decode($data->apply_condition_ids,true) : [];
             $data->user_type_ids = !empty($data->user_type_ids) ? json_decode($data->user_type_ids,true) : [];
+            $data->advantage = json_decode($data->advantage,true);
+            $data->disadvantage = json_decode($data->disadvantage,true);
 
         }
         return $data;
@@ -149,20 +151,25 @@ class CountryService
             'country_id'=> $params['country_id'],
             'passport' => $params['passport'],
             'process' => $params['process'],
-            'advantage_ids' => $params['advantage_ids'] ? json_encode($params['advantage_ids']) : '',
-            'user_type_ids' => $params['advantage_ids'] ? json_encode($params['user_type_ids']) : '',
-            'apply_condition_ids' => $params['apply_condition_ids'] ? json_encode($params['apply_condition_ids']) : '',
+            'advantage_ids' => array_get($params,'advantage_ids', '') ? json_encode($params['advantage_ids']) : '',
+            'user_type_ids' => array_get($params,'user_type_ids', '') ? json_encode($params['user_type_ids']) : '',
+            'apply_condition_ids' => array_get($params, 'apply_condition_ids', '') ? json_encode($params['apply_condition_ids']) : '',
+            'introduction' => $params['introduction'],
+            'sort' => array_get($params, 'sort',0),
             'rank' => $params['rank'],
-            'introduction' => $params['introduction']
+            'advantage' => json_encode($params['advantage']),
+            'disadvantage' => json_encode($params['disadvantage'])
 
         ];
         return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);
     }
 
 
-    public function saveSelectCountry($country_id)
+    public function saveSelectCountry($country_ids)
     {
-        return $this->countryDetailRepository->makeModel()->create(['country_id' => $country_id]);
+        foreach ($country_ids as $country_id) {
+            $this->countryDetailRepository->makeModel()->create(['country_id' => $country_id]);
+        }
     }
 
 
@@ -189,5 +196,17 @@ class CountryService
     public function deleteVisaCountry($id)
     {
         return $this->visaCountryRepository->makeModel()->where('id', $id)->delete();
+    }
+
+
+    public function delete($id)
+    {
+        return $this->countryDetailRepository->makeModel()->where('id', $id)->delete();
+    }
+
+
+    public function sort($params)
+    {
+        return $this->countryDetailRepository->makeModel()->where('id', $params['id'])->update(['sort' => $params['sort']]);
     }
 }

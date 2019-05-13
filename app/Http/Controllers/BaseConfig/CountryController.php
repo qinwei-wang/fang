@@ -72,7 +72,7 @@ class CountryController extends Controller
     public function saveSelectCountry(Request $request)
     {
         try {
-            $this->countryService->saveSelectCountry($request->country_id);
+            $this->countryService->saveSelectCountry($request->country_ids);
             return $this->success();
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
@@ -133,6 +133,34 @@ class CountryController extends Controller
             $this->countryService->deleteVisaCountry($request->id);
             return $this->success();
         } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            \Log::error($e->getTraceAsString());
+            return $this->failed($e->getMessage());
+        }
+    }
+
+
+    public function delete(Request $request)
+    {
+        try {
+            $this->countryService->delete($request->id);
+            return $this->success();
+        } catch(\Exception $e)
+        {
+            \Log::error($e->getMessage());
+            \Log::error($e->getTraceAsString());
+            return $this->failed($e->getMessage());
+        }
+    }
+
+
+    public function sort(Request $request)
+    {
+        try {
+            $this->countryService->sort($request->all());
+            return $this->success();
+        } catch(\Exception $e)
+        {
             \Log::error($e->getMessage());
             \Log::error($e->getTraceAsString());
             return $this->failed($e->getMessage());

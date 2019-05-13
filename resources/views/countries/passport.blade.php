@@ -8,7 +8,7 @@
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>签证国家</a></li>
+            <li><a href="{{route('country')}}"><i class="fa fa-dashboard"></i>国家列表</a></li>
             <li class="active">列表</li>
         </ol>
     </section>
@@ -37,25 +37,26 @@
                                     <th>设置</th>
                                 </tr>
                                 @foreach ($list as $item)
-                                    <tr data-id="{{$item->id}}">
+                                    <tr data-id="{{$item->id}}" data-visa-country-id="{{$item->visa_country_id}}">
                                         <td>{{$item->country->name}}</td>
                                         <td><img src="{{$item->country->flag}}" height="50" alt=""></td>
                                         <td>
-                                            @if ($item->type == 1) 签证入境
-                                            @elseif($item->type==2) 落地签入境
-                                            @elseif($item->type==3) 免签目的国
-                                            @elseif($item->type==4) eVisa
-                                            @else 无
-                                            @endif
+                                            <select name="type" id="">
+                                                <option value="0" >签证类型</option>
+                                                <option value="1" @if ($item->type == 1)selected @endif>签证入境</option>
+                                                <option value="2" @if ($item->type==2) selected @endif>落地签入境</option>
+                                                <option value="3" @if ($item->type==3) selected @endif>免签目的国</option>
+                                                <option value="4" @if ($item->type == 4) selected @endif>eVisa</option>
+                                            </select>
                                         </td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
-                                            <a href="{{route('visa_country.show', ['id' => $item->id])}}">
-                                                <button class="btn btn-info">
-                                                    编辑
-                                                </button>
-                                            </a>
-                                                <button class="btn btn-info delete">
+                                            {{--<a href="{{route('visa_country.show', ['id' => $item->id])}}">--}}
+                                                {{--<button class="btn btn-info">--}}
+                                                    {{--编辑--}}
+                                                {{--</button>--}}
+                                            {{--</a>--}}
+                                                <button class="btn btn-danger delete">
                                                     删除
                                                 </button>
                                         </td>
@@ -109,6 +110,28 @@
                     }
                 }
             })
+        })
+
+        $('select[name=type]').change(function () {
+            var type = $(this).val();
+            var visa_country_id = $(this).parent().parent().attr('data-visa-country-id');
+            $.ajax({
+                'type': 'post',
+                'url': '{{route('save_visa_country')}}',
+                'data': {'country_id': '{{request()->country_id}}', 'visa_country_id': visa_country_id,'_token': '{{csrf_token()}}', 'type': type},
+                success: function (msg) {
+                    if (msg.status == 'success') {
+                        toastr.success('签证类型修改成功!');
+                        setTimeout(function () {
+                            window.location.href = '{{route('visa_countries', ['country_id'=> request()->country_id])}}';
+                        }, 2000);
+
+                    } else {
+                        toastr.error('签证类型修改失败:' + msg.message);
+                    }
+                }
+            })
+
         })
 
     </script>
