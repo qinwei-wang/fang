@@ -102,13 +102,23 @@
                                     <input type="text"  name="banner[title]" value="{{$country_detail->banner['title'] or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputFile">banner</label>
+                                    <label for="exampleInputFile">pc端banner</label>
                                     <div>
-                                        <img src="{{$country_detail->banner['img'] or ''}}" height="200" alt="">
+                                        <img src="{{$country_detail->banner['img']['pc'] or ''}}" height="200" alt="">
                                     </div>
                                     <input type="file" class="upload_file">
 
-                                    <input class="file_path" type="hidden" name="banner[img]" value="{{$country_detail->banner['img'] or ''}}">
+                                    <input class="file_path" type="hidden" name="banner[img][pc]" value="{{$country_detail->banner['img']['pc'] or ''}}">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">wap端banner</label>
+                                    <div>
+                                        <img src="{{$country_detail->banner['img']['h5'] or ''}}" height="200" alt="">
+                                    </div>
+                                    <input type="file" class="upload_file">
+
+                                    <input class="file_path" type="hidden" name="banner[img][h5]" value="{{$country_detail->banner['img']['h5'] or ''}}">
 
                                 </div>
                                 <div class="form-group">
