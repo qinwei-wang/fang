@@ -55,9 +55,9 @@ class HomeController extends Controller
     }
 
 
-    public function getPassportInfo(CountryService $countryService, $id)
+    public function getPassportsInfo(CountryService $countryService)
     {
-        $passport_info = $countryService->getPassportInfoByCountryId($id);
+        $passport_info = $countryService->getPassportsInfo();
         return $this->success($passport_info);
     }
 }

@@ -128,21 +128,28 @@ class CountryService
     }
 
 
-    public function getPassportInfoByCountryId($country_id)
+    public function getPassportsInfo()
     {
-        $country = $this->countryDetailRepository->getDetailByCountryId($country_id);
-        $passport = [];
-        $passport['country_id'] = $country->country_id;
-        $passport['flag'] = $country->country->flag;
-        $passport['passport'] = $country->passport;
-        $passport['visa_free_number'] = $country->visa_free;
-        $passport['rank'] = $country->rank;
-        foreach ($country->country->hasManyVisaCountries as $k => $item) {
-            $passport['visa_countries'][$k]['country_id'] = $item->visa_country_id;
-            $passport['visa_countries'][$k]['type'] = isset(self::VISA_TYPES[$item->type]) ? self::VISA_TYPES[$item->type] : '';
-            $passport['visa_countries'][$k]['flag'] = $item->country->flag;
+        $result = [];
+        $countries = $this->countryDetailRepository->getAll();
+        foreach ($countries as $country) {
+            $passport = [];
+            $passport['country_id'] = $country->country_id;
+            $passport['name'] = $country->country->ch_name;
+            $passport['flag'] = $country->country->flag;
+            $passport['passport_img'] = $country->passport;
+            $passport['visa_free_number'] = $country->visa_free;
+            $passport['rank'] = $country->rank;
+            foreach ($country->country->hasManyVisaCountries as $k => $item) {
+                $passport['visa_countries'][$k]['country_id'] = $item->visa_country_id;
+                $passport['visa_countries'][$k]['name'] = $item->country->ch_name;
+                $passport['visa_countries'][$k]['type'] = isset(self::VISA_TYPES[$item->type]) ? self::VISA_TYPES[$item->type] : '';
+                $passport['visa_countries'][$k]['flag'] = $item->country->flag;
+            }
+            $result[] = $passport;
         }
-        return $passport;
+
+        return $result;
     }
 
 
