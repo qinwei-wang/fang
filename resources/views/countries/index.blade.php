@@ -38,15 +38,18 @@
                             <table class="table table-bordered">
                                 <tbody>
                                 <tr>
+                                    <th>排序值</th>
                                     <th>国家</th>
                                     <th>中文名称</th>
                                     <th>国旗</th>
                                     <th>所属州</th>
                                     <th>创建时间</th>
+                                    <th>更新时间</th>
                                     <th>设置</th>
                                 </tr>
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}">
+                                        <td><input type="text" value="{{$item->sort}}" name="sort" size="1"></td>
                                         <td>{{$item->country->name}}</td>
                                         <td>{{$item->country->ch_name}}</td>
                                         <td><img src="{{$item->country->flag}}" height="50" alt=""></td>
@@ -54,6 +57,7 @@
                                             {{$item->country->region}}
                                         </td>
                                         <td>{{$item->created_at}}</td>
+                                        <td>{{$item->updated_at}}</td>
                                         <td>
                                             <a href="{{route('country_detail', ['country_id' => $item->country->id])}}">
                                                 <button class="btn btn-info">
@@ -65,6 +69,9 @@
                                                     签证国家
                                                 </button>
                                             </a>
+                                            <button class="btn btn-danger delete">
+                                                 删除
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -95,6 +102,49 @@
                 area: ['50%', '90%'],
                 content: "{{route('select_countries')}}" //iframe的url
             });
+        })
+
+
+        $(".delete").click(function() {
+            var id = $(this).parent().parent().attr('data-id');
+            $.ajax({
+                'type': 'delete',
+                'url': '{{route('country.delete')}}',
+                'data': {'id': id,'_token': '{{csrf_token()}}'},
+                success: function (msg) {
+                    if (msg.status == 'success') {
+                        toastr.success('删除成功!');
+                        setTimeout(function () {
+                            window.location.href = '{{route('country')}}';
+                        }, 2000);
+
+                    } else {
+                        toastr.error('删除失败:' + msg.message);
+                    }
+                }
+            })
+        })
+
+        $('input[name=sort]').blur(function () {
+            var sort = $(this).val();
+            var id = $(this).parent().parent().attr('data-id');
+            $.ajax({
+                'type': 'post',
+                'url': '{{route('country.sort')}}',
+                'data': {'id': id,'_token': '{{csrf_token()}}', 'sort': sort},
+                success: function (msg) {
+                    if (msg.status == 'success') {
+                        toastr.success('排序成功!');
+                        setTimeout(function () {
+                            window.location.href = '{{route('country')}}';
+                        }, 2000);
+
+                    } else {
+                        toastr.error('排序失败:' + msg.message);
+                    }
+                }
+            })
+
         })
     </script>
 @endsection

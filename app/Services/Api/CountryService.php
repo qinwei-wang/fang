@@ -170,6 +170,12 @@ class CountryService
             $arr['visa_free_number'] = $country->visa_free;
             $arr['rank'] = $country->rank;
             $arr['introduction'] = $country->introduction;
+            $advantage = json_decode($country->advantage,true);
+            $disadvantage = json_decode($country->disadvantage,true);
+            $arr['advantage']['title'] = $advantage['title'];
+            $arr['advantage']['content'] = explode(';', $advantage['content']);
+            $arr['disadvantage']['title'] = $disadvantage['title'];
+            $arr['disadvantage']['content'] = explode(';', $disadvantage['content']);
             $result[] = $arr;
         }
         return $result;

@@ -7,7 +7,7 @@
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="{{route('country')}}"><i class="fa fa-dashboard"></i>国家签证</a></li>
+            <li><a href="{{route('country')}}"><i class="fa fa-dashboard"></i>国家列表</a></li>
             <li class="active">设置</li>
         </ol>
     </section>
@@ -62,7 +62,11 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">排名</label>
+                                    <label for="exampleInputEmail1">排序</label>
+                                    <input type="text" name="sort" value="{{$country_detail->sort or 0}}" class="form-control" id="exampleInputEmail1" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">签证排名</label>
                                     <input type="text" name="rank" value="{{$country_detail->rank or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
                                 </div>
                                 <div class="form-group">
@@ -160,6 +164,23 @@
                                     @endforeach
 
                                 </div>
+                                <div class="form-group">
+                                    <label for="">优势标题</label>
+                                    <input type="text" class="form-control" name="advantage[title]" value="{{$country_detail->advantage['title'] or ''}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">优势内容</label>
+                                    <input type="text" class="form-control" name="advantage[content]" value="{{$country_detail->advantage['content'] or ''}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">劣势标题</label>
+                                    <input type="text" class="form-control" name="disadvantage[title]" value="{{$country_detail->disadvantage['title'] or ''}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">劣势内容</label>
+                                    <input type="text" class="form-control" name="disadvantage[content]" value="{{$country_detail->disadvantage['content'] or ''}}">
+                                </div>
+
                                 <div class="form-group">
                                     <label for="">申请流程</label>
                                     <input type="text" class="form-control" name="process" value="{{$country_detail->process or ''}}">

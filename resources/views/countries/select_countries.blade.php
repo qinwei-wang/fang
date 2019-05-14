@@ -43,7 +43,7 @@
                                 </tr>
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}">
-                                        <td><input type="radio" name="select" value="{{$item->id}}"></td>
+                                        <td><input type="checkbox" name="country_ids[]" value="{{$item->id}}"></td>
                                         <td>{{$item->name}}</td>
                                         <td>{{$item->ch_name}}</td>
                                         <td><img src="{{$item->flag}}" height="50" alt=""></td>
@@ -72,12 +72,15 @@
     <script>
         var index = parent.layer.getFrameIndex(window.name);
         $("#add").click(function () {
-            var country_id = $('input[type=radio]:checked').val();
+            var country_ids = [];
+            $('input[type=checkbox]:checked').each(function (i) {
+                country_ids[i] = $(this).val();
+            });
 
             $.ajax({
                 'type': 'POST',
                 'url': '{{route('save_select_country')}}',
-                'data': {'country_id': country_id,  '_token': "{{csrf_token()}}"},
+                'data': {'country_ids': country_ids,  '_token': "{{csrf_token()}}"},
                 success: function (msg) {
                     if (msg.status == 'success') {
                         toastr.success('保存成功!');

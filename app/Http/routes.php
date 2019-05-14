@@ -45,6 +45,8 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
 
     Route::group(['prefix'=> 'country'], function () {
         Route::get('/', 'CountryController@index')->name('country');
+        Route::delete('/', 'CountryController@delete')->name('country.delete');
+        Route::post('/sort', 'CountryController@sort')->name('country.sort');
         Route::get('/detail', 'CountryController@detail')->name('country_detail');
         Route::post('/detail', 'CountryController@saveDetail')->name('country_detail.save');
         Route::get('/visa_countries', 'CountryController@visaCountries')->name('visa_countries');
