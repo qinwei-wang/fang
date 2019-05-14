@@ -124,6 +124,12 @@ class CountryService
         $data['advantages'] = $country->advantage_ids ? $this->advantageService->getAdvantages(json_decode($country->advantage_ids, true)) : [];
         $data['user_types'] = $country->user_type_ids ? $this->userTypeService->getUserTypes(json_decode($country->user_type_ids, true)) : [];
         $data['apply_conditions'] = $country->apply_condition_ids ? $this->applyConditionService->getApplyConditions(json_decode($country->apply_condition_ids, true)) : [];
+        $advantage = json_decode($country->advantage,true);
+        $disadvantage = json_decode($country->disadvantage,true);
+        $data['different']['advantage']['title'] = $advantage['title'];
+        $data['different']['advantage']['content'] = explode(';', $advantage['content']);
+        $data['different']['disadvantage']['title'] = $disadvantage['title'];
+        $data['different']['disadvantage']['content'] = explode(';', $disadvantage['content']);
         return $data;
     }
 
@@ -170,12 +176,6 @@ class CountryService
             $arr['visa_free_number'] = $country->visa_free;
             $arr['rank'] = $country->rank;
             $arr['introduction'] = $country->introduction;
-            $advantage = json_decode($country->advantage,true);
-            $disadvantage = json_decode($country->disadvantage,true);
-            $arr['advantage']['title'] = $advantage['title'];
-            $arr['advantage']['content'] = explode(';', $advantage['content']);
-            $arr['disadvantage']['title'] = $disadvantage['title'];
-            $arr['disadvantage']['content'] = explode(';', $disadvantage['content']);
             $result[] = $arr;
         }
         return $result;
