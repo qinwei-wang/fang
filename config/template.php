@@ -52,6 +52,14 @@ return [
                 ],
                 [
                     'icon' => 'fa fa-fire',
+                    'title' => '标签',
+                    'site' => '*',
+                    'link' => '/base-config/tag',
+                    'roles' => '*',
+                    'is_active' => false,
+                ],
+                [
+                    'icon' => 'fa fa-fire',
                     'title' => '国家列表',
                     'site' => '*',
                     'link' => '/base-config/country',

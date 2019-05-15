@@ -104,25 +104,34 @@
             });
         })
 
+        //询问框
+
 
         $(".delete").click(function() {
             var id = $(this).parent().parent().attr('data-id');
-            $.ajax({
-                'type': 'delete',
-                'url': '{{route('country.delete')}}',
-                'data': {'id': id,'_token': '{{csrf_token()}}'},
-                success: function (msg) {
-                    if (msg.status == 'success') {
-                        toastr.success('删除成功!');
-                        setTimeout(function () {
-                            window.location.href = '{{route('country')}}';
-                        }, 2000);
+            layer.confirm('确定删除吗？', {
+                btn: ['是','否'] //按钮
+            }, function(){
+                $.ajax({
+                    'type': 'delete',
+                    'url': '{{route('country.delete')}}',
+                    'data': {'id': id,'_token': '{{csrf_token()}}'},
+                    success: function (msg) {
+                        if (msg.status == 'success') {
+                            toastr.success('删除成功!');
+                            setTimeout(function () {
+                                window.location.href = '{{route('country')}}';
+                            }, 2000);
 
-                    } else {
-                        toastr.error('删除失败:' + msg.message);
+                        } else {
+                            toastr.error('删除失败:' + msg.message);
+                        }
                     }
-                }
-            })
+                })
+            }, function(){
+
+            });
+
         })
 
         $('input[name=sort]').change(function () {

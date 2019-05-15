@@ -86,6 +86,14 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::delete('/delete', 'ApplyConditionController@delete')->name('apply_condition.delete');
     });
 
+    Route::group(['prefix' => 'tag'], function () {
+        Route::get('/', 'TagController@index')->name('tag.index');
+        Route::get('/create', 'TagController@create')->name('tag.create');
+        Route::post('/save', 'TagController@save')->name('tag.save');
+        Route::get('/edit', 'TagController@edit')->name('tag.edit');
+        Route::delete('/delete', 'TagController@delete')->name('tag.delete');
+    });
+
 });
 
 

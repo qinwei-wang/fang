@@ -52,6 +52,17 @@
                                     <input type="text" name="introduction" value="{{$country_detail->introduction or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">标签</label>
+                                        @foreach ($tags as $item)
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="tags[]" value="{{$item->id}}" @if (isset($country_detail) && in_array($item->id, $country_detail->tags)) checked @endif>
+                                                    {{$item->name}}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputFile">护照</label>
                                     <div>
                                         <img src="{{$country_detail->passport or ''}}" height="200" alt="">
