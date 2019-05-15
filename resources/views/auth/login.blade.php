@@ -28,7 +28,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{route('home')}}"><b>Admin</b></a>
+        <a href="{{route('home')}}"><b><img src="{{asset('logo.png')}}" alt="" width="280"></b></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

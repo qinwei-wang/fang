@@ -125,7 +125,7 @@
             })
         })
 
-        $('input[name=sort]').blur(function () {
+        $('input[name=sort]').change(function () {
             var sort = $(this).val();
             var id = $(this).parent().parent().attr('data-id');
             $.ajax({

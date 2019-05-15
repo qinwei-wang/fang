@@ -26,7 +26,7 @@ class CountryDetailRepository
 
     public function getAll()
     {
-        return $this->makeModel()->orderBy('sort')->get();
+        return $this->makeModel()->orderBy('sort', 'desc')->get();
 
     }
 
