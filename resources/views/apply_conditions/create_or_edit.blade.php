@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label for="exampleInputFile">图标</label>
                                 <div>
-                                    <img src="{{$apply_condition->icon or ''}}" height="200" alt="">
+                                    <img src="{{!empty($apply_condition->icon) ? img_url($apply_condition->icon) : ''}}" height="200" alt="">
                                 </div>
                                 <input type="file" class="upload_file">
 

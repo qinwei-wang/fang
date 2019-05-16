@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputFile">国家主图</label>
                                     <div>
-                                        <img src="{{$country_detail->img or ''}}" height="200" alt="">
+                                        <img src="{{!empty($country_detail->img) ? img_url($country_detail->img) : ''}}" height="200" alt="">
                                     </div>
                                     <input type="file" class="upload_file">
 
@@ -65,7 +65,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputFile">护照</label>
                                     <div>
-                                        <img src="{{$country_detail->passport or ''}}" height="200" alt="">
+                                        <img src="{{!empty($country_detail->passport) ? img_url($country_detail->passport) : ''}}" height="200" alt="">
                                     </div>
                                     <input type="file" class="upload_file">
 
@@ -115,7 +115,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputFile">pc端banner</label>
                                     <div>
-                                        <img src="{{$country_detail->banner['img']['pc'] or ''}}" height="200" alt="">
+                                        <img src="{{!empty($country_detail->banner['img']['pc']) ? img_url($country_detail->banner['img']['pc']) : ''}}" height="200" alt="">
                                     </div>
                                     <input type="file" class="upload_file">
 
@@ -125,7 +125,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputFile">wap端banner</label>
                                     <div>
-                                        <img src="{{$country_detail->banner['img']['h5'] or ''}}" height="200" alt="">
+                                        <img src="{{!empty($country_detail->banner['img']['h5']) ? img_url($country_detail->banner['img']['h5']) : ''}}" height="200" alt="">
                                     </div>
                                     <input type="file" class="upload_file">
 

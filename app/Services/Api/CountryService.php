@@ -75,7 +75,7 @@ class CountryService
             $arr['name'] = $country->country->ch_name;
             $arr['flag'] = $country->country->flag;
             $arr['banner'] = json_decode($country->banner, true);
-            $arr['img'] = $country->img;
+            $arr['img'] = img_url($country->img);
             $arr['ID_type'] = isset(self::ID_TYPES[$country->ID_type]) ? self::ID_TYPES[$country->ID_type] : '';
             $arr['require'] = $country->live;
             $arr['migrate_cycle'] = $country->migrate;
@@ -126,6 +126,10 @@ class CountryService
         $data['en_name'] = $country->country->name;
         $data['flag'] = $country->country->flag;
         $data['banner'] = json_decode($country->banner, true);
+        if (!empty($data['banner'])) {
+            $data['banner']['img']['h5'] = !empty($data['banner']['img']['h5']) ? img_url($data['banner']['img']['h5']) : '';
+            $data['banner']['img']['pc'] = !empty($data['banner']['img']['pc']) ? img_url($data['banner']['img']['pc']) : '';
+        }
         $data['description'] = $country->description;
         $data['process'] = $country->process ? explode(';', $country->process) : '';
         $data['advantages'] = $country->advantage_ids ? $this->advantageService->getAdvantages(json_decode($country->advantage_ids, true)) : [];
@@ -150,7 +154,7 @@ class CountryService
             $passport['country_id'] = $country->country_id;
             $passport['name'] = $country->country->ch_name;
             $passport['flag'] = $country->country->flag;
-            $passport['passport_img'] = $country->passport;
+            $passport['passport_img'] = img_url($country->passport);
             $passport['visa_free_number'] = $country->visa_free;
             $passport['rank'] = $country->rank;
             foreach ($country->country->hasManyVisaCountries as $k => $item) {
@@ -176,8 +180,8 @@ class CountryService
             $arr['name'] = $country->country->ch_name;
             $arr['en_name'] = $country->country->name;
             $arr['flag'] = $country->country->flag;
-            $arr['img'] = $country->img;
-            $arr['passport'] = $country->passport;
+            $arr['img'] = img_url($country->img);
+            $arr['passport'] = img_url($country->passport);
             $arr['ID_type'] = isset(self::ID_TYPES[$country->ID_type]) ? self::ID_TYPES[$country->ID_type] : '';
             $arr['require'] = $country->live;
             $arr['migrate_cycle'] = $country->migrate;

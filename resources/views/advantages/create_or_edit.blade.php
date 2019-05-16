@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label for="exampleInputFile">图片</label>
                                 <div>
-                                    <img src="{{$advantage->img or ''}}" height="200" alt="">
+                                    <img src="{{!empty($advantage->img) ? img_url($advantage->img) : ''}}" height="200" alt="">
                                 </div>
                                 <input type="file" class="upload_file">
 

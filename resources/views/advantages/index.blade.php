@@ -42,7 +42,7 @@
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}">
                                         <td>{{$item->title}}</td>
-                                        <td><img src="{{$item->img}}" height="50" alt=""></td>
+                                        <td><img src="{{!empty($item->img) ? img_url($item->img) : ''}}" height="50" alt=""></td>
                                         <td>
                                             {{$item->description}}
                                         </td>
