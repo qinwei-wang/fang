@@ -117,6 +117,7 @@ class CountryService
         $data = [];
         $data['country_id'] = $country->country->id;
         $data['name'] = $country->country->ch_name;
+        $data['en_name'] = $country->country->name;
         $data['flag'] = $country->country->flag;
         $data['banner'] = json_decode($country->banner, true);
         $data['description'] = $country->description;
@@ -167,6 +168,7 @@ class CountryService
             $arr = [];
             $arr['country_id'] = $country->country->id;
             $arr['name'] = $country->country->ch_name;
+            $arr['en_name'] = $country->country->name;
             $arr['flag'] = $country->country->flag;
             $arr['img'] = $country->img;
             $arr['passport'] = $country->passport;
