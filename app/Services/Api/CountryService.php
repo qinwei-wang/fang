@@ -184,7 +184,7 @@ class CountryService
             $arr['visa_free_number'] = $country->visa_free;
             $arr['rank'] = $country->rank;
             $arr['introduction'] = $country->introduction;
-            $arr['tags'] = $this->tagService->getTags($country->tags);
+            $arr['tags'] = $country->tags ? $this->tagService->getTags(json_decode($country->tags, true)) : [];
             $result[] = $arr;
         }
         return $result;
