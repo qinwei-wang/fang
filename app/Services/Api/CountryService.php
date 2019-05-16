@@ -127,8 +127,12 @@ class CountryService
         $data['flag'] = $country->country->flag;
         $data['banner'] = json_decode($country->banner, true);
         if (!empty($data['banner'])) {
-            $data['banner']['img']['h5'] = isset($data['banner']['img']['h5']) ? img_url($data['banner']['img']['h5']) : '';
-            $data['banner']['img']['pc'] = isset($data['banner']['img']['pc']) ? img_url($data['banner']['img']['pc']) : '';
+            if (isset($data['banner']['img']['h5'])) {
+                $data['banner']['img']['h5'] = isset($data['banner']['img']['h5']) ? img_url($data['banner']['img']['h5']) : '';
+            }
+            if (isset($data['banner']['img']['pc'])) {
+                $data['banner']['img']['pc'] = isset($data['banner']['img']['pc']) ? img_url($data['banner']['img']['pc']) : '';
+            }
         }
         $data['description'] = $country->description;
         $data['process'] = $country->process ? explode(';', $country->process) : '';
