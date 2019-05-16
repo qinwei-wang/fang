@@ -15,6 +15,7 @@ use App\Repositories\VisaCountryRepository;
 use App\Services\AdvantageService;
 use App\Services\UserTypeService;
 use App\Services\ApplyConditionService;
+use App\Services\TagService;
 
 class CountryService
 {
@@ -32,13 +33,16 @@ class CountryService
 
     protected $applyConditionService;
 
+    protected $tagService;
+
     public function __construct(
         CountryRepository $countryRepository,
         CountryDetailRepository $countryDetailRepository,
         VisaCountryRepository $visaCountryRepository,
         AdvantageService $advantageService,
         UserTypeService $userTypeService,
-        ApplyConditionService $applyConditionService
+        ApplyConditionService $applyConditionService,
+        TagService $tagService
     )
     {
         $this->countryRepository = $countryRepository;
@@ -47,6 +51,7 @@ class CountryService
         $this->advantageService = $advantageService;
         $this->userTypeService = $userTypeService;
         $this->applyConditionService = $applyConditionService;
+        $this->tagService = $tagService;
     }
 
 
@@ -110,6 +115,7 @@ class CountryService
             $data->user_type_ids = !empty($data->user_type_ids) ? json_decode($data->user_type_ids,true) : [];
             $data->advantage = json_decode($data->advantage,true);
             $data->disadvantage = json_decode($data->disadvantage,true);
+            $data->tags = !empty($data->tags) ? json_decode($data->tags,true) : [];
 
         }
         return $data;
@@ -158,7 +164,8 @@ class CountryService
             'sort' => array_get($params, 'sort',0),
             'rank' => $params['rank'],
             'advantage' => json_encode($params['advantage']),
-            'disadvantage' => json_encode($params['disadvantage'])
+            'disadvantage' => json_encode($params['disadvantage']),
+            'tags' => array_get($params, 'tags', '') ? json_encode($params['tags']) : '',
 
         ];
         return $this->countryDetailRepository->makeModel()->updateOrCreate(['id' => $params['id']], $data);
@@ -208,5 +215,10 @@ class CountryService
     public function sort($params)
     {
         return $this->countryDetailRepository->makeModel()->where('id', $params['id'])->update(['sort' => $params['sort']]);
+    }
+
+    public function getTags()
+    {
+        return $this->tagService->getAll();
     }
 }

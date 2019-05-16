@@ -48,7 +48,8 @@ class CountryController extends Controller
         $advantages = $this->countryService->getAdvantages();
         $user_types = $this->countryService->getUserTypes();
         $apply_conditions = $this->countryService->getApplyConditions();
-        return view('countries.detail', compact('country_detail', 'advantages', 'user_types', 'apply_conditions'));
+        $tags = $this->countryService->getTags();
+        return view('countries.detail', compact('country_detail', 'advantages', 'user_types', 'apply_conditions', 'tags'));
     }
 
 

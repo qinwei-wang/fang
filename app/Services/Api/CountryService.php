@@ -14,6 +14,7 @@ use App\Repositories\VisaCountryRepository;
 use App\Services\Api\AdvantageService;
 use App\Services\Api\UserTypeService;
 use App\Services\Api\ApplyConditionService;
+use App\Services\Api\TagService;
 
 
 class CountryService
@@ -29,6 +30,8 @@ class CountryService
     protected $userTypeService;
 
     protected $applyConditionService;
+
+    protected $tagService;
 
     const ID_TYPES = [ 1 => '护照'];
 
@@ -48,7 +51,8 @@ class CountryService
         VisaCountryRepository $visaCountryRepository,
         AdvantageService $advantageService,
         UserTypeService $userTypeService,
-        ApplyConditionService $applyConditionService
+        ApplyConditionService $applyConditionService,
+        TagService $tagService
     )
     {
         $this->countryRepository = $countryRepository;
@@ -57,6 +61,8 @@ class CountryService
         $this->advantageService = $advantageService;
         $this->userTypeService = $userTypeService;
         $this->applyConditionService = $applyConditionService;
+        $this->tagService = $tagService;
+
     }
 
     public function getCountryInfo($params)
@@ -178,6 +184,7 @@ class CountryService
             $arr['visa_free_number'] = $country->visa_free;
             $arr['rank'] = $country->rank;
             $arr['introduction'] = $country->introduction;
+            $arr['tags'] = $this->tagService->getTags($country->tags);
             $result[] = $arr;
         }
         return $result;
