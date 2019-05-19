@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body">
-                    <a href="{{route('advantage.create')}}">
+                    <a href="{{route('advantage.create', ['country_id'=> request()->country_id])}}">
                         <button class="btn btn-success pull-right" id="add">添加</button>
 
                     </a>
@@ -88,7 +88,7 @@
                     if (msg.status == 'success') {
                         toastr.success('删除成功!');
                         setTimeout(function () {
-                            window.location.href = '{{route('advantage.index')}}';
+                            window.location.href = '{{route('advantage.index', ['country_id' => request()->country_id])}}';
                         }, 2000);
 
                     } else {

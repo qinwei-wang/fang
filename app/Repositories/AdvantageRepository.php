@@ -23,4 +23,10 @@ class AdvantageRepository
 
     }
 
+
+    public function getAdvantagesByCountryId($country_id)
+    {
+        return $this->makeModel()->where('country_id', $country_id)->get();
+    }
+
 }

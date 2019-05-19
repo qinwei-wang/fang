@@ -47,6 +47,7 @@
                             <div class="box-footer">
                                 {!! csrf_field() !!}
                                 <input type="hidden" name="id" value="{{$advantage->id or ''}}">
+                                <input type="hidden" name="country_id" value="{{$advantage->country_id or request()->country_id}}">
                                 <button type="button" class="btn btn-primary" id="submit">提交</button>
                             </div>
                         </form>
@@ -73,7 +74,7 @@
                     if (msg.status == 'success') {
                         toastr.success('保存成功!');
                         setTimeout(function () {
-                            window.location.href = '{{route('advantage.index')}}';
+                            window.location.href = '{{route('advantage.index', ['country_id' => request()->country_id])}}';
                         }, 2000);
 
                     } else {

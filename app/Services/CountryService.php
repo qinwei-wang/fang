@@ -157,7 +157,7 @@ class CountryService
             'country_id'=> $params['country_id'],
             'passport' => $params['passport'],
             'process' => $params['process'],
-            'advantage_ids' => array_get($params,'advantage_ids', '') ? json_encode($params['advantage_ids']) : '',
+//            'advantage_ids' => array_get($params,'advantage_ids', '') ? json_encode($params['advantage_ids']) : '',
             'user_type_ids' => array_get($params,'user_type_ids', '') ? json_encode($params['user_type_ids']) : '',
             'apply_condition_ids' => array_get($params, 'apply_condition_ids', '') ? json_encode($params['apply_condition_ids']) : '',
             'introduction' => $params['introduction'],

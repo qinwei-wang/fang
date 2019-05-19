@@ -24,7 +24,8 @@ class AdvantageService
 
     public function getList($params)
     {
-        return $this->advantageRepository->makeModel()->paginate(20);
+
+        return $this->advantageRepository->makeModel()->where('country_id', array_get($params, 'country_id', 0))->paginate(20);
     }
 
 
@@ -33,7 +34,8 @@ class AdvantageService
         return $this->advantageRepository->makeModel()->updateOrCreate(['id' => array_get($params, 'id', -1)], [
             'title' => $params['title'],
             'img' => $params['img'],
-            'description' => $params['description']
+            'description' => $params['description'],
+            'country_id' => $params['country_id']
         ]);
     }
 

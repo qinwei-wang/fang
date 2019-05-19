@@ -136,7 +136,8 @@ class CountryService
         }
         $data['description'] = $country->description;
         $data['process'] = $country->process ? explode(';', $country->process) : '';
-        $data['advantages'] = $country->advantage_ids ? $this->advantageService->getAdvantages(json_decode($country->advantage_ids, true)) : [];
+//        $data['advantages'] = $country->advantage_ids ? $this->advantageService->getAdvantages(json_decode($country->advantage_ids, true)) : [];
+        $data['advantages'] = $this->advantageService->getAdvantagesByCountryId($country_id);
         $data['user_types'] = $country->user_type_ids ? $this->userTypeService->getUserTypes(json_decode($country->user_type_ids, true)) : [];
         $data['apply_conditions'] = $country->apply_condition_ids ? $this->applyConditionService->getApplyConditions(json_decode($country->apply_condition_ids, true)) : [];
         $advantage = json_decode($country->advantage,true);
