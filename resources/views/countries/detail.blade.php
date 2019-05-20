@@ -149,18 +149,18 @@
                                     </div>
                                     <textarea name="description" id="" cols="120" rows="5">{{$country_detail->description or ''}}</textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">优势模块</label>
-                                    @foreach ($advantages as $item)
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="advantage_ids[]" value="{{$item->id}}" @if (isset($country_detail) && in_array($item->id, $country_detail->advantage_ids)) checked @endif>
-                                            {{$item->title}}
-                                        </label>
-                                    </div>
-                                    @endforeach
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="">优势模块</label>--}}
+                                    {{--@foreach ($advantages as $item)--}}
+                                    {{--<div class="checkbox">--}}
+                                        {{--<label>--}}
+                                            {{--<input type="checkbox" name="advantage_ids[]" value="{{$item->id}}" @if (isset($country_detail) && in_array($item->id, $country_detail->advantage_ids)) checked @endif>--}}
+                                            {{--{{$item->title}}--}}
+                                        {{--</label>--}}
+                                    {{--</div>--}}
+                                    {{--@endforeach--}}
 
-                                </div>
+                                {{--</div>--}}
                                 <div class="form-group">
                                     <label for="">适用人群</label>
                                     @foreach ($user_types as $item)

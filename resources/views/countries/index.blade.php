@@ -64,6 +64,11 @@
                                                     编辑
                                                 </button>
                                             </a>
+                                            <a href="{{route('advantage.index', ['country_id' => $item->country->id])}}">
+                                                <button class="btn btn-info">
+                                                    优势模块
+                                                </button>
+                                            </a>
                                             <a href="{{route('visa_countries', ['country_id' => $item->country->id])}}">
                                                 <button class="btn btn-info">
                                                     签证国家

@@ -45,7 +45,7 @@ class CountryController extends Controller
     public function detail(Request $request)
     {
         $country_detail = $this->countryService->getDetail($request->country_id);
-        $advantages = $this->countryService->getAdvantages();
+//        $advantages = $this->countryService->getAdvantages();
         $user_types = $this->countryService->getUserTypes();
         $apply_conditions = $this->countryService->getApplyConditions();
         $tags = $this->countryService->getTags();

@@ -23,4 +23,10 @@ class AdvantageService
     {
         return $this->advantageRepository->makeModel()->whereIn('id', $ids)->get();
     }
+
+
+    public function getAdvantagesByCountryId($country_id)
+    {
+        return $this->advantageRepository->getAdvantagesByCountryId($country_id);
+    }
 }
