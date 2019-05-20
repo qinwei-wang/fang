@@ -63,7 +63,7 @@
                             </table>
                         </div>
                         <div class="box-footer">
-{{--                            {!! $list->appends(request()->all())->links() !!}--}}
+                            {!! $list->appends(request()->all())->links() !!}
                         </div>
                     </div>
 
