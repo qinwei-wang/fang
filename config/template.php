@@ -26,14 +26,14 @@ return [
                     'roles' => '*',
                     'is_active' => false,
                 ],
-//                [
-//                    'icon' => 'fa fa-fire',
-//                    'title' => '优势板块',
-//                    'site' => '*',
-//                    'link' => '/base-config/advantage',
-//                    'roles' => '*',
-//                    'is_active' => false,
-//                ],
+                [
+                    'icon' => 'fa fa-fire',
+                    'title' => '签证类型',
+                    'site' => '*',
+                    'link' => '/base-config/visa_type',
+                    'roles' => '*',
+                    'is_active' => false,
+                ],
                 [
                     'icon' => 'fa fa-fire',
                     'title' => '适用人群',

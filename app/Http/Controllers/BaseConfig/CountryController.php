@@ -86,14 +86,16 @@ class CountryController extends Controller
     public function passport(Request $request)
     {
         $list = $this->countryService->getVisaCountries($request->all());
-        return view('countries.passport', compact('list'));
+        $visa_types = $this->countryService->getVisaTypes();
+        return view('countries.passport', compact('list', 'visa_types'));
     }
 
 
     public function visaCountries(Request $request)
     {
         $list = $this->countryService->getVisaCountries($request->all());
-        return view('countries.passport', compact('list'));
+        $visa_types = $this->countryService->getVisaTypes();
+        return view('countries.passport', compact('list', 'visa_types'));
     }
 
 
@@ -106,7 +108,9 @@ class CountryController extends Controller
     public function selectVisaCountries(Request $request)
     {
         $list = $this->countryService->selectVisaCountries($request->all());
-        return view('countries.select_visa_countries', compact('list'));
+        $visa_types = $this->countryService->getVisaTypes();
+
+        return view('countries.select_visa_countries', compact('list', 'visa_types'));
     }
 
 

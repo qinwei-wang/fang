@@ -8,7 +8,7 @@
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="{{route('advantage.index')}}"><i class="fa fa-dashboard"></i> 优势模块</a></li>
+            <li><a href="{{route('advantage.index', ['country_id' => request()->country_id])}}"><i class="fa fa-dashboard"></i> 优势模块</a></li>
             <li class="active">设置</li>
         </ol>
     </section>

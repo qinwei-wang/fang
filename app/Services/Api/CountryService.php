@@ -11,6 +11,7 @@ namespace App\Services\Api;
 use App\Repositories\CountryRepository;
 use App\Repositories\CountryDetailRepository;
 use App\Repositories\VisaCountryRepository;
+use App\Repositories\VisaTypeRepository;
 use App\Services\Api\AdvantageService;
 use App\Services\Api\UserTypeService;
 use App\Services\Api\ApplyConditionService;
@@ -33,15 +34,9 @@ class CountryService
 
     protected $tagService;
 
+    protected $visaTypeRepository;
+
     const ID_TYPES = [ 1 => '护照'];
-
-    const VISA_TYPES = [
-            1 => '签证入境',
-            2 => '落地签入境',
-            3 => '免签目的国',
-            4 => 'eVisa'
-        ];
-
 
 
 
@@ -52,7 +47,8 @@ class CountryService
         AdvantageService $advantageService,
         UserTypeService $userTypeService,
         ApplyConditionService $applyConditionService,
-        TagService $tagService
+        TagService $tagService,
+        VisaTypeRepository $visaTypeRepository
     )
     {
         $this->countryRepository = $countryRepository;
@@ -62,6 +58,7 @@ class CountryService
         $this->userTypeService = $userTypeService;
         $this->applyConditionService = $applyConditionService;
         $this->tagService = $tagService;
+        $this->visaTypeRepository = $visaTypeRepository;
 
     }
 
@@ -104,7 +101,7 @@ class CountryService
             $passport['rank'] = $country->rank;
             foreach ($country->country->hasManyVisaCountries as $k => $item) {
                 $passport['visa_countries'][$k]['country_id'] = $item->visa_country_id;
-                $passport['visa_countries'][$k]['type'] = isset(self::VISA_TYPES[$item->type]) ? self::VISA_TYPES[$item->type] : '';
+                $passport['visa_countries'][$k]['type'] = $this->visaTypeRepository->getVisaTypeByid($item->type);
                 $passport['visa_countries'][$k]['flag'] = $item->country->flag;
             }
             $result[] = $passport;
@@ -165,7 +162,7 @@ class CountryService
             foreach ($country->country->hasManyVisaCountries as $k => $item) {
                 $passport['visa_countries'][$k]['country_id'] = $item->visa_country_id;
                 $passport['visa_countries'][$k]['name'] = $item->country->ch_name;
-                $passport['visa_countries'][$k]['type'] = isset(self::VISA_TYPES[$item->type]) ? self::VISA_TYPES[$item->type] : '';
+                $passport['visa_countries'][$k]['type'] = $this->visaTypeRepository->getVisaTypeByid($item->type);;
                 $passport['visa_countries'][$k]['flag'] = $item->country->flag;
             }
             $result[] = $passport;

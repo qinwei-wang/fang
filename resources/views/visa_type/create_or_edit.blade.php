@@ -1,19 +1,14 @@
 @extends('templates.dashboard')
 @section('content')
-    <style>
-        .dataTables_wrapper .dataTables_filter {
-            text-align: right;
-        }
-    </style>
 
     <section class="content-header">
         <h1>
-            签证国家
+            签证类型
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="{{route('visa_countries')}}"><i class="fa fa-dashboard"></i> banner</a></li>
+            <li><a href="{{route('tag.index')}}"><i class="fa fa-dashboard"></i> 签证类型</a></li>
             <li class="active">设置</li>
         </ol>
     </section>
@@ -29,19 +24,13 @@
                     <div class="box-body">
                         <form role="form">
                             <div class="form-group">
-                                <select name="type" id="" class="form-control">
-                                    <option value="0">签证类型</option>
-                                    @foreach ($visa_types as $item)
-                                    <option value="{{$item->id}}" @if ($visa_country->type == $item->id) selected @endif>{{$item->name}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="">名称</label>
+                                <input type="text" class="form-control" name="name" value="{{$visa_type->name or ''}}">
                             </div>
                             <!-- /.box-body -->
-
                             <div class="box-footer">
                                 {!! csrf_field() !!}
-                                <input type="hidden" name="country_id" value="{{$visa_country->country_id or ''}}">
-                                <input type="hidden" name="visa_country_id" value="{{$visa_country->visa_country_id or ''}}">
+                                <input type="hidden" name="id" value="{{$visa_type->id or ''}}">
                                 <button type="button" class="btn btn-primary" id="submit">提交</button>
                             </div>
                         </form>
@@ -61,14 +50,14 @@
         $('#submit').click(function () {
             $.ajax({
                 'type':'POST',
-                'url': '{{route('save_visa_country')}}',
+                'url': '{{route('visa_type.save')}}',
                 'data': $('form').serialize(),
                 success: function (msg)
                 {
                     if (msg.status == 'success') {
                         toastr.success('保存成功!');
                         setTimeout(function () {
-                            window.location.href = '{{route('visa_countries', ['country_id' => $visa_country->country_id])}}';
+                            window.location.href = '{{route('visa_type.index')}}';
                         }, 2000);
 
                     } else {
@@ -77,6 +66,8 @@
                 }
             })
         })
+
+
 
 
     </script>

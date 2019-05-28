@@ -16,6 +16,7 @@ use App\Services\AdvantageService;
 use App\Services\UserTypeService;
 use App\Services\ApplyConditionService;
 use App\Services\TagService;
+use App\Services\VisaTypeService;
 
 class CountryService
 {
@@ -35,6 +36,8 @@ class CountryService
 
     protected $tagService;
 
+    protected $visaTypeService;
+
     public function __construct(
         CountryRepository $countryRepository,
         CountryDetailRepository $countryDetailRepository,
@@ -42,7 +45,8 @@ class CountryService
         AdvantageService $advantageService,
         UserTypeService $userTypeService,
         ApplyConditionService $applyConditionService,
-        TagService $tagService
+        TagService $tagService,
+        VisaTypeService $visaTypeService
     )
     {
         $this->countryRepository = $countryRepository;
@@ -52,6 +56,7 @@ class CountryService
         $this->userTypeService = $userTypeService;
         $this->applyConditionService = $applyConditionService;
         $this->tagService = $tagService;
+        $this->visaTypeSerivce = $visaTypeService;
     }
 
 
@@ -220,5 +225,11 @@ class CountryService
     public function getTags()
     {
         return $this->tagService->getAll();
+    }
+
+
+    public function getVisaTypes()
+    {
+        return $this->visaTypeSerivce->getAll();
     }
 }

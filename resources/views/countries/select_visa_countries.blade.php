@@ -32,10 +32,9 @@
             <label for="">签证类型</label>
             <select name="type" id="" class="form-control">
                 <option value="0">签证类型</option>
-                <option value="1">签证入境</option>
-                <option value="2">落地签入境</option>
-                <option value="3">免签目的国</option>
-                <option value="4">eVisa</option>
+                @foreach ($visa_types as $item)
+                    <option value="{{$item->id}}">{{$item->name}}</option>
+                @endforeach
             </select>
         </div>
         <div class="row">
