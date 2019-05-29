@@ -53,7 +53,6 @@
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}">
                                         <td><input type="radio" name="select" value="{{$item->id}}"></td>
-                                        <td>{{$item->name}}</td>
                                         <td>{{$item->ch_name}}</td>
                                         <td><img src="{{$item->flag}}" height="50" alt=""></td>
                                         <td>
