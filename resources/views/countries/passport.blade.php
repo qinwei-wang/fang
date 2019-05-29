@@ -121,9 +121,9 @@
                 success: function (msg) {
                     if (msg.status == 'success') {
                         toastr.success('签证类型修改成功!');
-                        setTimeout(function () {
-                            window.location.href = '{{route('visa_countries', ['country_id'=> request()->country_id])}}';
-                        }, 2000);
+                        {{--setTimeout(function () {--}}
+                            {{--window.location.href = '{{route('visa_countries', ['country_id'=> request()->country_id])}}';--}}
+                        {{--}, 2000);--}}
 
                     } else {
                         toastr.error('签证类型修改失败:' + msg.message);
