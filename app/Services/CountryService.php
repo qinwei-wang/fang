@@ -187,7 +187,7 @@ class CountryService
 
     public function getVisaCountries($params)
     {
-        return $this->visaCountryRepository->makeModel()->where('country_id', $params['country_id'])->paginate(50);
+        return $this->visaCountryRepository->makeModel()->where('country_id', $params['country_id'])->orderBy('id', 'desc')->paginate(50);
     }
 
 

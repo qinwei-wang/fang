@@ -38,7 +38,7 @@
                                 </tr>
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}" data-visa-country-id="{{$item->visa_country_id}}">
-                                        <td>{{$item->country->name}}</td>
+                                        <td>{{$item->country->ch_name}}</td>
                                         <td><img src="{{$item->country->flag}}" height="50" alt=""></td>
                                         <td>
                                             <select name="type" id="">
