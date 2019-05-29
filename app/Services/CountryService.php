@@ -98,7 +98,9 @@ class CountryService
 
     public function selectVisaCountries($params)
     {
-        $model = $this->countryRepository->makeModel()->where('id','!=', $params['country_id']);
+        $country_ids = $this->visaCountryRepository->makeModel()->where('country_id', $params['country_id'])->pluck('visa_country_id');
+        if ($country_ids) $country_ids = $country_ids->toArray();
+        $model = $this->countryRepository->makeModel()->where('id','!=', $params['country_id'])->whereNotIn('id', $country_ids);
         if (isset($params['ch_name']) && !empty($params['ch_name'])) {
             $model = $model->where('ch_name', 'like', '%' . $params['ch_name'] .'%');
         }
