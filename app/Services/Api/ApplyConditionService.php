@@ -21,6 +21,10 @@ class ApplyConditionService
 
     public function getApplyConditions($ids)
     {
-        return $this->applyConditionRepository->makeModel()->whereIn('id', $ids)->get();
+        $data = $this->applyConditionRepository->makeModel()->whereIn('id', $ids)->get();
+        foreach ($data as $item) {
+            $item->icon = img_url($item->icon);
+        }
+        return $data;
     }
 }
