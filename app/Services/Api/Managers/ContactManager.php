@@ -12,6 +12,7 @@
 namespace App\Services\Api\Managers;
 
 use App\Services\Api\CustomerService;
+use Mail;
 
 class ContactManager
 {
@@ -25,6 +26,10 @@ class ContactManager
 
     public function run($params)
     {
+        Mail::send('emails.reminder', ['params' => $params], function ($m) use ($params) {
+            $m->from(env('MAIL_USERNAME'));
+            $m->to('sgpec@sgpec.sg')->subject('customer');
+        });
         return $this->customerService->contact($params);
     }
 }

@@ -25,6 +25,7 @@ class HomeController extends Controller
     use ApiResponse;
 
 
+
     public function index(HomeManager $homeManager, Request $request)
     {
         return $this->success($homeManager->run($request->all()));
@@ -32,6 +33,7 @@ class HomeController extends Controller
 
     public function contact(ContactManager $contactManager, CreateCustomerRequest $request)
     {
+
         try {
             $contactManager->run($request->all());
             return $this->success();
