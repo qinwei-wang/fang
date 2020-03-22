@@ -102,17 +102,29 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::delete('/delete', 'VisaTypeController@delete')->name('visa_type.delete');
     });
 
+
+
 });
 
 
 //文件上传
 Route::group(['prefix' => 'upload', 'namespace' => 'Common'], function () {
     Route::post('/', 'UploadController@uploadToLocalStore')->name('upload');
+    Route::post('/kindediter', 'UploadController@postUpload')->name('kindediter.upload');
 });
 
 
 Route::group(['prefix' => 'customers', 'namespace' => 'Customer', 'middleware' => ['auth']], function () {
     Route::get('/', 'CustomerController@index');
+});
+
+ //新闻设置
+ Route::group(['prefix' => 'news', 'namespace' => 'News', 'middleware' => ['auth']], function () {
+    Route::get('/', 'NewsController@index')->name('news');
+    Route::get('/{id}', 'NewsController@edit')->name('news.edit');
+    Route::delete('/', 'NewsController@delete')->name('news.delete');
+    Route::get('/create', 'NewsController@create')->name('news.create');
+    Route::post('/store', 'NewsController@store')->name('news.store');
 });
 
 

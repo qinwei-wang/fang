@@ -19,6 +19,7 @@ use App\Services\Api\Managers\ContactManager;
 use App\Http\Requests\CreateCustomerRequest;
 use Illuminate\Http\Request;
 use App\Services\Api\CountryService;
+use App\Services\Api\NewsService;
 
 class HomeController extends Controller
 {
@@ -61,5 +62,23 @@ class HomeController extends Controller
     {
         $passport_info = $countryService->getPassportsInfo();
         return $this->success($passport_info);
+    }
+
+    public function getNewsList(Request $request, NewsService $newsService)
+    {
+        $news = $newsService->getNewsList($request);
+        return $this->success(['news_list' => $news]);
+    }
+
+    public function getNews(Request $request, NewsService $newsService)
+    {
+        $news = $newsService->getNewsById($request->id);
+        return $this->success($news);
+    }
+
+    public function getRecommendNews(Request $request, NewsService $newsService)
+    {
+        $news = $newsService->getRecommendNews($request);
+        return $this->success(['recommend_news_list' => $news]);
     }
 }

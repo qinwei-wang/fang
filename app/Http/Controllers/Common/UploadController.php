@@ -39,4 +39,30 @@ class UploadController extends Controller
         }
 
     }
+
+      /**
+     * kindeditor上传图片
+     * @return mixed
+     */
+    public function postUpload(Request $request)
+    {
+        try {
+
+            if ($request->file('imgFile')->isValid()) {
+
+                $file = $request->file('imgFile');
+                $file_name = uniqid() . '.' . $file->extension();
+                $path = 'images/default/';
+                request()->file('imgFile')->move($path, $file_name);
+                return response()->json(array('error' => 0, 'url' => asset($path . $file_name)));
+
+            } else {
+                throw new \Exception('文件上传失败');
+            }
+        } catch(\Exception $e) {
+           \Log::error($e->getMessage());
+           \Log::error($e->getTrace());
+           return response()->json(array('error' => 1, 'message' => "failed to upload!"));
+        }
+    }
 }

@@ -13,4 +13,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/country/{id}', 'HomeController@getCountryInfo')->name('country_info');
     Route::get('/passportsInfo', 'HomeController@getPassportsInfo')->name('passportsInfo');
     Route::get('/countries', 'HomeController@getRecommendCountries')->name('passport_info');
+    Route::get('/newsList', 'HomeController@getNewsList')->name('home.newsList');
+    Route::get('/news', 'HomeController@getNews')->name('home.news');
+    Route::get('/recommend_news_list', 'HomeController@getRecommendNews')->name('home.recommend_news_list');
+
 });

@@ -87,6 +87,25 @@ return [
                 ],
 
             ]
+        ],
+        [
+            'roles' => '*',
+            'is_open' => false,
+            'icon' => 'fa fa-gear',
+            'site' => '*',
+            'title' => '新闻管理',
+            'menus' => [
+
+                [
+                    'icon' => 'fa fa-fire',
+                    'title' => '新闻',
+                    'site' => '*',
+                    'link' => '/news',
+                    'roles' => '*',
+                    'is_active' => false,
+                ],
+
+            ]
         ]
     ]
 ];
