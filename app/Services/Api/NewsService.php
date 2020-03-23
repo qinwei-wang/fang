@@ -22,9 +22,14 @@ class NewsService
         $offset = ($page - 1) * $pageSize;
         $news = NewsCategory::with(['news' =>  function ($query) use ($offset, $pageSize) {
             $query->skip($offset)->take($pageSize)->orderBy('id', 'desc');
-        }])->get();
-
-        return $news;
+        }]);
+        if ($request->category_id) {
+            $news = $news->where('id', $request->category_id)->first();
+            return $news->news;
+        } else {
+            $news = $news->get();
+            return  $news;
+        }
     }
 
     public function getNewsListByCategoryId($categoryId, $page = 0, $pageSize = 10)
