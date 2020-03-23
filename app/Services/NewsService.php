@@ -28,7 +28,7 @@ class NewsService
 
     public function getList(Request $request)
     {
-        return NewsModel::paginate(20);
+        return NewsModel::orderBy('id', 'desc')->paginate(20);
     }
 
     public function getNewsById($id)

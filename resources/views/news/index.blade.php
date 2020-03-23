@@ -75,6 +75,13 @@
 
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                @if (!empty($list))
+                    {{ $list->appends(Request::all())->links() }}
+                @endif
+            </div>
+        </div>
 
 
     </section>
