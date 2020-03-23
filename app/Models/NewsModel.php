@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class NewsModel extends Model
 {
-    use SoftDeletes;
     //
 
     protected $table = 'cms_news';
 
     protected $guarded = [];
+
 
     public function category()
     {
