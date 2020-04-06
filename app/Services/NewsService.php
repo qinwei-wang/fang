@@ -23,6 +23,8 @@ class NewsService
             'is_recommend' => $request->is_recommend,
             'img' => $request->img,
             'content' => $request->content,
+            'description' => $request->description,
+            'tag' => $request->tag,
         ]);
     }
 
