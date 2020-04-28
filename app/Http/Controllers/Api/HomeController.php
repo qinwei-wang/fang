@@ -83,10 +83,9 @@ class HomeController extends Controller
         return $this->success(['recommend_news_list' => $news]);
     }
 
-    public function getCountry()
+    public function getCountry(Request $request)
     {
-        $ip = getIP();
-        $location = GeoIP::getLocation($ip);
+        $location = GeoIP::getLocation($request->ip);
         $isChina = in_array($location->iso_code, ['CN', 'HK', 'TW'])? 1 : 0;
         return $this->success(['isChina' => $isChina]);
     }
