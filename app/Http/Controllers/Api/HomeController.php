@@ -20,6 +20,7 @@ use App\Http\Requests\CreateCustomerRequest;
 use Illuminate\Http\Request;
 use App\Services\Api\CountryService;
 use App\Services\Api\NewsService;
+use Torann\GeoIP\Facades\GeoIP;
 
 class HomeController extends Controller
 {
@@ -80,5 +81,13 @@ class HomeController extends Controller
     {
         $news = $newsService->getRecommendNews($request);
         return $this->success(['recommend_news_list' => $news]);
+    }
+
+    public function getCountry()
+    {
+        $ip = getIP();
+        $location = GeoIP::getLocation($ip);
+        $isChina = in_array($location->iso_code, ['CN', 'HK', 'TW'])? 1 : 0;
+        return $this->success(['isChina' => $isChina]);
     }
 }

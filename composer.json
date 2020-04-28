@@ -8,7 +8,9 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "guzzlehttp/guzzle": "~5.3|~6.0",
-        "stichoza/google-translate-php": "~3.2"
+        "stichoza/google-translate-php": "~3.2",
+        "geoip2/geoip2": "~2.0",
+        "torann/geoip": "1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
