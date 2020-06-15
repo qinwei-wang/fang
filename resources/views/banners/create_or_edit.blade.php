@@ -52,6 +52,12 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">链接</label>
+                                                <input type="text" name="action" value="{{$banner->action or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-group">
                                                 <label for="exampleInputEmail1">描述</label>
                                                 <input type="text" name="description" value="{{$banner->description or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
                                             </div>

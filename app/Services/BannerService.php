@@ -56,7 +56,8 @@ class BannerService
             'img' => $params['img'],
             'description'=> $params['description'],
             'sort'=> $params['sort'],
-            'platform'=> $params['platform']
+            'platform'=> $params['platform'],
+            'action' => $params['action'],
         ]);
     }
 

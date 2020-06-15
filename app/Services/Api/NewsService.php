@@ -17,19 +17,20 @@ class NewsService
 
     public function getNewsList($request)
     {
-        $page = $request->input('page', 1);
-        $pageSize = $request->input('size', 10);
-        $offset = ($page - 1) * $pageSize;
-        $news = NewsCategory::with(['news' =>  function ($query) use ($offset, $pageSize) {
-            $query->skip($offset)->take($pageSize)->orderBy('id', 'desc');
-        }]);
+        
         if ($request->category_id) {
-            $news = $news->where('id', $request->category_id)->first();
-            return $news->news;
+            $news = NewsModel::where('category_id', $request->category_id)->first();
         } else {
-            $news = $news->get();
-            return  $news;
+            $news = NewsCategory::all();
+            $page = $request->input('page', 1);
+            $pageSize = $request->input('size', 20);
+            $offset = ($page - 1) * $pageSize;
+            foreach ($news as $item) {
+                $item->news = NewsModel::where('category_id', $item->id)->skip($offset)->take($pageSize)->get();
+            }
         }
+        return  $news;
+
     }
 
     public function getNewsListByCategoryId($categoryId, $page = 0, $pageSize = 10)
