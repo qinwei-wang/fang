@@ -21,11 +21,11 @@ class NewsService
         $pageSize = $request->input('size', 20);
         $offset = ($page - 1) * $pageSize;
         if ($request->category_id) {
-            $news = NewsModel::where('category_id', $request->category_id)->skip($offset)->take($pageSize)->get();
+            $news = NewsModel::where('category_id', $request->category_id)->orderBy('id', 'desc')->skip($offset)->take($pageSize)->get();
         } else {
             $news = NewsCategory::all();
             foreach ($news as $item) {
-                $item->news = NewsModel::where('category_id', $item->id)->skip($offset)->take($pageSize)->get();
+                $item->news = NewsModel::where('category_id', $item->id)->orderby('id', 'desc')->skip($offset)->take($pageSize)->get();
             }
         }
         return  $news;
