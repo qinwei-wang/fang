@@ -35,7 +35,7 @@
 
                             <div class="box-footer">
                                 {!! csrf_field() !!}
-                                <input type="hidden" name="id" value="{{$advantage->id or ''}}">
+                                <input type="hidden" name="id" value="{{$user_type->id or ''}}">
                                 <button type="button" class="btn btn-primary" id="submit">提交</button>
                             </div>
                         </form>
