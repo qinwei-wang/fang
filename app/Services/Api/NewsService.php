@@ -17,14 +17,13 @@ class NewsService
 
     public function getNewsList($request)
     {
-        
+        $page = $request->input('page', 1);
+        $pageSize = $request->input('size', 20);
+        $offset = ($page - 1) * $pageSize;
         if ($request->category_id) {
-            $news = NewsModel::where('category_id', $request->category_id)->first();
+            $news = NewsModel::where('category_id', $request->category_id)->skip($offset)->take($pageSize)->get();
         } else {
             $news = NewsCategory::all();
-            $page = $request->input('page', 1);
-            $pageSize = $request->input('size', 20);
-            $offset = ($page - 1) * $pageSize;
             foreach ($news as $item) {
                 $item->news = NewsModel::where('category_id', $item->id)->skip($offset)->take($pageSize)->get();
             }
