@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use App\Services\Api\CountryService;
 use App\Services\Api\NewsService;
 use Torann\GeoIP\Facades\GeoIP;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -35,7 +36,6 @@ class HomeController extends Controller
 
     public function contact(ContactManager $contactManager, CreateCustomerRequest $request)
     {
-
         try {
             $contactManager->run($request->all());
             return $this->success();
@@ -45,6 +45,16 @@ class HomeController extends Controller
             return $this->failed($e->getMessage());
 
         }
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $params = $request->all();
+        Mail::send('emails.reminder', ['params' => $params], function ($m) use ($params) {
+            $m->from(env('MAIL_USERNAME'));
+            $m->to('peterwusg@gmail.com')->subject($params['name']);
+        });
+        return $this->success();
     }
 
 

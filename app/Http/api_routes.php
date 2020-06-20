@@ -17,5 +17,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/news', 'HomeController@getNews')->name('home.news');
     Route::get('/recommend_news_list', 'HomeController@getRecommendNews')->name('home.recommend_news_list');
     Route::get('/ip', 'HomeController@getCountry')->name('home.getCountry');
+    //sendEmail
+    Route::post('/send_email', 'HomeController@sendEmail')->name('home.send_email');
+
 
 });
