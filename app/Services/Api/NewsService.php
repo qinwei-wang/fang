@@ -56,7 +56,7 @@ class NewsService
         $page = $request->input('page', 1);
         $pageSize = $request->input('size', 10);
         $offset = ($page - 1) * $pageSize;
-        $newList = NewsModel::select('id', 'title')->where('is_recommend', 1)->skip($offset)->take($pageSize)->orderBy('id', 'desc')->get();
+        $newList = NewsModel::where('is_recommend', 1)->skip($offset)->take($pageSize)->orderBy('id', 'desc')->get();
         return $newList;
     }
 
