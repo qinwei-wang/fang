@@ -24,7 +24,10 @@ class CustomerService
         return $this->customerRepository->makeModel()->create([
             'email' => $params['email'],
             'name' => $params['name'],
-            'phone' => $params['phone']
+            'phone' => $params['phone'],
+            'age' => $params['age'],
+            'english_level' => $params['english_level'],
+            'education' => $params['education'],
         ]);
     }
 }
