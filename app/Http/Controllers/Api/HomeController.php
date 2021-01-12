@@ -34,7 +34,7 @@ class HomeController extends Controller
         return $this->success($homeManager->run($request->all()));
     }
 
-    public function contact(ContactManager $contactManager, CreateCustomerRequest $request)
+    public function contact(ContactManager $contactManager, Request $request)
     {
         try {
             $contactManager->run($request->all());
