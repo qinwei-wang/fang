@@ -42,6 +42,7 @@
     <label class="col-sm-2 control-label"><b>英语等级:</b></label>
     {{$params['english_level']}}
 </div>
+@endif
 
 @if ($params['education'])
 <div class="block">
