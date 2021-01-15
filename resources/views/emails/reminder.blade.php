@@ -12,53 +12,53 @@
 </head>
 <body>
 
-@if ($params['email'])
+@if (!empty($params['email']))
 <div class="block">
     <label class="col-sm-2 control-label"><b>邮箱:</b></label>
     {{$params['email']}}
 </div>
 @endif
-@if ($params['name'])
+@if (!empty($params['name']))
 <div class="block">
     <label class="col-sm-2 control-label"><b>称呼:</b></label>
     {{$params['name']}}
 </div>
 @endif
-@if ($params['phone'])
+@if (!empty($params['phone']))
 <div class="block">
     <label class="col-sm-2 control-label"><b>电话:</b></label>
     {{$params['phone']}}
 </div>
 @endif
-@if ($params['age'])
+@if (!empty($params['age']))
 <div class="block">
     <label class="col-sm-2 control-label"><b>年龄:</b></label>
     {{$params['age']}}
 </div>
 @endif
 
-@if ($params['english_level'])
+@if (!empty($params['english_level']))
 <div class="block">
     <label class="col-sm-2 control-label"><b>英语等级:</b></label>
     {{$params['english_level']}}
 </div>
 @endif
 
-@if ($params['education'])
+@if (!empty($params['education']))
 <div class="block">
     <label class="col-sm-2 control-label"><b>最高学历:</b></label>
     {{$params['education']}}
 </div>
 @endif
 
-@if ($params['we_chat'])
+@if (!empty($params['we_chat']))
 <div class="block">
     <label class="col-sm-2 control-label"><b>微信:</b></label>
     {{$params['we_chat']}}
 </div>
 @endif
 
-@if ($params['text'])
+@if (!empty($params['text']))
 <div class="block">
     <label class="col-sm-2 control-label"><b>留言内容:</b></label>
     {{$params['text']}}
