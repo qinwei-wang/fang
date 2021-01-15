@@ -28,7 +28,7 @@ class ContactManager
     {
         Mail::send('emails.reminder', ['params' => $params], function ($m) use ($params) {
             $m->from(env('MAIL_USERNAME'));
-            $m->to('156738818@qq.com')->subject($params['name']);
+            $m->to('pwzcapital@hotmail.com')->subject($params['name']);
         });
         return $this->customerService->contact($params);
     }
