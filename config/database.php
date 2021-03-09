@@ -78,6 +78,13 @@ return [
             'schema' => 'public',
         ],
 
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'dsn' => env('MONGODB_DSN'),
+            'database' => env('MONGODB_DATABASE', 'fang'),
+        ],
+
+
     ],
 
     /*

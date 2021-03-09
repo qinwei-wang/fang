@@ -31,8 +31,9 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
+        // var_dump($request->header()['x-forwarded-for'][0]);exit;
+        // $host = $request->header()['x-forwarded-for'][0];
         header("Access-Control-Allow-Origin: *"); // 允许任意域名发起的跨域请求
-        header('Access-Control-Allow-Methods:OPTIONS, GET, POST');
         header('Access-Control-Allow-Headers:x-requested-with');
         header('Access-Control-Max-Age:86400');
         header('Access-Control-Allow-Credentials:true');

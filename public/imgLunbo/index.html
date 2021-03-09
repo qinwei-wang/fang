@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery多图上传及返显预览</title>
+    <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <link href="./upload.css" rel="stylesheet" />
+</head>
+<style>
+    body {
+        padding: 20px;
+    }
+    .p {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background: #e9e9e9;
+        padding: 10px;
+    }
+    .test-box {
+        overflow: hidden;
+    }
+    .test {
+        float: left;
+        margin-right: 10px;
+        padding: 8px;
+        border-radius: 4px;
+        background-color: blue;
+        text-align: center;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+
+    <!-- IE方式上传，可自定义form的id 、input的 class、 name -->
+    <!-- 下面这个form是可自定义的 用来测试IE上传的， 这个开了下面的 input 就隐藏起来 -->
+
+    <!-- <form  id="isIeform" action="http://127.0.0.1:8086"  method="post" enctype="multipart/form-data">    
+        <div class="type-file-div">
+            <input id="fileUpIpt"  type="file" class="input-file" name="luTest[]" style="display: none;">
+        </div>
+    </form> -->
+
+
+    <p class="p">下面是图片上传</p>
+    <div id="uploadImgs" style="margin-bottom: 20px;">
+        <!--  id="uploadImgs" and  class="type-file-div"  是固定写法，下面label全部代码固定写法，input 可自定义class /  name -->
+        <!-- label无论是那种上传方式都是必须存在的  -->
+        <label for="fileUpIpt" id="labelId">
+            <div class="uploadImgs-add">+</div>
+        </label>
+
+        <!-- 谷歌上传 方式下面要打开 ，如果是IE方式就下面这段隐藏，把上面打开 -->
+        <div class="type-file-div">
+            <input type="file" class="input-file" name="luTest[]" style="display: none;">
+        </div>
+    </div>
+    <div class="test-box">
+        <div class="test" onclick="gogoole()">谷歌等上传</div>
+        <div class="test" onclick="ieSubmit()">IE8/9上传</div>
+    </div>
+
+    <p class="p">下面是图片反显</p>
+    <!--  id="showImgs"  固定 -->
+    <div id="showImgs"></div>
+</body>
+
+<script>
+    var gbOption = null; //必须，固定变量名
+    var filesArr=[]; //固定写法 这个就是上传能拿到的 files的集合，
+    var fileClass = 'input-file'; //必须，固定变量名，值可自定义，就是input的 class自定义后 需要在这重新声明
+    var imgObj2 = []; //可自定义，图片上传功能 时必须给的东西，传递到imgsUpload
+    var upoad; //可自定义，上传功能时的  工具人，自定义然后传递到imgsUpload 就行
+
+    var ispre; ////反显  时的工具人属性，是一个对象，里面包含了 当前图片预览步骤，和图片数组。 这个最好固定，你要改就一起要改upload.js里面的
+
+    setTimeout(function () { //setTimeout变成异步加载，不然提示有些函数找不到，可自己优化
+        imgsUpload(imgObj2,upoad,3); //上传时调用, 最多上传3张
+
+        var imgObj = ['./t1.png', './t2.png', './t3.png'] //反显, 模拟反显的数据来源，真实是从服务器获取数据
+        gbOption=ispre = new imgPre(imgObj, true); //反显
+
+        createPreDiv(); //创建用于图片预览的DIV结构，上传和返显都要调用
+    }, 100)
+
+
+
+    function gogoole() {
+        //得到files的集合，后你想new Fromdata 然后ajax, 还是怎么给后台 就随你玩了!!!!
+        if(filesArr.length>0)alert('得到files的集合'); console.log(filesArr)
+    }
+    function ieSubmit() {
+        // 注意：IE方式上传，会动态生成 多个 input ，通过原始表单提交方式提交到服务器，记得上传前删除最后一个 input 。需要打开 测试IE上传的html代码
+        // 如果要统一上传方式，请在 在upload.js 搜索  IE方式 ，能检索到需要注意的地方
+        alert('传统表单方式上传'); $("#isIeform").submit();
+    }
+</script>
+<script src="./upload.js" type="text/javascript"></script>
+
+
+<script>
+    /*
+     上面的例子是上传和返显一起用的例子，看起来是有点小乱。有些东西也没封装得很好，哎！！临时赶出来的，没办法，都2021了， 某些项目 还要兼顾IE  是真的 无语。。。
+     如果单独返显图片，需要那些东东呢，下面是单独返显的例子：
+
+     html部分-----：
+
+      <div id="showImgs"></div>  
+
+     JS部分-----：
+
+        var gbOption,ispre;
+        setTimeout(function () {
+            var imgObj = ['./aaa.jpg', './bbb.jpg', './ccc.jpg']//数据来源
+            gbOption= ispre = new imgPre(imgObj, true);
+            createPreDiv();
+        })
+      
+      就这样，完事，撒花！！！！
+    */
+</script>
+
+
+<script>
+
+
+
+
+
+</script>
+
+
+</html>

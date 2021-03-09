@@ -65,4 +65,9 @@ class UploadController extends Controller
            return response()->json(array('error' => 1, 'message' => "failed to upload!"));
         }
     }
+
+    public function upload(Request $request)
+    {
+        var_dump($request->all());exit;
+    }
 }

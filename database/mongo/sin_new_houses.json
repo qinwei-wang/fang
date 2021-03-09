@@ -1,0 +1,48 @@
+{
+    "title": "abc",
+    "image": "image",
+    "addr":"abc",
+    "area": "a",
+    "areage":10,
+    "traffic": [
+        "abc",
+        "b",
+        "c"
+    ],
+    "house_types": [
+        {
+            "type": "两室一厅",
+            "areage":100,
+            "total": 200,
+            "price":200
+        }
+    ],
+    "description":"tfff",
+    "pictures": {
+        "effect": [
+            "url"
+        ],
+        "demo": [
+           "url"
+        ],
+        "surrounding": [
+            "url"
+        ]
+    },
+    "name": "sin",
+    "type": "私人公寓",
+    "developer": "开发商",
+    "property": "99年",
+    "opening_at":"2020",
+    "finish_at": "2020",
+    "facilities": [
+        "24小时保安",
+        "50米标准泳池"
+    ],
+    "consultant": {
+        "name":"sin",
+        "phone":123432434,
+        "description": "123"
+    }
+
+}

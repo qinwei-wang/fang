@@ -22,6 +22,8 @@ use App\Services\Api\CountryService;
 use App\Services\Api\NewsService;
 use Torann\GeoIP\Facades\GeoIP;
 use Mail;
+use App\Services\NewHouseService;
+use App\Services\SecondHandHouseService;
 
 class HomeController extends Controller
 {
@@ -98,5 +100,35 @@ class HomeController extends Controller
         $location = GeoIP::getLocation($request->ip);
         $isChina = in_array($location->iso_code, ['CN', 'HK', 'TW'])? 1 : 0;
         return $this->success(['isChina' => $isChina]);
+    }
+
+    public function getNewHouseList(Request $request, NewHouseService $newHouseService)
+    {
+        $list = $newHouseService->getApiList($request->all());
+        return $this->success($list);
+    }
+
+    public function getNewHouseDetail(Request $request,  NewHouseService $newHouseService)
+    {
+        $house = $newHouseService->getApiDetail($request->id);
+        return $this->success(['new_house' => $house]); 
+    }
+
+    public function getNewHouseRecommend(Request $request,  NewHouseService $newHouseService)
+    {
+        $result = $newHouseService->getApiRecommend();
+        return $this->success($result); 
+    }
+
+    public function getSecondHandHouseList(Request $request, SecondHandHouseService $newHouseService)
+    {
+        $list = $newHouseService->getApiList($request->all());
+        return $this->success(['new_houses' => $list]);
+    }
+
+    public function getSecondHandHouseDetail(Request $request,  SecondHandHouseService $newHouseService)
+    {
+        $house = $newHouseService->getApiDetail($request->id);
+        return $this->success(['new_house' => $house]); 
     }
 }

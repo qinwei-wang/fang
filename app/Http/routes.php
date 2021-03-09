@@ -110,6 +110,7 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
 //文件上传
 Route::group(['prefix' => 'upload', 'namespace' => 'Common'], function () {
     Route::post('/', 'UploadController@uploadToLocalStore')->name('upload');
+    Route::post('/base', 'UploadController@upload')->name('upload.base');
     Route::post('/kindediter', 'UploadController@postUpload')->name('kindediter.upload');
 });
 
@@ -127,6 +128,26 @@ Route::group(['prefix' => 'customers', 'namespace' => 'Customer', 'middleware' =
     Route::post('/store', 'NewsController@store')->name('news.store');
 });
 
+ //房屋设置
+ Route::group(['prefix' => 'house', 'namespace' => 'House', 'middleware' => ['auth']], function () {
+    Route::get('/new_house', 'NewHouseController@index')->name('newHouse');
+    Route::get('/new_house/create', 'NewHouseController@create')->name('newHouse.create');
+    Route::post('/new_house', 'NewHouseController@save')->name('newHouse.save');
+    Route::get('/new_house/{id}', 'NewHouseController@edit')->name('newHouse.edit');
+    Route::delete('/new_house', 'NewHouseController@delete')->name('newHouse.delete');
+
+    Route::get('/rented_house', 'RentedHouseController@index')->name('rentedHouse');
+    Route::get('/rented_house/create', 'RentedHouseController@create')->name('rentedHouse.create');
+    Route::post('/rented_house', 'RentedHouseController@save')->name('rentedHouse.save');
+    Route::get('/rented_house/{id}', 'RentedHouseController@edit')->name('rentedHouse.edit');
+    Route::delete('/rented_house', 'RentedHouseController@delete')->name('rentedHouse.delete');
+
+    Route::get('/second_hand_house', 'SecondHandHouseController@index')->name('secondHandHouse');
+    Route::get('/second_hand_house/create', 'SecondHandHouseController@create')->name('secondHandHouse.create');
+    Route::post('/second_hand_house', 'SecondHandHouseController@save')->name('secondHandHouse.save');
+    Route::get('/second_hand_house/{id}', 'SecondHandHouseController@edit')->name('secondHandHouse.edit');
+    Route::delete('/second_hand_house', 'SecondHandHouseController@delete')->name('secondHandHouse.delete');
+});
 
 
 
