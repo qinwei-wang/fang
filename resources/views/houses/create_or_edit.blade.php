@@ -50,6 +50,10 @@
 
                         </div>
                         <div class="form-group">
+                            <label for="">套图</label>
+                            <div id="cupload-5"></div>
+                        </div>
+                        <div class="form-group">
                             <label for="">价格</label>
                             <input type="text" class="form-control" name="price" value="{{$house->price or ''}}">
                         </div>
@@ -224,6 +228,9 @@
     demoImages = demoImages.replace(new RegExp('&quot;', "gm"), '"')
     var surroundingImages = '{{isset($house) ? json_encode($house->surrounding_images) : ""}}'
     surroundingImages = surroundingImages.replace(new RegExp('&quot;', "gm"), '"')
+
+    var images = '{{isset($house) ? json_encode($house->images) : ""}}'
+    images = images.replace(new RegExp('&quot;', "gm"), '"')
     var cupload1 = new Cupload({
         ele: '#cupload-1',
         num: 20,
@@ -244,11 +251,18 @@
         data: "{{!empty($house)}}" ? JSON.parse(surroundingImages) : null,
     });
 
-    var cupload3 = new Cupload({
+    var cupload4 = new Cupload({
         ele: '#cupload-4',
         num: 1,
         name: "image",
         data: "{{!empty($house)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
+    });
+
+    var cupload5 = new Cupload({
+        ele: '#cupload-5',
+        num: 20,
+        name: "images",
+        data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
     });
     // toastr.success('保存成功!');
     $('#submit').click(function() {
