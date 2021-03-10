@@ -107,22 +107,33 @@ class NewHouseService
         $page = array_get($params, 'page');
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = NewHouseModel::select('title', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
+        $data = NewHouseModel::select('title', 'title_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
             $item->traffic = explode(',', $item->traffic);
             $item->facilities = explode(',', $item->facilities);
-
+            $item->title_tags = explode(',', $item->title_tags);
+            $item->image = img_url($item->image);
         }
 
-       
-
         return ['new_houses' => $data];
-
     }
 
     public function getApiDetail($id)
     {
         $house = NewHouseModel::find($id);
+        $house->effect_images && $house->effect_images = array_map(function ($v) {
+            return img_url($v);
+        }, $house->effect_images);
+
+        $house->demo_images && $house->demo_images = array_map(function ($v) {
+            return img_url($v);
+        }, $house->demo_images);
+
+        $house->surrounding_images && $house->surrounding_images = array_map(function ($v) {
+            return img_url($v);
+        }, $house->surrounding_images);       
+
+        $house->image = img_url($house->image);
         $house->traffic = explode(',', $house->traffic);
         $house->facilities = explode(',', $house->facilities);
         $house->finish_at = Carbon::parse($house->finish_at)->toDateString();

@@ -3,6 +3,9 @@
 @section('css')
 <link href='{{asset("imgLunbo/upload.css")}}' />
 <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<link href="/bower_components/bootstrap-datepicker/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<link href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-colorpicker.css" type="text/css" rel="stylesheet">
+
 @endsection
 <section class="content-header">
     <h1>
@@ -34,6 +37,10 @@
                             <input type="text" class="form-control" name="title" value="{{$house->title or ''}}">
                         </div>
                         <div class="form-group">
+                            <label for="">标题tag (逗号分开)</label>
+                            <input type="text" class="form-control" name="title_tags" value="{{$house->title_tags or ''}}">
+                        </div>
+                        <div class="form-group">
                             <label for="">楼盘名称</label>
                             <input type="text" class="form-control" name="name" value="{{$house->name or ''}}">
                         </div>
@@ -49,7 +56,7 @@
                         <div class="form-group">
                             <label for="">开发商</label>
                             <input type="text" class="form-control" name="developer" value="{{$house->developer or ''}}">
-                        </div> 
+                        </div>
                         <div class="form-group">
                             <label for="">地区位置</label>
                             <input type="text" class="form-control" name="location" value="{{$house->location or ''}}">
@@ -66,7 +73,7 @@
                             <label for="">产权</label>
                             <input type="text" class="form-control" name="property" value="{{$house->property or ''}}">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="">建筑面积</label>
                             <input type="text" class="form-control" name="area" value="{{$house->area or ''}}">
@@ -93,6 +100,10 @@
                             <label for="">交通 (逗号隔开）</label>
                             <input type="text" class="form-control" name="traffic" value="{{$house->traffic or ''}}">
                         </div>
+                        <div class="form-group">
+                            <label for="">交通提示 ）</label>
+                            <input type="text" class="form-control" name="traffic_tips" value="{{$house->traffic_tips or ''}}">
+                        </div>
 
                         <div class="form-group">
                             <label for="">公寓设施 (逗号隔开）</label>
@@ -100,15 +111,9 @@
                         </div>
 
 
-
                         <div class="form-group">
                             <label for="">房源介绍</label>
                             <textarea class="form-control" name="description" id="" rows="5">{{$house->description or ''}}</textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">是否推荐</label>
-                            <input type="radio" class="form-control" name="is_recommend" value="{{$house->is_recommend or ''}}">
                         </div>
 
                     </div>
@@ -193,11 +198,11 @@
                         </div>
                     </div>
                 </div>
-            
+
                 <div>
                     {!! csrf_field() !!}
                     <input type="hidden" class="form-control" name="id" value="{{$house->id or ''}}">
-                    <button type="button" class="btn btn-primary" id="submit">提交</button> 
+                    <button type="button" class="btn btn-primary" id="submit">提交</button>
                 </div>
             </form>
         </div>
@@ -210,13 +215,15 @@
 <script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- <script src='{{asset("imgLunbo/upload.js")}}' type="text/javascript"></script> -->
 <script src="{{asset('static/js/cupload.js')}}"></script>
+<script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-colorpicker.js"></script>
 <script type="text/javascript">
     var effectImages = '{{isset($house) ? json_encode($house->effect_images) : ""}}'
-    effectImages = effectImages.replace(new RegExp('&quot;',"gm"),'"')
+    effectImages = effectImages.replace(new RegExp('&quot;', "gm"), '"')
     var demoImages = '{{isset($house) ? json_encode($house->demo_images) : ""}}'
-    demoImages = demoImages.replace(new RegExp('&quot;',"gm"),'"')
+    demoImages = demoImages.replace(new RegExp('&quot;', "gm"), '"')
     var surroundingImages = '{{isset($house) ? json_encode($house->surrounding_images) : ""}}'
-    surroundingImages = surroundingImages.replace(new RegExp('&quot;',"gm"),'"')
+    surroundingImages = surroundingImages.replace(new RegExp('&quot;', "gm"), '"')
     var cupload1 = new Cupload({
         ele: '#cupload-1',
         num: 20,
@@ -286,7 +293,13 @@
         $('#datepicker').datepicker("setDate", '{{$house->finish_at or ""}}');
         $('#datepicker1').datepicker("setDate", '{{$house->start_at or ""}}');
     }
-    
 
+    // 基本实例化:
+    $('#demo').colorpicker();
+    // 添加change事件 改变背景色
+    $('#demo').on('change', function(event) {
+        $('#demo').css('background-color', event.color.toString()).val('');
+        $("#color").text(event.color.toString());
+    });
 </script>
 @endsection
