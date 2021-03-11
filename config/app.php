@@ -157,7 +157,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
 
-        'Torann\GeoIP\GeoIPServiceProvider',
         Jenssegers\Mongodb\MongodbServiceProvider::class,
 
     ],
