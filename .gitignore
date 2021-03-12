@@ -7,4 +7,4 @@ Homestead.json
 /node_modules
 .idea/
 /storage
-/public/images
+# /public/images
