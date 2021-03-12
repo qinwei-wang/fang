@@ -6,7 +6,7 @@
 @endsection
 <section class="content-header">
     <h1>
-        新房
+        二手房
         <small></small>
     </h1>
     <!-- You can dynamically generate breadcrumbs here -->
