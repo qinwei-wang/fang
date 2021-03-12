@@ -22,6 +22,7 @@ class SecondHandHouseService
 
         //图片
         $image = array_get($params, 'image');
+        $images = array_get($params, 'images');
         $effectImages = array_get($params, 'effect_images');
         $demoImages = array_get($params, 'demo_images');
         $surroundingImages = array_get($params, 'surrounding_images');
@@ -30,13 +31,22 @@ class SecondHandHouseService
         $effectImages = $this->handleBase64Images($effectImages);
         $demoImages = $this->handleBase64Images($demoImages);
         $surroundingImages = $this->handleBase64Images($surroundingImages);
+        $images = $this->handleBase64Images($images);
         $data = $params;
         $data['house_types'] = $houseTypes;
         $data['effect_images'] = $effectImages;
         $data['demo_images'] = $demoImages;
         $data['surrounding_images'] = $surroundingImages;
         $data['image'] = $image;
-        SecondHandHouseModel::create($data); 
+        $data['images'] = $images;
+        unset($data['token']);
+        if ($id) {
+            $house = SecondHandHouseModel::find($id);
+            $house->fill($data);
+            $house->save();
+        } else {
+            SecondHandHouseModel::create($data); 
+        } 
     }
 
     protected function handleBase64Images($base64Images)

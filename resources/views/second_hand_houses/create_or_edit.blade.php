@@ -34,6 +34,10 @@
                             <input type="text" class="form-control" name="title" value="{{$house->title or ''}}">
                         </div>
                         <div class="form-group">
+                            <label for="">标题tag (逗号分开)</label>
+                            <input type="text" class="form-control" name="title_tags" value="{{$house->title_tags or ''}}">
+                        </div>
+                        <div class="form-group">
                             <label for="">楼盘名称</label>
                             <input type="text" class="form-control" name="name" value="{{$house->name or ''}}">
                         </div>
@@ -41,6 +45,10 @@
                             <label for="">主图</label>
                             <div id="cupload-4"></div>
 
+                        </div>
+                        <div class="form-group">
+                            <label for="">套图</label>
+                            <div id="cupload-5"></div>
                         </div>
                         <div class="form-group">
                             <label for="">价格</label>
@@ -88,6 +96,10 @@
                         <div class="form-group">
                             <label for="">交通 (逗号隔开）</label>
                             <input type="text" class="form-control" name="traffic" value="{{$house->traffic or ''}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">交通提示 ）</label>
+                            <input type="text" class="form-control" name="traffic_tips" value="{{$house->traffic_tips or ''}}">
                         </div>
 
                         <div class="form-group">
@@ -207,6 +219,8 @@
     demoImages = demoImages.replace(new RegExp('&quot;',"gm"),'"')
     var surroundingImages = '{{isset($house) ? json_encode($house->surrounding_images) : ""}}'
     surroundingImages = surroundingImages.replace(new RegExp('&quot;',"gm"),'"')
+    var images = '{{isset($house) ? json_encode($house->images) : ""}}'
+    images = images.replace(new RegExp('&quot;', "gm"), '"')
     var cupload1 = new Cupload({
         ele: '#cupload-1',
         num: 20,
@@ -227,11 +241,17 @@
         data: "{{!empty($house)}}" ? JSON.parse(surroundingImages) : null,
     });
 
-    var cupload3 = new Cupload({
+    var cupload4 = new Cupload({
         ele: '#cupload-4',
         num: 1,
         name: "image",
         data: "{{!empty($house)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
+    });
+    var cupload5 = new Cupload({
+        ele: '#cupload-5',
+        num: 20,
+        name: "images",
+        data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
     });
     // toastr.success('保存成功!');
     $('#submit').click(function() {
