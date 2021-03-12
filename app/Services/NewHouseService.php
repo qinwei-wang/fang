@@ -122,7 +122,9 @@ class NewHouseService
             $item->image = img_url($item->image);
         }
 
-        return ['new_houses' => $data];
+        $total = NewHouseModel::count();
+
+        return ['new_houses' => $data, 'total' => $total];
     }
 
     public function getApiDetail($id)
