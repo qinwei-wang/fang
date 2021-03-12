@@ -45,6 +45,10 @@
                             <input type="text" class="form-control" name="name" value="{{$house->name or ''}}">
                         </div>
                         <div class="form-group">
+                            <label for="">楼盘tags (逗号隔开）</label>
+                            <input type="text" class="form-control" name="name" value="{{$house->house_tags or ''}}">
+                        </div>
+                        <div class="form-group">
                             <label for="">主图</label>
                             <div id="cupload-4"></div>
 
@@ -130,7 +134,7 @@
                         @if (!empty($house->house_types))
                         @foreach ($house->house_types as $houseType)
                         <div class="row">
-                            <div class="col-xs-3">
+                            <div class="col-xs-2">
                                 <label for="">户型</label>
                                 <input type="text" name="house_types[type][]" value="{{$houseType['type']}}" class="form-control" placeholder=".col-xs-3">
                             </div>
@@ -143,15 +147,19 @@
                                 <label for="">套数</label>
                                 <input type="text" name="house_types[total][]" value="{{$houseType['total']}}" class="form-control" placeholder=".col-xs-5">
                             </div>
-                            <div class="col-xs-3">
+                            <div class="col-xs-2">
                                 <label for="">价格</label>
                                 <input type="text" name="house_types[price][]" value="{{$houseType['price']}}" class="form-control" placeholder=".col-xs-5">
+                            </div>
+                            <div class="col-xs-2">
+                                <label for="">均价</label>
+                                <input type="text" name="house_types[average_price][]" value="{{!empty($houseType['average_price']) ? $houseType['average_price'] : ''}}" class="form-control" placeholder=".col-xs-5">
                             </div>
                         </div>
                         @endforeach
                         @endif
                         <div class="row">
-                            <div class="col-xs-3">
+                            <div class="col-xs-2">
                                 <label for="">户型</label>
                                 <input type="text" name="house_types[type][]" value="" class="form-control" placeholder=".col-xs-3">
                             </div>
@@ -164,9 +172,13 @@
                                 <label for="">套数</label>
                                 <input type="text" name="house_types[total][]" value="" class="form-control" placeholder=".col-xs-5">
                             </div>
-                            <div class="col-xs-3">
+                            <div class="col-xs-2">
                                 <label for="">价格</label>
                                 <input type="text" name="house_types[price][]" value="" class="form-control" placeholder=".col-xs-5">
+                            </div>
+                            <div class="col-xs-2">
+                                <label for="">均价</label>
+                                <input type="text" name="house_types[average_price][]" value="" class="form-control" placeholder=".col-xs-5">
                             </div>
                         </div>
 
@@ -255,7 +267,7 @@
         ele: '#cupload-4',
         num: 1,
         name: "image",
-        data: "{{!empty($house)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
+        data: "{{!empty($house->image)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
     });
 
     var cupload5 = new Cupload({

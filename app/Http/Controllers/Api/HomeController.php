@@ -123,12 +123,12 @@ class HomeController extends Controller
     public function getSecondHandHouseList(Request $request, SecondHandHouseService $newHouseService)
     {
         $list = $newHouseService->getApiList($request->all());
-        return $this->success(['new_houses' => $list]);
+        return $this->success($list);
     }
 
     public function getSecondHandHouseDetail(Request $request,  SecondHandHouseService $newHouseService)
     {
         $house = $newHouseService->getApiDetail($request->id);
-        return $this->success(['new_house' => $house]); 
+        return $this->success(['second_hand_house' => $house]); 
     }
 }

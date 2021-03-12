@@ -106,24 +106,52 @@ class SecondHandHouseService
 
     public function getApiList($params)
     {
-        $data = SecondHandHouseModel::select('title', 'price', 'traffic', 'house_types', 'location', 'facilities')->OrderBy('created_at', 'desc')->get();
+        $page = array_get($params, 'page');
+        $size = (int) array_get($params, 'size', 10);
+        $offset = ($page - 1) * $size;
+        $data = SecondHandHouseModel::select('title', 'title_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
             $item->traffic = explode(',', $item->traffic);
             $item->facilities = explode(',', $item->facilities);
-
+            $item->title_tags = explode(',', $item->title_tags);
+            $item->image = img_url($item->image);
+            $item->house_tags = explode(',', $item->house_tags);
         }
 
-        return $data;
+        $total = SecondHandHouseModel::count();
+
+        return ['second_hand_houses' => $data, 'total' => $total];
+
     }
 
     public function getApiDetail($id)
     {
         $house = SecondHandHouseModel::find($id);
+        $house->effect_images && $house->effect_images = array_map(function ($v) {
+            return img_url($v);
+        }, $house->effect_images);
+
+        $house->demo_images && $house->demo_images = array_map(function ($v) {
+            return img_url($v);
+        }, $house->demo_images);
+
+        $house->surrounding_images && $house->surrounding_images = array_map(function ($v) {
+            return img_url($v);
+        }, $house->surrounding_images);       
+
+        $house->images && $house->images = array_map(function ($v) {
+            return img_url($v);
+        }, $house->images);    
+
+        $house->image = img_url($house->image);
         $house->traffic = explode(',', $house->traffic);
         $house->facilities = explode(',', $house->facilities);
         $house->finish_at = Carbon::parse($house->finish_at)->toDateString();
         $house->start_at = Carbon::parse($house->start_at)->toDateString();
+        $house->title_tags = explode(',', $house->title_tags);
+        $house->house_tags = explode(',', $house->house_tags);
 
         return $house;
+
     }
 }

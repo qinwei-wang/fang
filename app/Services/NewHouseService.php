@@ -12,11 +12,11 @@ class NewHouseService
         $id = array_get($params, 'id');
         //户型
         $houseTypes = array_get($params, 'house_types');
-        $houseTypes = array_map(function ($type, $area, $total, $price) {
+        $houseTypes = array_map(function ($type, $area, $total, $price, $averagePrice) {
             if (!empty($type)) {
-                return ['type' => $type, 'area' => $area, 'total' => $total, 'price' => $price];
+                return ['type' => $type, 'area' => $area, 'total' => $total, 'price' => $price, 'average_price' => $averagePrice];
             }
-        }, $houseTypes['type'], $houseTypes['area'], $houseTypes['total'], $houseTypes['price']);
+        }, $houseTypes['type'], $houseTypes['area'], $houseTypes['total'], $houseTypes['price'], $houseTypes['average_price']);
 
         $houseTypes = array_filter($houseTypes);
 
@@ -120,6 +120,7 @@ class NewHouseService
             $item->facilities = explode(',', $item->facilities);
             $item->title_tags = explode(',', $item->title_tags);
             $item->image = img_url($item->image);
+            $item->house_tags = explode(',', $item->house_tags);
         }
 
         $total = NewHouseModel::count();
@@ -152,6 +153,7 @@ class NewHouseService
         $house->finish_at = Carbon::parse($house->finish_at)->toDateString();
         $house->start_at = Carbon::parse($house->start_at)->toDateString();
         $house->title_tags = explode(',', $house->title_tags);
+        $house->house_tags = explode(',', $house->house_tags);
 
         return $house;
     }
