@@ -47,8 +47,8 @@
                                 </tr>
                                 
                                 @foreach ($list as $item)
-                                    <tr data-id="{{$item->id}}">
-                                        <td>{{$item->id}}</td>
+                                    <tr data-id="{{$item->_id}}">
+                                        <td>{{$item->_id}}</td>
                                         <td>{{$item->title}}</td>
                                         <td><img src="{{img_url($item->image)}}" alt="" width="100"></td>
                                         <td>{{$item->price}}</td>
@@ -66,7 +66,7 @@
                                         </td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
-                                            <a href="{{route('secondHandHouse.edit', ['id' => $item->id])}}">
+                                            <a href="{{route('secondHandHouse.edit', ['id' => $item->_id])}}">
                                                 <button class="btn btn-info">
                                                     编辑
                                                 </button>
