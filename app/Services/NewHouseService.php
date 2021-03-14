@@ -131,29 +131,29 @@ class NewHouseService
     public function getApiDetail($id)
     {
         $house = NewHouseModel::find($id);
-        $house->effect_images && $house->effect_images = array_map(function ($v) {
+        $house->effect_images && $house->effect_images = array_filter(array_map(function ($v) {
             return img_url($v);
-        }, $house->effect_images);
+        }, $house->effect_images));
 
-        $house->demo_images && $house->demo_images = array_map(function ($v) {
+        $house->demo_images && $house->demo_images = array_filter(array_map(function ($v) {
             return img_url($v);
-        }, $house->demo_images);
+        }, $house->demo_images));
 
-        $house->surrounding_images && $house->surrounding_images = array_map(function ($v) {
+        $house->surrounding_images && $house->surrounding_images = array_filter(array_map(function ($v) {
             return img_url($v);
-        }, $house->surrounding_images);       
+        }, $house->surrounding_images));       
 
-        $house->images && $house->images = array_map(function ($v) {
+        $house->images && $house->images = array_filter(array_map(function ($v) {
             return img_url($v);
-        }, $house->images);    
+        }, $house->images));    
 
         $house->image = img_url($house->image);
-        $house->traffic = explode(',', $house->traffic);
-        $house->facilities = explode(',', $house->facilities);
+        $house->traffic = array_filter(explode(',', $house->traffic));
+        $house->facilities = array_filter(explode(',', $house->facilities));
         $house->finish_at = Carbon::parse($house->finish_at)->toDateString();
         $house->start_at = Carbon::parse($house->start_at)->toDateString();
-        $house->title_tags = explode(',', $house->title_tags);
-        $house->house_tags = explode(',', $house->house_tags);
+        $house->title_tags = array_filter(explode(',', $house->title_tags));
+        $house->house_tags = array_filter(explode(',', $house->house_tags));
 
         return $house;
     }
