@@ -217,7 +217,7 @@
 
                 <div>
                     {!! csrf_field() !!}
-                    <input type="hidden" class="form-control" name="id" value="{{$house->id or ''}}">
+                    <input type="hidden" class="form-control" name="id" value="{{$house->_id or ''}}">
                     <button type="button" class="btn btn-primary" id="submit">提交</button>
                 </div>
             </form>
