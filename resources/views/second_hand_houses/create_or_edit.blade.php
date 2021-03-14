@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">楼盘tags (逗号隔开）</label>
-                            <input type="text" class="form-control" name="name" value="{{$house->house_tags or ''}}">
+                            <input type="text" class="form-control" name="house_tags" value="{{$house->house_tags or ''}}">
                         </div>
                         <div class="form-group">
                             <label for="">主图</label>
