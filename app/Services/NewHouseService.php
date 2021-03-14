@@ -165,4 +165,9 @@ class NewHouseService
         return ['recommend' => $recommend];
     }
 
+    public function test()
+    {
+        
+    }
+
 }
