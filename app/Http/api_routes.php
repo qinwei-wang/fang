@@ -23,7 +23,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::get('/new_house/list', 'HomeController@getNewHouseList')->name('home.new_house');
     Route::get('/new_house/{id}', 'HomeController@getNewHouseDetail')->name('home.new_house.detail');
-    Route::get('/new_house_recommend', 'HomeController@getNewHouseRecommend')->name('home.new_house.recommend');
+    Route::get('/recommend', 'HomeController@getNewHouseRecommend')->name('home.new_house.recommend');
 
     
 

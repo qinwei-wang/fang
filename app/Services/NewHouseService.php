@@ -161,6 +161,9 @@ class NewHouseService
     public function getApiRecommend()
     {
         $recommend = NewHouseModel::select('title','image',  'price')->OrderBy('created_at', 'desc')->limit(2)->get();
+        foreach ($recommend as $item) {
+            $item->image = img_url($item->image);
+        }
 
         return ['recommend' => $recommend];
     }

@@ -24,7 +24,6 @@ class NewsService
             'img' => $request->img,
             'content' => $request->content,
             'description' => $request->description,
-            'tag' => $request->tag,
         ]);
     }
 
