@@ -111,11 +111,11 @@ class SecondHandHouseService
         $offset = ($page - 1) * $size;
         $data = SecondHandHouseModel::select('title', 'title_tags', 'house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
-            $item->traffic = explode(',', $item->traffic);
-            $item->facilities = explode(',', $item->facilities);
-            $item->title_tags = explode(',', $item->title_tags);
+            $item->traffic = array_filter(explode(',', $item->traffic));
+            $item->facilities = array_filter(explode(',', $item->facilities));
+            $item->title_tags = array_filter(explode(',', $item->title_tags));
             $item->image = img_url($item->image);
-            $item->house_tags = explode(',', $item->house_tags);
+            $item->house_tags = array_filter(explode(',', $item->house_tags)); 
         }
 
         $total = SecondHandHouseModel::count();
