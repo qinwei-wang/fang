@@ -38,8 +38,11 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">标题</label>
+                                    <input type="text" name="title" value="{{$news->title or ''}}" class="form-control" id="exampleInputEmail1" placeholder="">
+                                </div>
                                
-                          
 
                                 <div class="form-group">
                                     <label for="">描述</label>
