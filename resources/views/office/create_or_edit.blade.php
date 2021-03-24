@@ -44,7 +44,7 @@
 
                         <div class="form-group">
                             <label for="">租赁价格</label>
-                            <input type="text" class="form-control" name="rent_price" value="{{$house->price or ''}}">
+                            <input type="text" class="form-control" name="rent_price" value="{{$house->rent_price or ''}}">
                         </div>
                        
                         <div class="form-group">
