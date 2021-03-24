@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">类型</label>
-                            <input type="text" class="form-control" name="type" value="{{$house->type or ''}}">
+                            <input type="text" class="form-control" name="house_type" value="{{$house->house_type or ''}}">
                         </div>
                         <div class="form-group">
                             <label for="">主图</label>
