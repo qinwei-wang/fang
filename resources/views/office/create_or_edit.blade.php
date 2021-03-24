@@ -38,12 +38,21 @@
                         </div>
                        
                         <div class="form-group">
-                            <label for="">价格</label>
+                            <label for="">购买价格</label>
                             <input type="text" class="form-control" name="price" value="{{$house->price or ''}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">租赁价格</label>
+                            <input type="text" class="form-control" name="rent_price" value="{{$house->price or ''}}">
                         </div>
                        
                         <div class="form-group">
                             <label for="">地契</label>
+                            <input type="text" class="form-control" name="deed" value="{{$house->deed or ''}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">建成时间</label>
                             <input type="text" class="form-control" name="build_at" value="{{$house->build_at or ''}}">
                         </div>
                         <div class="form-group">
