@@ -149,6 +149,27 @@ Route::group(['prefix' => 'customers', 'namespace' => 'Customer', 'middleware' =
     Route::delete('/second_hand_house', 'SecondHandHouseController@delete')->name('secondHandHouse.delete');
 });
 
+ //房屋设置
+ Route::group(['prefix' => 'business', 'namespace' => 'House', 'middleware' => ['auth']], function () {
+    Route::get('/estate', 'BusinessHouseController@index')->name('estate');
+    Route::get('/estate/create', 'BusinessHouseController@create')->name('estate.create');
+    Route::post('/estate', 'BusinessHouseController@save')->name('estate.save');
+    Route::get('/estate/{id}', 'BusinessHouseController@edit')->name('estate.edit');
+    Route::delete('/estate', 'BusinessHouseController@delete')->name('estate.delete');
+
+    Route::get('/office', 'OfficeController@index')->name('office');
+    Route::get('/office/create', 'OfficeController@create')->name('office.create');
+    Route::post('/office', 'OfficeController@save')->name('office.save');
+    Route::get('/office/{id}', 'OfficeController@edit')->name('office.edit');
+    Route::delete('/office', 'OfficeController@delete')->name('office.delete');
+
+    Route::get('/retention', 'RelationController@index')->name('retention');
+    Route::get('/retention/create', 'RelationController@create')->name('retention.create');
+    Route::post('/retention', 'RelationController@save')->name('retention.save');
+    Route::get('/retention/{id}', 'RelationController@edit')->name('retention.edit');
+    Route::delete('/retention', 'RelationController@delete')->name('retention.delete');
+});
+
 
 
 

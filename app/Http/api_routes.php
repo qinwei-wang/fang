@@ -30,6 +30,16 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/second_hand_house/list', 'HomeController@getSecondHandHouseList')->name('home.second_hand_house');
     Route::get('/second_hand_house/{id}', 'HomeController@getSecondHandHouseDetail')->name('home.second_hand_house.detail');
 
+    Route::get('/business/list', 'HomeController@getBusinessList')->name('home.second_hand_house');
+    Route::get('/office/list', 'HomeController@getOfficeList')->name('home.second_hand_house.detail');
+    Route::get('/retention/list', 'HomeController@getRetentionList')->name('home.second_hand_house');
+
+    Route::get('/business/{id}', 'HomeController@getBusinessDetail')->name('home.second_hand_house.detail');
+
+
+
+
+
 
 
 });

@@ -41,4 +41,9 @@ class NewsService
     {
         NewsModel::where('id', $id)->delete();
     }
+
+    public function getApiNewsList()
+    {
+        return NewsModel::orderBy('id', 'desc')->limit(2)->get(); 
+    }
 }

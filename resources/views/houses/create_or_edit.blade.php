@@ -109,7 +109,7 @@
                             <input type="text" class="form-control" name="traffic" value="{{$house->traffic or ''}}">
                         </div>
                         <div class="form-group">
-                            <label for="">交通提示 ）</label>
+                            <label for="">交通提示</label>
                             <input type="text" class="form-control" name="traffic_tips" value="{{$house->traffic_tips or ''}}">
                         </div>
 

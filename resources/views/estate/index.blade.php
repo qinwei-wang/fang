@@ -3,12 +3,12 @@
 
     <section class="content-header">
         <h1>
-            租房
+            新加坡商业地产
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>租房</a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i>新加坡商业地产</a></li>
             <li class="active">列表</li>
         </ol>
     </section>
@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body">
-                    <a href="{{route('rentedHouse.create')}}">
+                    <a href="{{route('estate.create')}}">
                         <button class="btn btn-success pull-right" id="add">添加</button>
 
                     </a>
@@ -36,28 +36,18 @@
                                     <th>ID</th>
                                     <th>标题</th>
                                     <th>主图</th>
-                                    <th>价格</th>
-                                    <th>租赁方式</th>
-                                    <th>建筑面积</th>
-                                    <th>楼层</th>
-                                    <th>交通</th>
                                     <th>创建时间</th>
                                     <th>设置</th>
                                 </tr>
                                 
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->_id}}">
-                                        <td>{{$item->id}}</td>
-                                        <th>{{$item->title}}</th>
+                                        <td>{{$item->_id}}</td>
+                                        <td>{{$item->title}}</td>
                                         <td><img src="{{img_url($item->image)}}" alt="" width="100"></td>
-                                        <td>{{$item->price}}</td>
-                                        <td>{{$item->rent_type}}</td>
-                                        <td>{{$item->area}}</td>
-                                        <td>{{$item->floor}}</td>
-                                        <td>{{$item->traffic}}</td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
-                                            <a href="{{route('rentedHouse.edit', ['id' => $item->id])}}">
+                                            <a href="{{route('estate.edit', ['id' => $item->_id])}}">
                                                 <button class="btn btn-info">
                                                     编辑
                                                 </button>
@@ -91,13 +81,13 @@
             console.log(id);
             $.ajax({
                 'type': 'delete',
-                'url': "{{route('rentedHouse.delete')}}",
+                'url': "{{route('newHouse.delete')}}",
                 'data': {'id': id,'_token': '{{csrf_token()}}'},
                 success: function (msg) {
                     if (msg.status == 'success') {
                         toastr.success('删除成功!');
                         setTimeout(function () {
-                            window.location.href = "{{route('rentedHouse')}}";
+                            window.location.href = "{{route('newHouse')}}";
                         }, 2000);
 
                     } else {

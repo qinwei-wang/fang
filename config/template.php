@@ -82,7 +82,42 @@ return [
                     ],
     
                 ]
-            ]
+                ],
+                [
+                    'roles' => '*',
+                    'is_open' => false,
+                    'icon' => 'fa fa-gear',
+                    'site' => '*',
+                    'title' => '商业地产',
+                    'menus' => [
+        
+                        [
+                            'icon' => 'fa fa-fire',
+                            'title' => '新加坡商业地产',
+                            'site' => '*',
+                            'link' => '/business/estate',
+                            'roles' => '*',
+                            'is_active' => false,
+                        ],
+                        [
+                            'icon' => 'fa fa-fire',
+                            'title' => '分层地契商业办公大楼',
+                            'site' => '*',
+                            'link' => '/business/office',
+                            'roles' => '*',
+                            'is_active' => false,
+                        ],
+                        [
+                            'icon' => 'fa fa-fire',
+                            'title' => '保留型店屋',
+                            'site' => '*',  
+                            'link' => '/business/retention',
+                            'roles' => '*',
+                            'is_active' => false,
+                        ],
+        
+                    ]
+                ]
     ]
 ];
 

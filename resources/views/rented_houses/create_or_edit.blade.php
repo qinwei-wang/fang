@@ -34,64 +34,116 @@
                             <input type="text" class="form-control" name="title" value="{{$house->title or ''}}">
                         </div>
                         <div class="form-group">
-                            <label for="">楼盘名称</label>
-                            <input type="text" class="form-control" name="name" value="{{$house->name or ''}}">
+                            <label for="">租赁方式</label>
+                            <input type="text" class="form-control" name="rent_type" value="{{$house->rent_type or ''}}">
                         </div>
+                        <div class="form-group">
+                            <label for="">房屋类型</label>
+                            <input type="text" class="form-control" name="house_type" value="{{$house->house_type or ''}}">
+                        </div>
+                       
                         <div class="form-group">
                             <label for="">主图</label>
                             <div id="cupload-4"></div>
 
                         </div>
                         <div class="form-group">
+                            <label for="">套图</label>
+                            <div id="cupload-5"></div>
+                        </div>
+                        <div class="form-group">
                             <label for="">价格</label>
                             <input type="text" class="form-control" name="price" value="{{$house->price or ''}}">
                         </div>
-                        <div class="form-group">
-                            <label for="">开发商</label>
-                            <input type="text" class="form-control" name="developer" value="{{$house->developer or ''}}">
-                        </div> 
-                        <div class="form-group">
-                            <label for="">地区位置</label>
-                            <input type="text" class="form-control" name="location" value="{{$house->location or ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">房产类型</label>
-                            <input type="text" class="form-control" name="location" value="{{$house->type or ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">产权</label>
-                            <input type="text" class="form-control" name="property" value="{{$house->property or ''}}">
-                        </div>
 
-                        <div class="form-group">
-                            <label for="">建筑面积</label>
-                            <input type="text" class="form-control" name="area" value="{{$house->area or ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">开盘日期</label>
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" name="start_at" class="form-control pull-right" id="datepicker1">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="">预计落成日期</label>
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" name="finish_at" class="form-control pull-right" id="datepicker">
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label for="">交通 (逗号隔开）</label>
                             <input type="text" class="form-control" name="traffic" value="{{$house->traffic or ''}}">
                         </div>
+                        <div class="form-group">
+                            <label for="">交通提示 ）</label>
+                            <input type="text" class="form-control" name="traffic_tips" value="{{$house->traffic_tips or ''}}">
+                        </div>
+                        
+                        <!-- <div class="form-group">
+                            <label for="">地区位置</label>
+                            <input type="text" class="form-control" name="location" value="{{$house->location or ''}}">
+                        </div> -->
+                        <div class="form-group">
+                            <label for="">面积</label>
+                            <input type="text" class="form-control" name="area" value="{{$house->area or ''}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">楼层</label>
+                            <input type="text" class="form-control" name="floor" value="{{$house->floor or ''}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">车位</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="has_parking"  value="1" @if (!empty($house) && $house->has_parking == 1) checked @endif> 有
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="has_parking"  value="0" @if (empty($house->has_parking)) checked @endif> 无
+                            </label>
+                        </div>
 
                         <div class="form-group">
-                            <label for="">公寓设施 (逗号隔开）</label>
+                            <label for="">用电</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="electricity"  value="1" @if (!empty($house) && $house->electricity == 1) checked @endif> 民电
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="electricity"  value="0" @if (empty($house->electricity)) checked @endif> 商业用电
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="">租期</label>
+                            <input type="text" class="form-control" name="lease" value="{{$house->lease or ''}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">入住</label>
+                            <input type="text" class="form-control" name="live_time" value="{{$house->live_time or ''}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">电梯</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="has_elevator"  value="1" @if (!empty($house) && $house->has_elevator == 1) checked @endif> 有
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="has_elevator"  value="0" @if (empty($house->has_elevator)) checked @endif> 无
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="">用水</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="water"  value="1" @if (!empty($house) && $house->water == 1) checked @endif> 民水
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="water"  value="0" @if (empty($house->water)) checked @endif> 商业用水
+                            </label>
+                        </div>
+                      
+
+                        <div class="form-group">
+                            <label for="">燃气</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="has_gas"  value="1" @if (!empty($house) && $house->has_gas == 1) checked @endif> 有
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="has_gas"  value="0" @if (empty($house->has_gas)) checked @endif> 无
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="">看房</label>
+                            <input type="text" class="form-control" name="checking_house" value="{{$house->checking_house or ''}}">
+                        </div>
+
+
+
+                       
+
+                        <div class="form-group">
+                            <label for="">配套设施 (逗号隔开）</label>
                             <input type="text" class="form-control" name="facilities" value="{{$house->facilities or ''}}">
                         </div>
 
@@ -101,94 +153,30 @@
                             <label for="">房源介绍</label>
                             <textarea class="form-control" name="description" id="" rows="5">{{$house->description or ''}}</textarea>
                         </div>
-
-                    </div>
-                </div>
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">户型设置</h3>
-                    </div>
-                    <div class="box-body">
-                        @if (!empty($house->house_types))
-                        @foreach ($house->house_types as $houseType)
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <label for="">户型</label>
-                                <input type="text" name="house_types[type][]" value="{{$houseType['type']}}" class="form-control" placeholder=".col-xs-3">
-                            </div>
-
-                            <div class="col-xs-2">
-                                <label for="">面积</label>
-                                <input type="text" name="house_types[area][]" value="{{$houseType['area']}}" class="form-control" placeholder=".col-xs-4">
-                            </div>
-                            <div class="col-xs-2">
-                                <label for="">套数</label>
-                                <input type="text" name="house_types[total][]" value="{{$houseType['total']}}" class="form-control" placeholder=".col-xs-5">
-                            </div>
-                            <div class="col-xs-3">
-                                <label for="">价格</label>
-                                <input type="text" name="house_types[price][]" value="{{$houseType['price']}}" class="form-control" placeholder=".col-xs-5">
-                            </div>
-                        </div>
-                        @endforeach
-                        @endif
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <label for="">户型</label>
-                                <input type="text" name="house_types[type][]" value="" class="form-control" placeholder=".col-xs-3">
-                            </div>
-
-                            <div class="col-xs-2">
-                                <label for="">面积</label>
-                                <input type="text" name="house_types[area][]" value="" class="form-control" placeholder=".col-xs-4">
-                            </div>
-                            <div class="col-xs-2">
-                                <label for="">套数</label>
-                                <input type="text" name="house_types[total][]" value="" class="form-control" placeholder=".col-xs-5">
-                            </div>
-                            <div class="col-xs-3">
-                                <label for="">价格</label>
-                                <input type="text" name="house_types[price][]" value="" class="form-control" placeholder=".col-xs-5">
-                            </div>
-                        </div>
-
-                        <div class="row" style="margin-top:20px">
-                            <div class="col-xs-3">
-                                <button class="btn" type="button" id="add_house_types">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <div class="box box-default">
-                    <!-- /.box-header -->
-                    <div class="box-header with-border">
-                        <h3 class="box-title">相册</h3>
-                    </div>
-                    <!-- form start -->
-                    <div class="box-body">
-
                         <div class="form-group">
-                            <label for="exampleInputFile">上传效果图片</label>
-                            <div id="cupload-1"></div>
-
+                            <label for="">周边配套 (逗号隔开）</label>
+                            <input type="text" class="form-control" name="surrounding_facilities" value="{{$house->surrounding_facilities or ''}}">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">上传样板间图片</label>
-                            <div id="cupload-2"></div>
-
+                            <label for="">小区介绍 (逗号隔开）</label>
+                            <input type="text" class="form-control" name="community" value="{{$house->community or ''}}">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">上传周边配套图片</label>
-                            <div id="cupload-3"></div>
+                            <label for="">付款方式</label>
+                            <input type="text" class="form-control" name="pay_type" value="{{$house->pay_type or ''}}">
                         </div>
+
+
+
                     </div>
                 </div>
             
+
+
                 <div>
                     {!! csrf_field() !!}
                     <input type="hidden" class="form-control" name="id" value="{{$house->_id or ''}}">
-                    <button type="button" class="btn btn-primary" id="submit">提交</button> 
+                    <button type="button" class="btn btn-primary" id="submit">提交</button>
                 </div>
             </form>
         </div>
@@ -202,33 +190,17 @@
 <!-- <script src='{{asset("imgLunbo/upload.js")}}' type="text/javascript"></script> -->
 <script src="{{asset('static/js/cupload.js')}}"></script>
 <script type="text/javascript">
-    var effectImages = '{{isset($house) ? json_encode($house->effect_images) : ""}}'
-    effectImages = effectImages.replace(new RegExp('&quot;',"gm"),'"')
-    var demoImages = '{{isset($house) ? json_encode($house->demo_images) : ""}}'
-    demoImages = demoImages.replace(new RegExp('&quot;',"gm"),'"')
-    var surroundingImages = '{{isset($house) ? json_encode($house->surrounding_images) : ""}}'
-    surroundingImages = surroundingImages.replace(new RegExp('&quot;',"gm"),'"')
-    var cupload1 = new Cupload({
-        ele: '#cupload-1',
+    
+    var images = '{{isset($house) ? json_encode($house->images) : ""}}'
+    images = images.replace(new RegExp('&quot;', "gm"), '"')
+    var cupload5 = new Cupload({
+        ele: '#cupload-5',
         num: 20,
-        name: "effect_images",
-        data: "{{!empty($house)}}" ? JSON.parse(effectImages) : null,
-    });
-    var cupload2 = new Cupload({
-        ele: '#cupload-2',
-        num: 20,
-        name: "demo_images",
-        data: "{{!empty($house)}}" ? JSON.parse(demoImages) : null,
-
-    });
-    var cupload3 = new Cupload({
-        ele: '#cupload-3',
-        num: 20,
-        name: "surrounding_images",
-        data: "{{!empty($house)}}" ? JSON.parse(surroundingImages) : null,
+        name: "images",
+        data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
     });
 
-    var cupload3 = new Cupload({
+    var cupload4 = new Cupload({
         ele: '#cupload-4',
         num: 1,
         name: "image",
@@ -273,7 +245,5 @@
         $('#datepicker').datepicker("setViewDate", new Date('{{$house->finish_at or ""}}'));
         $('#datepicker1').datepicker("setViewDate", new Date('{{$house->start_at or ""}}'));
     }
-    
-
 </script>
 @endsection

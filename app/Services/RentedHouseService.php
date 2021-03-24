@@ -9,33 +9,24 @@ class RentedHouseService
     public function save($params)
     {
         $id = array_get($params, 'id');
-        //户型
-        $houseTypes = array_get($params, 'house_types');
-        $houseTypes = array_map(function ($type, $area, $total, $price) {
-            if (!empty($type)) {
-                return ['type' => $type, 'area' => $area, 'total' => $total, 'price' => $price];
-            }
-        }, $houseTypes['type'], $houseTypes['area'], $houseTypes['total'], $houseTypes['price']);
-
-        $houseTypes = array_filter($houseTypes);
 
         //图片
         $image = array_get($params, 'image');
-        $effectImages = array_get($params, 'effect_images');
-        $demoImages = array_get($params, 'demo_images');
-        $surroundingImages = array_get($params, 'surrounding_images');
-
         $image = $this->handleBase64Images($image)[0];
-        $effectImages = $this->handleBase64Images($effectImages);
-        $demoImages = $this->handleBase64Images($demoImages);
-        $surroundingImages = $this->handleBase64Images($surroundingImages);
+        $images = array_get($params, 'images');
+        $images = $this->handleBase64Images($images);
         $data = $params;
-        $data['house_types'] = $houseTypes;
-        $data['effect_images'] = $effectImages;
-        $data['demo_images'] = $demoImages;
-        $data['surrounding_images'] = $surroundingImages;
         $data['image'] = $image;
-        RentedHouseModel::create($data); 
+        $data['images'] = $images;
+        unset($data['token']);
+
+        if ($id) {
+            $house = RentedHouseModel::find($id);
+            $house->fill($data);
+            $house->save();
+        } else {
+            RentedHouseModel::create($data); 
+        }
     }
 
     protected function handleBase64Images($base64Images)
@@ -65,31 +56,33 @@ class RentedHouseService
 
     public function getList($params)
     {
-        return RentedHouseModel::OrderBy('created_at', 'desc')->paginate(20);
+        return RentedHouseModel::orderBy('created_at', 'desc')->paginate(20);
     }
 
     public function getItem($id)
     {
         $house = RentedHouseModel::find($id);
-        $house->effect_images && $house->effect_images = array_map(function ($v) {
-            return img_url($v);
-        }, $house->effect_images);
 
-        $house->demo_images && $house->demo_images = array_map(function ($v) {
+        $house->images && $house->images = array_map(function ($v) {
             return img_url($v);
-        }, $house->demo_images);
-
-        $house->surrounding_images && $house->surrounding_images = array_map(function ($v) {
-            return img_url($v);
-        }, $house->surrounding_images);        
+        }, $house->images);
 
         return $house;
-
     }
 
     public function deleteItem($id)
     {
         $house = RentedHouseModel::find($id);
         $house->delete();
+    }
+
+    public function getApiRentedHouseList()
+    {
+        $data = RentedHouseModel::select('title',  'image', 'price', 'house_types')->orderBy('created_at', 'desc')->limit(8)->get();
+        foreach ($data as $item) {
+            $item->image = img_url($item->image);
+        }
+       
+        return $data;
     }
 }

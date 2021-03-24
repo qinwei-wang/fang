@@ -20,6 +20,7 @@ use App\Http\Requests\CreateCustomerRequest;
 use Illuminate\Http\Request;
 use App\Services\Api\CountryService;
 use App\Services\Api\NewsService;
+use App\Services\BusinessHouseService;
 use Torann\GeoIP\Facades\GeoIP;
 use Mail;
 use App\Services\NewHouseService;
@@ -131,4 +132,32 @@ class HomeController extends Controller
         $house = $newHouseService->getApiDetail($request->id);
         return $this->success(['second_hand_house' => $house]); 
     }
+
+    public function getBusinessList(Request $request, BusinessHouseService $businessHouseService)
+    {
+        $data = $businessHouseService->getApiList($request->all());
+        return $this->success($data);
+    }
+
+    public function getOfficeList(Request $request, BusinessHouseService $businessHouseService)
+    {
+        $data = $businessHouseService->getApiOfficeList($request->all());
+        return $this->success($data);
+
+    }
+
+    public function getRetentionList(Request $request, BusinessHouseService $businessHouseService)
+    {
+        $data = $businessHouseService->getApiRetentionList($request->all());
+        return $this->success($data);
+
+    }
+
+    public function getBusinessDetail(Request $request, BusinessHouseService $businessHouseService)
+    {
+        $data = $businessHouseService->getApiDetail($request->id);
+        return $this->success($data);
+
+    }
+
 }

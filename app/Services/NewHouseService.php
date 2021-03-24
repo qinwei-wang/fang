@@ -128,6 +128,17 @@ class NewHouseService
         return ['new_houses' => $data, 'total' => $total];
     }
 
+    public function getApiNewHouseList()
+    {
+        
+        $data = NewHouseModel::select('title', 'image', 'price',  'house_types')->OrderBy('created_at', 'desc')->limit(8)->get();
+        foreach ($data as $item) {
+            $item->image = img_url($item->image);
+        }
+
+        return $data;
+    }
+
     public function getApiDetail($id)
     {
         $house = NewHouseModel::find($id);
