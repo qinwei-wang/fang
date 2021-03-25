@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Mongo\RentedHouseModel;
+use Carbon\Carbon;
 
 class RentedHouseService
 {
@@ -84,5 +85,41 @@ class RentedHouseService
         }
        
         return $data;
+    }
+
+    public function getApiList($params)
+    {
+        $page = array_get($params, 'page');
+        $size = (int) array_get($params, 'size', 10);
+        $offset = ($page - 1) * $size;
+        $data = RentedHouseModel::select('title',   'image', 'price', 'traffic', 'house_type', 'location', 'facilities', 'addr')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
+        foreach ($data as $item) {
+            $item->traffic = array_filter(explode(',', $item->traffic));
+            $item->facilities = array_filter(explode(',', $item->facilities));
+            $item->image = img_url($item->image);
+        }
+
+        $total = RentedHouseModel::count();
+
+        return ['rented_houses' => $data, 'total' => $total];
+    }
+
+    public function getApiDetail($id)
+    {
+        $house = RentedHouseModel::find($id);
+          
+
+        $house->images && $house->images = array_filter(array_map(function ($v) {
+            return img_url($v);
+        }, $house->images));    
+
+        $house->image = img_url($house->image);
+        $house->traffic = array_filter(explode(',', $house->traffic));
+        $house->facilities = array_filter(explode(',', $house->facilities));;
+        $house->surrounding_facilities = array_filter(explode(',', $house->surrounding_facilities));
+        $house->community = array_filter(explode(',', $house->community));
+
+        return $house;
+
     }
 }

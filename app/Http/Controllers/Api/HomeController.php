@@ -25,6 +25,7 @@ use Torann\GeoIP\Facades\GeoIP;
 use Mail;
 use App\Services\NewHouseService;
 use App\Services\SecondHandHouseService;
+use App\Services\RentedHouseService;
 
 class HomeController extends Controller
 {
@@ -128,6 +129,18 @@ class HomeController extends Controller
     }
 
     public function getSecondHandHouseDetail(Request $request,  SecondHandHouseService $newHouseService)
+    {
+        $house = $newHouseService->getApiDetail($request->id);
+        return $this->success(['second_hand_house' => $house]); 
+    }
+
+    public function getRentedHouseList(Request $request, RentedHouseService $newHouseService)
+    {
+        $list = $newHouseService->getApiList($request->all());
+        return $this->success($list);
+    }
+
+    public function getRentedHouseDetail(Request $request,  RentedHouseService $newHouseService)
     {
         $house = $newHouseService->getApiDetail($request->id);
         return $this->success(['second_hand_house' => $house]); 
