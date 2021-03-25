@@ -76,7 +76,7 @@ class SecondHandHouseService
 
     public function getList($params)
     {
-        return SecondHandHouseModel::OrderBy('created_at', 'desc')->paginate(20);
+        return SecondHandHouseModel::orderBy('updated_at', 'desc')->paginate(20);
     }
 
     public function getItem($id)
@@ -109,7 +109,7 @@ class SecondHandHouseService
         $page = array_get($params, 'page');
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = SecondHandHouseModel::select('title', 'title_tags', 'house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
+        $data = SecondHandHouseModel::select('title', 'title_tags', 'house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
             $item->traffic = array_filter(explode(',', $item->traffic));
             $item->facilities = array_filter(explode(',', $item->facilities));
@@ -127,7 +127,7 @@ class SecondHandHouseService
     public function getApiSecondHandedHouseList()
     {
        
-        $data = SecondHandHouseModel::select('title',  'image', 'price', 'house_types')->OrderBy('created_at', 'desc')->limit(8)->get();
+        $data = SecondHandHouseModel::select('title',  'image', 'price', 'house_types')->orderBy('updated_at', 'desc')->limit(8)->get();
         foreach ($data as $item) {
             $item->image = img_url($item->image);
         }

@@ -57,7 +57,7 @@ class RentedHouseService
 
     public function getList($params)
     {
-        return RentedHouseModel::orderBy('created_at', 'desc')->paginate(20);
+        return RentedHouseModel::orderBy('updated_at', 'desc')->paginate(20);
     }
 
     public function getItem($id)
@@ -79,7 +79,7 @@ class RentedHouseService
 
     public function getApiRentedHouseList()
     {
-        $data = RentedHouseModel::select('title',  'image', 'price', 'house_types')->orderBy('created_at', 'desc')->limit(8)->get();
+        $data = RentedHouseModel::select('title',  'image', 'price', 'house_types')->orderBy('updated_at', 'desc')->limit(8)->get();
         foreach ($data as $item) {
             $item->image = img_url($item->image);
         }
@@ -92,7 +92,7 @@ class RentedHouseService
         $page = array_get($params, 'page');
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = RentedHouseModel::select('title',   'image', 'price', 'traffic', 'house_type', 'location', 'facilities', 'addr')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
+        $data = RentedHouseModel::select('title',   'image', 'price', 'traffic', 'house_type', 'location', 'facilities', 'addr')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
             $item->traffic = array_filter(explode(',', $item->traffic));
             $item->facilities = array_filter(explode(',', $item->facilities));

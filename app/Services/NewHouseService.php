@@ -77,7 +77,7 @@ class NewHouseService
 
     public function getList($params)
     {
-        return NewHouseModel::OrderBy('created_at', 'desc')->paginate(20);
+        return NewHouseModel::orderBy('updated_at', 'desc')->paginate(20);
     }
 
     public function getItem($id)
@@ -111,10 +111,10 @@ class NewHouseService
 
     public function getApiList($params)
     {
-        $page = array_get($params, 'page');
-        $size = (int) array_get($params, 'size', 10);
+        $page = array_get($params, 'page', 1);
+        $size = (int) array_get($params, 'size', 1);
         $offset = ($page - 1) * $size;
-        $data = NewHouseModel::select('title', 'title_tags','house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
+        $data = NewHouseModel::select('title', 'title_tags','house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr', 'created_at')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
             $item->traffic = array_filter(explode(',', $item->traffic));
             $item->facilities = array_filter(explode(',', $item->facilities));
@@ -131,7 +131,7 @@ class NewHouseService
     public function getApiNewHouseList()
     {
         
-        $data = NewHouseModel::select('title', 'image', 'price',  'house_types')->OrderBy('created_at', 'desc')->limit(8)->get();
+        $data = NewHouseModel::select('title', 'image', 'price',  'house_types')->orderBy('updated_at', 'desc')->limit(8)->get();
         foreach ($data as $item) {
             $item->image = img_url($item->image);
         }
@@ -171,7 +171,7 @@ class NewHouseService
 
     public function getApiRecommend()
     {
-        $recommend = NewHouseModel::select('title','image',  'price')->OrderBy('created_at', 'desc')->limit(2)->get();
+        $recommend = NewHouseModel::select('title','image',  'price')->orderBy('updated_at', 'desc')->limit(2)->get();
         foreach ($recommend as $item) {
             $item->image = img_url($item->image);
         }

@@ -58,7 +58,7 @@ class BusinessHouseService
 
     public function getList($params)
     {
-        return BusinessHouseModel::orderBy('created_at', 'desc')->where('type', $params['type'])->paginate(20);
+        return BusinessHouseModel::orderBy('updated_at', 'desc')->where('type', $params['type'])->paginate(20);
     }
 
     public function getItem($id)
@@ -82,7 +82,7 @@ class BusinessHouseService
         $page = array_get($params, 'page');
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = BusinessHouseModel::select('title',  'image', 'description')->where('type', '4')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
+        $data = BusinessHouseModel::select('title',  'image', 'description')->where('type', '4')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
           
             $item->image = img_url($item->image);
@@ -98,7 +98,7 @@ class BusinessHouseService
         $page = array_get($params, 'page');
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = BusinessHouseModel::select('title',  'image', 'addr')->where('type', '5')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
+        $data = BusinessHouseModel::select('title',  'image', 'addr')->where('type', '5')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
             $item->image = img_url($item->image);
         }
@@ -113,7 +113,7 @@ class BusinessHouseService
         $page = array_get($params, 'page');
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = BusinessHouseModel::select('title',  'image')->where('type', '6')->OrderBy('created_at', 'desc')->skip($offset)->take($size)->get();
+        $data = BusinessHouseModel::select('title',  'image')->where('type', '6')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
             $item->image = img_url($item->image);
         }
@@ -132,7 +132,7 @@ class BusinessHouseService
 
     public function getApiBusinessHouseList()
     {
-        $data = BusinessHouseModel::select('title',  'image', 'price', 'addr')->where('type', '5')->orderBy('created_at', 'desc')->limit(8)->get();
+        $data = BusinessHouseModel::select('title',  'image', 'price', 'addr')->where('type', '5')->orderBy('updated_at', 'desc')->limit(8)->get();
         foreach ($data as $item) {
             $item->image = img_url($item->image);
         }
@@ -162,7 +162,7 @@ class BusinessHouseService
 
     public function getApiRecommend()
     {
-        $recommend = BusinessHouseModel::select('title','image',  'price')->OrderBy('created_at', 'desc')->limit(2)->get();
+        $recommend = BusinessHouseModel::select('title','image',  'price')->orderBy('updated_at', 'desc')->limit(2)->get();
         foreach ($recommend as $item) {
             $item->image = img_url($item->image);
         }
