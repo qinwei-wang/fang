@@ -36,6 +36,10 @@
                             <label for="">标题</label>
                             <input type="text" class="form-control" name="title" value="{{$house->title or ''}}">
                         </div>
+                        <div class="form-group">
+                            <label for="">vr看房</label>
+                            <input type="text" class="form-control" name="vr_link" value="{{$house->vr_link or ''}}">
+                        </div>
                        
                         <div class="form-group">
                             <label for="">购买价格</label>

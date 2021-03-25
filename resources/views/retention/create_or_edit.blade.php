@@ -48,6 +48,10 @@
                             <div id="cupload-5"></div>
                         </div>
                         <div class="form-group">
+                            <label for="">vr看房</label>
+                            <input type="text" class="form-control" name="vr_link" value="{{$house->vr_link or ''}}">
+                        </div>
+                        <div class="form-group">
                             <label for="">价格</label>
                             <input type="text" class="form-control" name="price" value="{{$house->price or ''}}">
                         </div>
