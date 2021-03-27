@@ -64,7 +64,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">开发商</label>
-                            <input type="text" class="form-control" name="price" value="{{$house->developer or ''}}">
+                            <input type="text" class="form-control" name="developer" value="{{$house->developer or ''}}">
                         </div> 
                         <div class="form-group">
                             <label for="">地区位置</label>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">房产类型</label>
-                            <input type="text" class="form-control" name="location" value="{{$house->type or ''}}">
+                            <input type="text" class="form-control" name="type" value="{{$house->type or ''}}">
                         </div>
                         <div class="form-group">
                             <label for="">产权</label>
@@ -297,17 +297,21 @@
         console.log(houseTypesHtml);
     })
 
-    var isEdit = '{{$house->id or ""}}';
+    var isEdit = '{{$house->_id or ""}}';
     if (!isEdit) {
         $('#datepicker').datepicker({
-            autoclose: true
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            pickTime: true
         })
         $('#datepicker1').datepicker({
-            autoclose: true
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            pickTime: true
         })
     } else {
-        $('#datepicker').datepicker("setViewDate", new Date('{{$house->finish_at or ""}}'));
-        $('#datepicker1').datepicker("setViewDate", new Date('{{$house->start_at or ""}}'));
+        $('#datepicker').datepicker("setDate", '{{$house->finish_at or ""}}');
+        $('#datepicker1').datepicker("setDate", '{{$house->start_at or ""}}');
     }
     
 

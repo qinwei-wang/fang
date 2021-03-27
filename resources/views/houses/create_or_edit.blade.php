@@ -307,7 +307,7 @@
         console.log(houseTypesHtml);
     })
 
-    var isEdit = '{{$house->id or ""}}';
+    var isEdit = '{{$house->_id or ""}}';
     if (!isEdit) {
         $('#datepicker').datepicker({
             autoclose: true,
