@@ -117,7 +117,43 @@ return [
                         ],
         
                     ]
-                ]
+                    ],
+                    [
+                        'roles' => '*',
+                        'is_open' => false,
+                        'icon' => 'fa fa-gear',
+                        'site' => '*',
+                        'title' => '设置',
+                        'menus' => [
+            
+                            [
+                                'icon' => 'fa fa-fire',
+                                'title' => '公共设施',
+                                'site' => '*',
+                                'link' => '/base-config/tag',
+                                'roles' => '*',
+                                'is_active' => false,
+                            ],
+                            [
+                                'icon' => 'fa fa-fire',
+                                'title' => '便利设施',
+                                'site' => '*',
+                                'link' => '/base-config/user_type',
+                                'roles' => '*',
+                                'is_active' => false,   
+                            ],
+                            [
+                                'icon' => 'fa fa-fire',
+                                'title' => '地铁',
+                                'site' => '*',
+                                'link' => '/base-config/visa_type',
+                                'roles' => '*',
+                                'is_active' => false,   
+                            ],
+                          
+            
+                        ]
+                    ]
     ]
 ];
 

@@ -3,12 +3,12 @@
 
     <section class="content-header">
         <h1>
-            签证类型
+            地铁
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>签证类型</a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i>地铁</a></li>
             <li class="active">列表</li>
         </ol>
     </section>
@@ -39,7 +39,7 @@
                                 </tr>
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}">
-                                        <td>{{$item->name}}</td>
+                                        <td><font  color="{{$item->color}}">{{$item->name}}</font></td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
                                             <a href="{{route('visa_type.edit', ['id' => $item->id])}}">

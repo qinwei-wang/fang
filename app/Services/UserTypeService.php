@@ -34,8 +34,33 @@ class UserTypeService
     {
         return $this->userTypeRepository->makeModel()->updateOrCreate(['id' => array_get($params, 'id', -1)], [
             'title' => $params['title'],
-            'description' => $params['description']
+            'image' =>  $this->handleBase64Images($params['image'])[0], 
         ]);
+    }
+
+    protected function handleBase64Images($base64Images)
+    {
+        if (empty($base64Images)) {
+            return null;
+        }
+
+        $result = [];
+
+        foreach ($base64Images as $k => $item) {
+            if (strlen($item) > 100) {
+                $imgType = array_last(explode('/', array_first(explode(';', array_first(explode(',', $item))))));
+                $img = base64_decode(array_last(explode(',', $item)));
+                $imgName = time() . mt_rand(100000, 999999) . $k;
+                $imgPath = 'images/default/'.$imgName . '.' . $imgType;
+                file_put_contents($imgPath, $img);
+                $result[] = $imgPath;
+            } else {
+                $result[] = $item;
+            }
+           
+        }
+
+        return $result;
     }
 
 

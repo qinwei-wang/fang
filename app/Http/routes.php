@@ -94,6 +94,8 @@ Route::group(['prefix'=>'base-config', 'namespace' => 'BaseConfig', 'middleware'
         Route::delete('/delete', 'TagController@delete')->name('tag.delete');
     });
 
+    
+
     Route::group(['prefix' => 'visa_type'], function () {
         Route::get('/', 'VisaTypeController@index')->name('visa_type.index');
         Route::get('/create', 'VisaTypeController@create')->name('visa_type.create');

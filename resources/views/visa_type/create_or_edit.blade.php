@@ -3,12 +3,12 @@
 
     <section class="content-header">
         <h1>
-            签证类型
+            地铁
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="{{route('tag.index')}}"><i class="fa fa-dashboard"></i> 签证类型</a></li>
+            <li><a href="{{route('tag.index')}}"><i class="fa fa-dashboard"></i> 地铁</a></li>
             <li class="active">设置</li>
         </ol>
     </section>
@@ -23,6 +23,20 @@
                     <!-- form start -->
                     <div class="box-body">
                         <form role="form">
+                        <div class="form-group">
+                                <label for="">颜色</label>
+                                <select name="color" id="" class="form-control">
+                                    <option value="#E42120">红色</option>
+                                    <option value="#FF9D1A">黄色</option>
+                                    <option value="#08973F">绿色</option>
+                                    <option value="#0654BB">蓝色</option>
+                                    <option value="#A124B6">紫色</option>
+                                    <option value="#A15A15">棕色</option>
+                                    <option value="#718376">灰色</option>
+
+
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="">名称</label>
                                 <input type="text" class="form-control" name="name" value="{{$visa_type->name or ''}}">

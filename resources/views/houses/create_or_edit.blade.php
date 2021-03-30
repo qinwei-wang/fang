@@ -159,6 +159,12 @@
                                 <label for="">均价</label>
                                 <input type="text" name="house_types[average_price][]" value="{{!empty($houseType['average_price']) ? $houseType['average_price'] : ''}}" class="form-control" placeholder=".col-xs-5">
                             </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">上传效果图片</label>
+                                <div id="cupload-7"></div>
+
+                            </div>
+                            
                         </div>
                         @endforeach
                         @endif
@@ -278,6 +284,12 @@
         ele: '#cupload-5',
         num: 20,
         name: "images",
+        data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
+    });
+    var cupload7 = new Cupload({
+        ele: '#cupload-7',
+        num: 1,
+        name: "house_types[img][]",
         data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
     });
     // toastr.success('保存成功!');

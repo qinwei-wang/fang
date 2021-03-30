@@ -3,12 +3,12 @@
 
     <section class="content-header">
         <h1>
-            适用人群
+        便利设施
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>适用人群</a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i>便利设施</a></li>
             <li class="active">列表</li>
         </ol>
     </section>
@@ -34,16 +34,14 @@
                                 <tbody>
                                 <tr>
                                     <th>标题</th>
-                                    <th>描述</th>
+                                    <th>图片</th>
                                     <th>创建时间</th>
                                     <th>设置</th>
                                 </tr>
                                 @foreach ($list as $item)
                                     <tr data-id="{{$item->id}}">
                                         <td>{{$item->title}}</td>
-                                        <td>
-                                            {{$item->description}}
-                                        </td>
+                                        <td><img src="{{$item->image ? img_url($item->image) : ''}}" alt="" width=100></td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
                                             <a href="{{route('user_type.edit', ['id' => $item->id])}}">

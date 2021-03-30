@@ -32,6 +32,7 @@ class VisaTypeService
     {
         return $this->visaTypeRepository->makeModel()->updateOrCreate(['id' => array_get($params, 'id', -1)], [
             'name' => $params['name'],
+            'color' => $params['color'],
         ]);
     }
 

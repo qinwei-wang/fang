@@ -3,12 +3,12 @@
 
     <section class="content-header">
         <h1>
-            标签
+            公共设施
             <small></small>
         </h1>
         <!-- You can dynamically generate breadcrumbs here -->
         <ol class="breadcrumb">
-            <li><a href="{{route('tag.index')}}"><i class="fa fa-dashboard"></i> 标签</a></li>
+            <li><a href="{{route('tag.index')}}"><i class="fa fa-dashboard"></i> 公共设施</a></li>
             <li class="active">设置</li>
         </ol>
     </section>
@@ -26,6 +26,11 @@
                             <div class="form-group">
                                 <label for="">名称</label>
                                 <input type="text" class="form-control" name="name" value="{{$tag->name or ''}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">图片</label>
+                                <div id="cupload-1"></div>
+
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
@@ -45,7 +50,17 @@
     </section>
 @endsection
 @section('scripts')
+<script src="{{asset('static/js/cupload.js')}}"></script>
     <script type="text/javascript">
+    
+     var images = '{{isset($tag) ? json_encode($tag->image) : ""}}'
+    images = images.replace(new RegExp('&quot;', "gm"), '"')
+    var cupload1 = new Cupload({
+        ele: '#cupload-1',
+        num: 1,
+        name: "image",
+        data: "{{!empty($tag->image)}}" ? ["{{!empty($tag->image) ? img_url($tag->image) : ''}}"] : null,
+    });
         // toastr.success('保存成功!');
         $('#submit').click(function () {
             $.ajax({

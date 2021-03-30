@@ -21,7 +21,7 @@ class SaveUserTypeRequest extends ApiRequest
     public function rules(){
         return [
             'title' => 'required',
-            'description' => 'required'
-        ];
+            'image' => 'required'
+        ];  
     }
 }
