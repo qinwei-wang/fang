@@ -161,7 +161,7 @@
                             </div>
                             <div class="col-xs-1">
                                 <label for="">vr看房</label>
-                                <input type="text" name="house_types[vr_link][]" value="{{!empty($houseType['vr_link']) ? $houseType['average_price'] : ''}}" class="form-control" placeholder=".col-xs-5">
+                                <input type="text" name="house_types[vr_link][]" value="{{!empty($houseType['vr_link']) ? $houseType['vr_link'] : ''}}" class="form-control" placeholder=".col-xs-5">
                             </div>
                             <div class="col-xs-2">
                                     <label for="exampleInputFile">上传图片</label>
