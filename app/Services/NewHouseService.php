@@ -12,11 +12,11 @@ class NewHouseService
         $id = array_get($params, 'id');
         //户型
         $houseTypes = array_get($params, 'house_types');
-        $houseTypes = array_map(function ($type, $area, $total, $price, $averagePrice) {
+        $houseTypes = array_map(function ($type, $area, $total, $price, $averagePrice, $vrLink, $image) {
             if (!empty($type)) {
-                return ['type' => $type, 'area' => $area, 'total' => $total, 'price' => $price, 'average_price' => $averagePrice];
+                return ['type' => $type, 'area' => $area, 'total' => $total, 'price' => $price, 'average_price' => $averagePrice, 'vr_link' => $vrLink, 'image' => $image];
             }
-        }, $houseTypes['type'], $houseTypes['area'], $houseTypes['total'], $houseTypes['price'], $houseTypes['average_price']);
+        }, $houseTypes['type'], $houseTypes['area'], $houseTypes['total'], $houseTypes['price'], $houseTypes['average_price'], $houseTypes['vr_link'], $houseTypes['image']);
 
         $houseTypes = array_filter($houseTypes);
 

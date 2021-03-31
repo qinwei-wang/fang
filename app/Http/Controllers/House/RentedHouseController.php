@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\RentedHouseService;
 use App\Traits\ApiResponse;
+use App\Models\TagModel;
 
 class RentedHouseController extends Controller
 {
@@ -39,7 +40,8 @@ class RentedHouseController extends Controller
      */
     public function create()
     {
-        return view('rented_houses.create_or_edit');
+        $tags = TagModel::all();
+        return view('rented_houses.create_or_edit', ['tags' => $tags]);
     }
 
     /**
@@ -63,8 +65,9 @@ class RentedHouseController extends Controller
      */
     public function edit(Request $request)
     {
+        $tags = TagModel::all();
         $house = $this->newHouseService->getItem($request->id);
-        return view('rented_houses.create_or_edit', compact('house'));
+        return view('rented_houses.create_or_edit', ['house' => $house, 'tags' => $tags]);
     }
 
 

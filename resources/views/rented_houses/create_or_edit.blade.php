@@ -147,8 +147,13 @@
                        
 
                         <div class="form-group">
-                            <label for="">配套设施 (逗号隔开）</label>
-                            <input type="text" class="form-control" name="facilities" value="{{$house->facilities or ''}}">
+                            <label for="">配套设施 </label>
+                            @foreach ($tags as $tag)
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox1" value="{{$tag->id}}" name="facilities[]" @if (!empty($house) && in_array($tag->id, $house->facilities)) checked @endif> {{$tag->name}}
+                            </label>
+                            @endforeach
+                          
                         </div>
 
 

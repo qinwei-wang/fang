@@ -143,28 +143,36 @@
                                 <input type="text" name="house_types[type][]" value="{{$houseType['type']}}" class="form-control" placeholder=".col-xs-3">
                             </div>
 
-                            <div class="col-xs-2">
+                            <div class="col-xs-1">
                                 <label for="">面积</label>
                                 <input type="text" name="house_types[area][]" value="{{$houseType['area']}}" class="form-control" placeholder=".col-xs-4">
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-xs-1">
                                 <label for="">套数</label>
                                 <input type="text" name="house_types[total][]" value="{{$houseType['total']}}" class="form-control" placeholder=".col-xs-5">
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-xs-1">
                                 <label for="">价格</label>
                                 <input type="text" name="house_types[price][]" value="{{$houseType['price']}}" class="form-control" placeholder=".col-xs-5">
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-xs-1">
                                 <label for="">均价</label>
                                 <input type="text" name="house_types[average_price][]" value="{{!empty($houseType['average_price']) ? $houseType['average_price'] : ''}}" class="form-control" placeholder=".col-xs-5">
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputFile">上传效果图片</label>
-                                <div id="cupload-7"></div>
-
+                            <div class="col-xs-1">
+                                <label for="">vr看房</label>
+                                <input type="text" name="house_types[vr_link][]" value="{{!empty($houseType['vr_link']) ? $houseType['average_price'] : ''}}" class="form-control" placeholder=".col-xs-5">
                             </div>
-                            
+                            <div class="col-xs-2">
+                                    <label for="exampleInputFile">上传图片</label>
+                                    <div>
+                                        <img src="{{!empty($houseType['image']) ? $houseType['image'] : ''}}" height="50" alt="">
+                                    </div>
+                                    <input type="file" class="upload_file">
+
+                                    <input class="file_path" type="hidden" name="house_types[image][]" value="{{$houseType['image'] or ''}}">
+
+                                </div> 
                         </div>
                         @endforeach
                         @endif
@@ -174,22 +182,36 @@
                                 <input type="text" name="house_types[type][]" value="" class="form-control" placeholder=".col-xs-3">
                             </div>
 
-                            <div class="col-xs-2">
+                            <div class="col-xs-1">
                                 <label for="">面积</label>
                                 <input type="text" name="house_types[area][]" value="" class="form-control" placeholder=".col-xs-4">
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-xs-1">
                                 <label for="">套数</label>
                                 <input type="text" name="house_types[total][]" value="" class="form-control" placeholder=".col-xs-5">
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-xs-1">
                                 <label for="">价格</label>
                                 <input type="text" name="house_types[price][]" value="" class="form-control" placeholder=".col-xs-5">
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-xs-1">
                                 <label for="">均价</label>
                                 <input type="text" name="house_types[average_price][]" value="" class="form-control" placeholder=".col-xs-5">
                             </div>
+                            <div class="col-xs-1">
+                                <label for="">vr看房</label>
+                                <input type="text" name="house_types[vr_link][]" value="" class="form-control" placeholder=".col-xs-5">
+                            </div>
+                            <div class="col-xs-2">
+                                    <label for="exampleInputFile">上传图片</label>
+                                    <div>
+                                        <img src="{{!empty($houseType['image']) ? $houseType['image'] : ''}}" height="50" alt="">
+                                    </div>
+                                    <input type="file" class="upload_file">
+
+                                    <input class="file_path" type="hidden" name="house_types[image][]" value="{{$houseType['image'] or ''}}">
+
+                                </div>
                         </div>
 
                         <div class="row" style="margin-top:20px">
@@ -286,12 +308,12 @@
         name: "images",
         data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
     });
-    var cupload7 = new Cupload({
-        ele: '#cupload-7',
-        num: 1,
-        name: "house_types[img][]",
-        data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
-    });
+    // var cupload7 = new Cupload({
+    //     ele: '#cupload-7',
+    //     num: 1,
+    //     name: "aa",
+       
+    // });
     // toastr.success('保存成功!');
     $('#submit').click(function() {
         $.ajax({
@@ -336,12 +358,37 @@
         $('#datepicker1').datepicker("setDate", '{{$house->start_at or ""}}');
     }
 
-    // 基本实例化:
-    $('#demo').colorpicker();
-    // 添加change事件 改变背景色
-    $('#demo').on('change', function(event) {
-        $('#demo').css('background-color', event.color.toString()).val('');
-        $("#color").text(event.color.toString());
-    });
+    $(document).on('change', '.upload_file',function () {
+            var _this = $(this);
+            console.log(this);
+            var formData = new FormData();
+            formData.append("file", this.files[0]);
+            formData.append("_token", '{{csrf_token()}}');
+            $.ajax({
+                'type': 'POST',
+                'url': '{{route('upload')}}',
+                'data': formData,
+                /**
+                 *必须false才会自动加上正确的Content-Type
+                 */
+                contentType: false,
+                /**
+                 * 必须false才会避开jQuery对 formdata 的默认处理
+                 * XMLHttpRequest会对 formdata 进行正确的处理
+                 */
+                processData: false,
+                success: function (msg) {
+                    if (msg.status == 'success') {
+                        toastr.success('上传成功!');
+                        _this.parent().find('.file_path').val(msg.data);
+                        _this.parent().find('img').attr('src', msg.data);
+                    } else {
+                        toastr.error('上传失败:' + msg.message);
+                    }
+                },
+            })
+        })
+
+  
 </script>
 @endsection

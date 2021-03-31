@@ -14,6 +14,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\NewHouseService;
 use App\Traits\ApiResponse;
+use App\Models\VisaTypeModel;
+use App\Models\TagModel;
 
 class NewHouseController extends Controller
 {
@@ -39,7 +41,11 @@ class NewHouseController extends Controller
      */
     public function create()
     {
-        return view('houses.create_or_edit');
+
+        $dities = VisaTypeModel::all();
+        $tags = TagModel::all();
+
+        return view('houses.create_or_edit', ['dities' => $dities, 'tags' => $tags]);
     }
 
     /**
