@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use App\Services\NewHouseService;
 use App\Traits\ApiResponse;
 use App\Services\BusinessHouseService;
-
+use App\Models\TagModel;
 class OfficeController extends Controller
 {
     use ApiResponse;
@@ -43,7 +43,8 @@ class OfficeController extends Controller
      */
     public function create(Request $request)
     {
-        return view('office.create_or_edit'); 
+        $tags = TagModel::all();
+        return view('office.create_or_edit', ['tags' => $tags]); 
         
     }
 
@@ -68,8 +69,9 @@ class OfficeController extends Controller
      */
     public function edit(Request $request)
     {
+        $tags = TagModel::all();
         $house = $this->newHouseService->getItem($request->id);
-        return view('office.create_or_edit', compact('house'));
+        return view('office.create_or_edit', compact('house', 'tags'));
     }
 
 

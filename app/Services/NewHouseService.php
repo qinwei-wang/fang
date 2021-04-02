@@ -100,6 +100,9 @@ class NewHouseService
         }, $house->images);   
 
         // dd($house);exit;
+        if (is_string($house->facilities)) {
+            $house->facilities = explode(',', $house->facilities);
+        }
 
         return $house;
     }

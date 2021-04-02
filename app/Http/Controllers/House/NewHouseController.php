@@ -69,8 +69,9 @@ class NewHouseController extends Controller
      */
     public function edit(Request $request)
     {
+        $tags = TagModel::all();
         $house = $this->newHouseService->getItem($request->id);
-        return view('houses.create_or_edit', compact('house'));
+        return view('houses.create_or_edit', compact('house', 'tags'));
     }
 
 

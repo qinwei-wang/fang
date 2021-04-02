@@ -98,6 +98,10 @@ class SecondHandHouseService
             return img_url($v);
         }, $house->images);   
 
+        if (is_string($house->facilities)) {
+            $house->facilities = explode(',', $house->facilities);
+        }
+
         return $house;
 
     }

@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\SecondHandHouseService;
 use App\Traits\ApiResponse;
+use App\Models\TagModel;
 
 class SecondHandhouseController extends Controller
 {
@@ -39,7 +40,8 @@ class SecondHandhouseController extends Controller
      */
     public function create()
     {
-        return view('second_hand_houses.create_or_edit');
+        $tags = TagModel::all();
+        return view('second_hand_houses.create_or_edit', ['tags' => $tags]);
     }
 
     /**
@@ -63,8 +65,9 @@ class SecondHandhouseController extends Controller
      */
     public function edit(Request $request)
     {
+        $tags = TagModel::all();
         $house = $this->newHouseService->getItem($request->id);
-        return view('second_hand_houses.create_or_edit', compact('house'));
+        return view('second_hand_houses.create_or_edit', compact('house', 'tags'));
     }
 
 

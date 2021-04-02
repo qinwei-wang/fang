@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use App\Services\NewHouseService;
 use App\Traits\ApiResponse;
 use App\Services\BusinessHouseService;
+use App\Models\TagModel;
+use App\Models\UserTypeModel;
 
 class BusinessHouseController extends Controller
 {
@@ -42,7 +44,9 @@ class BusinessHouseController extends Controller
      */
     public function create(Request $request)
     {
-        return view('estate.create_or_edit');
+        $tags = TagModel::all();
+        $userTypes = UserTypeModel::all();
+        return view('estate.create_or_edit', ['tags' => $tags, 'user_types' => $userTypes]);
     }
 
     /**
@@ -66,8 +70,12 @@ class BusinessHouseController extends Controller
      */
     public function edit(Request $request)
     {
+        $tags = TagModel::all();
+        $userTypes = UserTypeModel::all();
+
         $house = $this->newHouseService->getItem($request->id);
-        return view('estate.create_or_edit', compact('house'));
+        dd($tags);
+        return view('estate.create_or_edit', compact('house', 'tags', 'user_types'));
     }
 
 

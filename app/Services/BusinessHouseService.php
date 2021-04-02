@@ -67,6 +67,9 @@ class BusinessHouseService
         $house->images && $house->images = array_map(function ($v) {
             return img_url($v);
         }, $house->images);  
+        if (is_string($house->facilities)) {
+            $house->facilities = explode(',', $house->facilities);
+        }
 
         return $house;
     }
