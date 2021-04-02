@@ -99,6 +99,7 @@ class NewHouseService
             return img_url($v);
         }, $house->images);   
 
+        // dd($house);exit;
 
         return $house;
     }
