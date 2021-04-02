@@ -121,7 +121,7 @@ class NewHouseService
         $data = NewHouseModel::select('title', 'title_tags','house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr', 'created_at')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
             $item->traffic = array_filter(explode(',', $item->traffic));
-            $item->facilities = array_filter(explode(',', $item->facilities));
+            $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
             $item->title_tags = array_filter(explode(',', $item->title_tags));
             $item->image = img_url($item->image);
             $item->house_tags = array_filter(explode(',', $item->house_tags));
