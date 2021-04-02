@@ -102,11 +102,28 @@
                         </div>
                         <div class="form-group">
                             <label for="">租期</label>
-                            <input type="text" class="form-control" name="lease" value="{{$house->lease or ''}}">
+                            <label class="radio-inline">
+                                <input type="radio" name="lease"  value="0" @if (empty($house)) checked @endif> 半年
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="lease"  value="1" @if (!empty($house->lease) && $house->lease == 1) checked @endif> 一年以上
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="lease"  value="2" @if (!empty($house->lease) && $house->lease == 2) checked @endif> 两年以上
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="lease"  value="3" @if (!empty($house->lease) && $house->lease == 3) checked @endif> 三年以上
+                            </label>
+                           
                         </div>
                         <div class="form-group">
                             <label for="">入住</label>
-                            <input type="text" class="form-control" name="live_time" value="{{$house->live_time or ''}}">
+                            <label class="radio-inline">
+                                <input type="radio" name="live_time"  value="1" @if (!empty($house) && $house->live_time == 1) checked @endif> 随时入住
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="live_time"  value="0" @if (empty($house->live_time)) checked @endif> 无
+                            </label>
                         </div>
                         <div class="form-group">
                             <label for="">电梯</label>
@@ -142,10 +159,6 @@
                             <input type="text" class="form-control" name="checking_house" value="{{$house->checking_house or ''}}">
                         </div>
 
-
-
-                       
-
                         <div class="form-group">
                             <label for="">配套设施 </label>
                             @foreach ($tags as $tag)
@@ -155,8 +168,6 @@
                             @endforeach
                           
                         </div>
-
-
 
                         <div class="form-group">
                             <label for="">房源介绍</label>
@@ -179,101 +190,7 @@
 
                     </div>
                 </div>
-                <div class="box box-default">
-                    <div class="box-body">
-                    <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-default house-tab" name="tab1">交通</button>
-                        <button type="button" class="btn btn-default house-tab" name="tab2">教育</button>
-                        <button type="button" class="btn btn-default house-tab" name="tab3">医院</button>
-                        <button type="button" class="btn btn-default house-tab" name="tab4">银行</button>
-                        <button type="button" class="btn btn-default house-tab" name="tab5">休闲</button>
-                        <button type="button" class="btn btn-default house-tab" name="tab6">美食</button>
-                        <button type="button" class="btn btn-default house-tab" name="tab7">购物</button>
-                        <button type="button" class="btn btn-default house-tab" name="tab8">健身</button>
-
-                    </div>
-                    <div class='tab tab1' name="tab1">
-                         <div class="form-group">
-                            <label for="">地址</label>
-                            <input type="text" class="form-control" name="map[traffic][name]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">描述</label>
-                            <input type="text" class="form-control" name="map[traffic][desc]" value="{{$house->map['traffic']['desc'] ?? ''}}">
-                        </div> 
-                    </div>
-                    <div class='tab tab2' style="display:none" name="tab2">
-                         <div class="form-group">
-                            <label for="">地址</label>
-                            <input type="text" class="form-control" name="map[edua][name]" value="{{$house->map['edua']['name'] ?? ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">描述</label>
-                            <input type="text" class="form-control" name="map[edua][desc]" value="{{$house->map['edua']['desc'] ?? ''}}">
-                        </div> 
-                    </div>
-                    <div class='tab tab3' style="display:none" name="tab3">
-                         <div class="form-group">
-                            <label for="">地址</label>
-                            <input type="text" class="form-control" name="map[hospital][name]" value="{{$house->map['hospital']['name'] ?? ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">描述</label>
-                            <input type="text" class="form-control" name="map[hospital][desc]" value="{{$house->map['hospital']['desc'] ?? ''}}">
-                        </div> 
-                    </div>
-                    <div class='tab tab4' style="display:none" name="tab4">
-                         <div class="form-group">
-                            <label for="">地址</label>
-                            <input type="text" class="form-control" name="map[bank][name]" value="{{$house->map['bank']['name'] ?? ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">描述</label>
-                            <input type="text" class="form-control" name="map[bank][desc]" value="{{$house->map['bank']['desc'] ?? ''}}">
-                        </div> 
-                    </div>
-                    <div class='tab tab5' style="display:none" name="tab5">
-                         <div class="form-group">
-                            <label for="">地址</label>
-                            <input type="text" class="form-control" name="map[casual][name]" value="{{$house->map['casual']['name'] ?? ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">描述</label>
-                            <input type="text" class="form-control" name="map[casual][desc]" value="{{$house->map['casual']['desc'] ?? ''}}">
-                        </div> 
-                    </div>
-                    <div class='tab tab6' style="display:none" name="tab6">
-                         <div class="form-group">
-                            <label for="">地址</label>
-                            <input type="text" class="form-control" name="map[food][name]" value="{{$house->map['food']['name'] ?? ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">描述</label>
-                            <input type="text" class="form-control" name="map[food][desc]" value="{{$house->map['food']['desc'] ?? ''}}">
-                        </div> 
-                    </div>
-                    <div class='tab tab7' style="display:none" name="tab7">
-                         <div class="form-group">
-                            <label for="">地址</label>
-                            <input type="text" class="form-control" name="map[shopping][name]" value="{{$house->map['shopping']['name'] ?? ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">描述</label>
-                            <input type="text" class="form-control" name="map[shopping][desc]" value="{{$house->map['shopping']['desc'] ?? ''}}">
-                        </div> 
-                    </div>
-                    <div class='tab tab8' style="display:none" name="tab8">
-                         <div class="form-group">
-                            <label for="">地址</label>
-                            <input type="text" class="form-control" name="map[fitness][name]" value="{{$house->map['fitness']['name'] ?? ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="">描述</label>
-                            <input type="text" class="form-control" name="map[fitness][desc]" value="{{$house->map['fitness']['desc'] ?? ''}}">
-                        </div> 
-                    </div>
-                    </div>
-                </div>
+                
                 <div class="box box-default">
                     <div class="box-header with-border">
                         <h3 class="box-title">筛选项</h3>
