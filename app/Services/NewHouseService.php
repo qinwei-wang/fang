@@ -164,7 +164,7 @@ class NewHouseService
 
         $house->image = img_url($house->image);
         $house->traffic = array_filter(explode(',', $house->traffic));
-        $house->facilities = array_filter(explode(',', $house->facilities));
+        $house->facilities = is_string($house->facilities) ? array_filter(explode(',', $house->facilities)) : $house->facilities;
         $house->finish_at = Carbon::parse($house->finish_at)->toDateString();
         $house->start_at = Carbon::parse($house->start_at)->toDateString();
         $house->title_tags = array_filter(explode(',', $house->title_tags));

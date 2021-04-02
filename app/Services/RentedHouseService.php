@@ -103,7 +103,8 @@ class RentedHouseService
         $data = RentedHouseModel::select('title',   'image', 'price', 'traffic', 'house_type', 'location', 'facilities', 'addr')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
             $item->traffic = array_filter(explode(',', $item->traffic));
-            $item->facilities = array_filter(explode(',', $item->facilities));
+            $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
+
             $item->image = img_url($item->image);
         }
 
@@ -123,7 +124,8 @@ class RentedHouseService
 
         $house->image = img_url($house->image);
         $house->traffic = array_filter(explode(',', $house->traffic));
-        $house->facilities = array_filter(explode(',', $house->facilities));;
+        $house->facilities = is_string($house->facilities) ? array_filter(explode(',', $house->facilities)) : $house->facilities;
+
         $house->surrounding_facilities = array_filter(explode(',', $house->surrounding_facilities));
         $house->community = array_filter(explode(',', $house->community));
 

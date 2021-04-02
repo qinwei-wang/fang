@@ -423,6 +423,12 @@
                                     <input type="text" class="form-control" name="map[fitness][desc]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
                                 </div>
                             </div>
+
+                            <div class="row" style="margin-top:20px">
+                            <div class="col-xs-3">
+                                <button class="btn" type="button" id="add_tab">+</button>
+                            </div>
+                        </div> 
                         </div>
                         <!-- <div class="row" style="margin-top:20px">
                             <div class="col-xs-3">
@@ -604,6 +610,10 @@
         $('.tab').hide();
         var name = _this.attr('name');
         $('.' + name).show();
+
+    })
+
+    $(".add_tab").clikc(function () {
 
     })
 </script>
