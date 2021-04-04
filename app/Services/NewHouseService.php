@@ -4,6 +4,10 @@ namespace App\Services;
 
 use App\Models\Mongo\NewHouseModel;
 use Carbon\Carbon;
+use App\Models\Mongo\SecondHandHouseModel;
+use App\Models\Mongo\RentedHouseModel;
+use App\Models\TagModel;
+use App\Models\VisaTypeModel;
 
 class NewHouseService
 {
@@ -19,6 +23,24 @@ class NewHouseService
         }, $houseTypes['type'], $houseTypes['area'], $houseTypes['total'], $houseTypes['price'], $houseTypes['average_price'], $houseTypes['vr_link'], $houseTypes['image']);
 
         $houseTypes = array_filter($houseTypes);
+
+        //map
+        $map = array_get($params, 'map');
+        
+        $map = collect($map)->map(function ($item) {
+            $value = array_map(function ($name, $desc) {
+                if ($name) {
+                    return [
+                        'name' => $name,
+                        'desc' => $desc,
+                    ];
+                }
+               
+            }, $item['name'], $item['desc']);
+
+            return array_filter($value);
+        })->toArray();
+
 
         //图片
         $image = array_get($params, 'image');
@@ -39,6 +61,8 @@ class NewHouseService
         $data['surrounding_images'] = $surroundingImages;
         $data['image'] = $image;
         $data['images'] = $images;
+        $data['map'] = $map;
+
         unset($data['token']);
 
         if ($id) {
@@ -104,6 +128,10 @@ class NewHouseService
             $house->facilities = explode(',', $house->facilities);
         }
 
+        if (is_string($house->traffic)) {
+            $house->traffic = explode(',', $house->traffic);
+        }
+
         return $house;
     }
 
@@ -116,18 +144,46 @@ class NewHouseService
     public function getApiList($params)
     {
         $page = array_get($params, 'page', 1);
-        $size = (int) array_get($params, 'size', 1);
+        $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = NewHouseModel::select('title', 'title_tags','house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr', 'created_at')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
-        foreach ($data as $item) {
-            $item->traffic = array_filter(explode(',', $item->traffic));
-            $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
-            $item->title_tags = array_filter(explode(',', $item->title_tags));
-            $item->image = img_url($item->image);
-            $item->house_tags = array_filter(explode(',', $item->house_tags));
+        $model = NewHouseModel::select('title', 'title_tags','house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr', 'created_at');
+        $sort = array_get($params, 'sort', 0);
+        $regionIndex = array_get($params, 'region_index');
+        if (isset($regionIndex)) {
+            $regionIndex = explode(',', $regionIndex);
+            $model->whereIn('region_index', $regionIndex);
+        }
+        
+        $priceIndex = array_get($params, 'price_index');
+        if (isset($priceIndex)) {
+            $priceIndex = explode(',', $priceIndex);
+            $model->whereIn('price_index', $priceIndex);
+        }
+        $areaIndex = array_get($params,'area_index');
+        if (isset($areaIndex)) {
+            $areaIndex = explode(',', $areaIndex);
+            $model->whereIn('area_index', $areaIndex);
+        }
+        $houseIndex = array_get($params, 'house_index');
+        if (isset($houseIndex)) {
+            $houseIndex = explode(',', $houseIndex);
+            $model->whereIn('house_index', $houseIndex);
+        }
+        if ($sort == 1) {
+            $model->orderBy('price');
+        } elseif ($sort == 2) {
+            $model->orderBy('price', 'desc');
+        } elseif ($sort == 3) {
+            $model->orderBy('area');
+        } elseif ($sort == 4) {
+            $model->orderBy('area', 'desc');
+        } else {
+            $model->orderBy('updated_at', 'desc');
         }
 
-        $total = NewHouseModel::count();
+        $total = $model->count();
+        $data = $model->skip($offset)->take($size)->get();
+        $data = $this->transform($data);
 
         return ['new_houses' => $data, 'total' => $total];
     }
@@ -160,21 +216,29 @@ class NewHouseService
 
         $house->images && $house->images = array_filter(array_map(function ($v) {
             return img_url($v);
-        }, $house->images));    
+        }, $house->images));   
 
-        $house->image = img_url($house->image);
-        $house->traffic = array_filter(explode(',', $house->traffic));
-        $house->facilities = is_string($house->facilities) ? array_filter(explode(',', $house->facilities)) : $house->facilities;
-        $house->finish_at = Carbon::parse($house->finish_at)->toDateString();
-        $house->start_at = Carbon::parse($house->start_at)->toDateString();
-        $house->title_tags = array_filter(explode(',', $house->title_tags));
-        $house->house_tags = array_filter(explode(',', $house->house_tags));
+        $recommendIds =  array_filter(explode(',', $house->recommmend_ids));
+        $house->recommend = NewHouseModel::whereIn('id', $recommendIds)->limit(10)->get();
+        $house->recommend = $this->transform($house->recommend); 
+     
+    
+
+        $house = $this->transforms($house);
 
         return $house;
     }
 
-    public function getApiRecommend()
+    public function getApiRecommend($params)
     {
+        // if ($params['type'] == 'second_hand_house') {
+
+        // } elseif ($params['type'] == 'rented_house') {
+
+        // } else {
+
+        // }
+
         $recommend = NewHouseModel::select('title','image',  'price')->orderBy('updated_at', 'desc')->limit(2)->get();
         foreach ($recommend as $item) {
             $item->image = img_url($item->image);
@@ -187,5 +251,44 @@ class NewHouseService
     {
         
     }
+
+    public function search($type, $keyword)
+    {
+        if ($type == 'new_house') {
+           $data = NewHouseModel::where('location', $keyword)->get(); 
+        } elseif ($type == 'second_hand_house') {
+           $data = SecondHandHouseModel::where('location', $keyword)->get();
+        } elseif ($type == 'rented_house') {
+            $data = RentedHouseModel::where('location', $keyword)->get();
+        }
+
+        $data = $this->transform($data);
+        return $data;
+    }
+
+    public function transform($data)
+    {
+        foreach ($data as $item) {
+            $this->transforms($item);
+        }
+
+        return $data;
+    }
+
+    public function transforms($item) 
+    {
+            $item->traffic = is_string($item->traffic) ? array_filter(explode(',', $item->traffic)) : $item->traffic;
+            $item->traffic = VisaTypeModel::select('name', 'color')->whereIn('id', $item->traffic)->get();
+            $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
+            $item->facilities = TagModel::whereIn('id', $item->facilities)->pluck('name');
+            $item->title_tags = array_filter(explode(',', $item->title_tags));
+            $item->image = img_url($item->image);
+            $item->house_tags = array_filter(explode(',', $item->house_tags));
+            $item->finish_at = Carbon::parse($item->finish_at)->toDateString();
+            $item->start_at = Carbon::parse($item->start_at)->toDateString();
+
+            return $item;
+    }
+
 
 }

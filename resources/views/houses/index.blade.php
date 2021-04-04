@@ -40,7 +40,6 @@
                                     <th>地区位置</th>
                                     <th>建筑面积</th>
                                     <th>预计落成时间</th>
-                                    <th>交通</th>
                                     <th>户型</th>
                                     <th>创建时间</th>
                                     <th>设置</th>
@@ -55,7 +54,6 @@
                                         <td>{{$item->location}}</td>
                                         <td>{{$item->area}}</td>
                                         <td>{{$item->finish_at}}</td>
-                                        <td>{{$item->traffic}}</td>
                                         <td>
                                             @foreach ($item->house_types as $house) 
                                             户型： {{$house['type']}} 

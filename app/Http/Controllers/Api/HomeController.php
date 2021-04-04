@@ -118,7 +118,7 @@ class HomeController extends Controller
 
     public function getNewHouseRecommend(Request $request,  NewHouseService $newHouseService)
     {
-        $result = $newHouseService->getApiRecommend();
+        $result = $newHouseService->getApiRecommend($request->all());
         return $this->success($result); 
     }
 
@@ -170,6 +170,15 @@ class HomeController extends Controller
     {
         $data = $businessHouseService->getApiDetail($request->id);
         return $this->success($data);
+
+    }
+
+    public function search(Request $request, NewHouseService $newHouseService)
+    {
+        $type = $request->type;
+        $keyword = $request->keyword;
+        $data = $newHouseService->search($type, $keyword);
+        return $this->success(['houses' => $data]);
 
     }
 

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Services\NewHouseService;
 use App\Traits\ApiResponse;
 use App\Services\BusinessHouseService;
+use App\Models\VisaTypeModel;
 
 class RelationController extends Controller
 {
@@ -42,7 +43,9 @@ class RelationController extends Controller
      */
     public function create(Request $request)
     {
-        return view('retention.create_or_edit'); 
+        $dities = VisaTypeModel::orderBy('color')->get();
+
+        return view('retention.create_or_edit', ['dities' => $dities]); 
         
     }
 
@@ -67,8 +70,10 @@ class RelationController extends Controller
      */
     public function edit(Request $request)
     {
+        $dities = VisaTypeModel::orderBy('color')->get();
+
         $house = $this->newHouseService->getItem($request->id);
-        return view('retention.create_or_edit', compact('house'));
+        return view('retention.create_or_edit', compact('house', 'dities'));
     }
 
 

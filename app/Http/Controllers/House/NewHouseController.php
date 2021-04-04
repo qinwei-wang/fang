@@ -42,7 +42,7 @@ class NewHouseController extends Controller
     public function create()
     {
 
-        $dities = VisaTypeModel::all();
+        $dities = VisaTypeModel::orderBy('color')->get();
         $tags = TagModel::all();
 
         return view('houses.create_or_edit', ['dities' => $dities, 'tags' => $tags]);
@@ -69,9 +69,10 @@ class NewHouseController extends Controller
      */
     public function edit(Request $request)
     {
-        $tags = TagModel::all();
+        $tags = TagModel::get();
+        $dities = VisaTypeModel::orderBy('color')->get();
         $house = $this->newHouseService->getItem($request->id);
-        return view('houses.create_or_edit', compact('house', 'tags'));
+        return view('houses.create_or_edit', compact('house', 'tags', 'dities'));
     }
 
 

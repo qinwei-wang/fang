@@ -16,6 +16,7 @@ use App\Services\NewHouseService;
 use App\Traits\ApiResponse;
 use App\Services\BusinessHouseService;
 use App\Models\TagModel;
+use App\Models\VisaTypeModel;
 class OfficeController extends Controller
 {
     use ApiResponse;
@@ -44,7 +45,8 @@ class OfficeController extends Controller
     public function create(Request $request)
     {
         $tags = TagModel::all();
-        return view('office.create_or_edit', ['tags' => $tags]); 
+        $dities = VisaTypeModel::orderBy('color')->get();
+        return view('office.create_or_edit', ['tags' => $tags, 'dities' => $dities]); 
         
     }
 
@@ -70,8 +72,9 @@ class OfficeController extends Controller
     public function edit(Request $request)
     {
         $tags = TagModel::all();
+        $dities = VisaTypeModel::orderBy('color')->get();
         $house = $this->newHouseService->getItem($request->id);
-        return view('office.create_or_edit', compact('house', 'tags'));
+        return view('office.create_or_edit', compact('house', 'tags', 'dities'));
     }
 
 

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Services\SecondHandHouseService;
 use App\Traits\ApiResponse;
 use App\Models\TagModel;
+use App\Models\VisaTypeModel;
 
 class SecondHandhouseController extends Controller
 {
@@ -41,7 +42,8 @@ class SecondHandhouseController extends Controller
     public function create()
     {
         $tags = TagModel::all();
-        return view('second_hand_houses.create_or_edit', ['tags' => $tags]);
+        $dities = VisaTypeModel::orderBy('color')->get();
+        return view('second_hand_houses.create_or_edit', ['tags' => $tags, 'dities' => $dities]);
     }
 
     /**
@@ -66,8 +68,9 @@ class SecondHandhouseController extends Controller
     public function edit(Request $request)
     {
         $tags = TagModel::all();
+        $dities = VisaTypeModel::orderBy('color')->get();
         $house = $this->newHouseService->getItem($request->id);
-        return view('second_hand_houses.create_or_edit', compact('house', 'tags'));
+        return view('second_hand_houses.create_or_edit', compact('house', 'tags', 'dities'));
     }
 
 

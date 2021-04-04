@@ -87,7 +87,12 @@
                        
                         <div class="form-group">
                             <label for="">交通 (逗号隔开）</label>
-                            <input type="text" class="form-control" name="traffic" value="{{$house->traffic or ''}}">
+                            @foreach ($dities as $item) 
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox1" value="{{$item->id}}" name="traffic[]" @if (!empty($house->traffic) && in_array($item->id, $house->traffic)) checked @endif> <font color="{{$item->color}}">{{$item->name}}</font>
+                            </label>
+
+                            @endforeach
                         </div>
 
                         <div class="form-group">

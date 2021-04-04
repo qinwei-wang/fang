@@ -9,12 +9,12 @@
 @endsection
 <section class="content-header">
     <h1>
-        
+    保留型店屋 
         <small></small>
     </h1>
     <!-- You can dynamically generate breadcrumbs here -->
     <ol class="breadcrumb">
-        <li><a href=""><i class="fa fa-dashboard"></i> 新房</a></li>
+        <li><a href=""><i class="fa fa-dashboard"></i> 保留型店屋</a></li>
         <li class="active">设置</li>
     </ol>
 </section>
@@ -67,7 +67,12 @@
                         
                         <div class="form-group">
                             <label for="">交通 (逗号隔开）</label>
-                            <input type="text" class="form-control" name="traffic" value="{{$house->traffic or ''}}">
+                            @foreach ($dities as $item) 
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox1" value="{{$item->id}}" name="traffic[]" @if (!empty($house->traffic) && in_array($item->id, $house->traffic)) checked @endif> <font color="{{$item->color}}">{{$item->name}}</font>
+                            </label>
+
+                            @endforeach
                         </div>
                        
                         <div class="form-group">

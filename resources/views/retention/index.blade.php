@@ -49,7 +49,7 @@
                                      
                                         <td>{{$item->created_at}}</td>
                                         <td>
-                                            <a href="{{route('office.edit', ['id' => $item->_id])}}">
+                                            <a href="{{route('retention.edit', ['id' => $item->_id])}}">
                                                 <button class="btn btn-info">
                                                     编辑
                                                 </button>

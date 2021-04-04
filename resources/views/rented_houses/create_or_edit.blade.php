@@ -6,7 +6,7 @@
 @endsection
 <section class="content-header">
     <h1>
-        新房
+         租房
         <small></small>
     </h1>
     <!-- You can dynamically generate breadcrumbs here -->
@@ -62,8 +62,13 @@
 
                         <div class="form-group">
                             <label for="">交通 (逗号隔开）</label>
-                            <input type="text" class="form-control" name="traffic" value="{{$house->traffic or ''}}">
-                        </div>
+                            @foreach ($dities as $item) 
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox1" value="{{$item->id}}" name="traffic[]" @if (!empty($house->traffic) && in_array($item->id, $house->traffic)) checked @endif> <font color="{{$item->color}}">{{$item->name}}</font>
+                            </label>
+
+                            @endforeach
+                        </div> 
                         <div class="form-group">
                             <label for="">交通提示 ）</label>
                             <input type="text" class="form-control" name="traffic_tips" value="{{$house->traffic_tips or ''}}">
@@ -156,14 +161,19 @@
                         </div>
                         <div class="form-group">
                             <label for="">看房</label>
-                            <input type="text" class="form-control" name="checking_house" value="{{$house->checking_house or ''}}">
+                            <label class="radio-inline">
+                                <input type="radio" name="checking_house"  value="1" @if (!empty($house) && $house->checking_house == 1) checked @endif> 随时看房
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="checking_house"  value="0" @if (empty($house->checking_house)) checked @endif> 无
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="">配套设施 </label>
-                            @foreach ($tags as $tag)
+                            @foreach ($userTypes as $tag)
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox1" value="{{$tag->id}}" name="facilities[]" @if (!empty($house) && in_array($tag->id, $house->facilities)) checked @endif> {{$tag->name}}
+                                <input type="checkbox" id="inlineCheckbox1" value="{{$tag->id}}" name="facilities[]" @if (!empty($house->facilities) && in_array($tag->id, $house->facilities)) checked @endif> {{$tag->title}}
                             </label>
                             @endforeach
                           
@@ -179,11 +189,21 @@
                         </div>
                         <div class="form-group">
                             <label for="">小区介绍 (逗号隔开）</label>
-                            <input type="text" class="form-control" name="community" value="{{$house->community or ''}}">
+                            @foreach ($tags as $tag)
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox1" value="{{$tag->id}}" name="community[]" @if (!empty($house->community) && in_array($tag->id, $house->community)) checked @endif> {{$tag->name}}
+                            </label>
+                            @endforeach
                         </div>
                         <div class="form-group">
                             <label for="">付款方式</label>
                             <input type="text" class="form-control" name="pay_type" value="{{$house->pay_type or ''}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">推荐id</label>
+                         
+                            <input type="text" class="form-control" name="recommend_ids" value="{{$house->recommend_ids or ''}}">
                         </div>
 
 
@@ -228,36 +248,36 @@
                         <div class="form-group">
                             <label for="">价格</label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(0, $house->price_index)) checked @endif name="price_index[]" value="0">&nbsp;&nbsp;100万以下
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(1, $house->price_index)) checked @endif name="price_index[]" value="1">&nbsp;&nbsp;100万以下
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(100,$house->price_index)) checked @endif name="price_index[]" value="100">&nbsp;&nbsp;100万-200万
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(2,$house->price_index)) checked @endif name="price_index[]" value="2">&nbsp;&nbsp;100万-200万
                             </label>
 
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(200, $house->price_index)) checked @endif name="price_index[]" value="200">&nbsp;&nbsp;200万-500万
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(3, $house->price_index)) checked @endif name="price_index[]" value="3">&nbsp;&nbsp;200万-500万
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(500, $house->price_index)) checked @endif name="price_index[]" value="500">&nbsp;&nbsp;500万以上
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(4, $house->price_index)) checked @endif name="price_index[]" value="4">&nbsp;&nbsp;500万以上
                             </label>
                             <!-- <input type="text" class="form-control" name="title_tags" value="{{$house->title_tags or ''}}"> -->
                         </div>
                         <div class="form-group">
                             <label for="">面积</label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(0, $house->area_index)) checked @endif name="area_index[]" value="0">&nbsp;&nbsp;50m2以下
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(1, $house->area_index)) checked @endif name="area_index[]" value="1">&nbsp;&nbsp;50m2以下
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(50, $house->area_index)) checked @endif name="area_index[]" value="50">&nbsp;&nbsp;50m2-70m2
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(2, $house->area_index)) checked @endif name="area_index[]" value="2">&nbsp;&nbsp;50m2-70m2
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(70, $house->area_index)) checked @endif name="area_index[]" value="70">&nbsp;&nbsp;70m2-100m2
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(3, $house->area_index)) checked @endif name="area_index[]" value="3">&nbsp;&nbsp;70m2-100m2
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(100, $house->area_index)) checked @endif name="area_index[]" value="100">&nbsp;&nbsp;100m2-150m2
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(4, $house->area_index)) checked @endif name="area_index[]" value="4">&nbsp;&nbsp;100m2-150m2
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(150, $house->area_index)) checked @endif name="area_index[]" value="150">&nbsp;&nbsp;150m2以上
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(5, $house->area_index)) checked @endif name="area_index[]" value="5">&nbsp;&nbsp;150m2以上
                             </label>
                         </div>
 
@@ -288,6 +308,248 @@
                                 <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(8, $house->house_index)) checked @endif name="house_index[]" value="8">&nbsp;&nbsp;半独立洋房
                             </label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="box box-default">
+                    <div class="box-body">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default house-tab" name="tab1">交通</button>
+                            <button type="button" class="btn btn-default house-tab" name="tab2">教育</button>
+                            <button type="button" class="btn btn-default house-tab" name="tab3">医院</button>
+                            <button type="button" class="btn btn-default house-tab" name="tab4">银行</button>
+                            <button type="button" class="btn btn-default house-tab" name="tab5">休闲</button>
+                            <button type="button" class="btn btn-default house-tab" name="tab6">美食</button>
+                            <button type="button" class="btn btn-default house-tab" name="tab7">购物</button>
+                            <button type="button" class="btn btn-default house-tab" name="tab8">健身</button>
+
+                        </div>
+                        <div>
+                            <div class='tab tab1' name="tab1">
+                                @if (!empty($house->map['traffic']))
+                                @foreach($house->map['traffic'] as $item)
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[traffic][name][]" value="{{$item['name']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[traffic][desc][]" value="{{$item['desc']}}">
+                                    </div>
+                                </div> 
+                                @endforeach
+                                @endif
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[traffic][name][]" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[traffic][desc][]" value="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class='tab tab2' style="display:none" name="tab2">
+                            @if (!empty($house->map['edua']))
+                                @foreach($house->map['edua'] as $item)
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[edua][name][]" value="{{$item['name']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[edua][desc][]" value="{{$item['desc']}}">
+                                    </div>
+                                </div> 
+                                @endforeach
+                                @endif
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[edua][name][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[edua][desc][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class='tab tab3' style="display:none" name="tab3">
+                            @if (!empty($house->map['hospital']))
+                                @foreach($house->map['hospital'] as $item)
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[hospital][name][]" value="{{$item['name']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[hospital][desc][]" value="{{$item['desc']}}">
+                                    </div>
+                                </div> 
+                                @endforeach
+                                @endif
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[hospital][name][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[hospital][desc][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class='tab tab4' style="display:none" name="tab4">
+                            @if (!empty($house->map['bank']))
+                                @foreach($house->map['bank'] as $item)
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[bank][name][]" value="{{$item['name']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[bank][desc][]" value="{{$item['desc']}}">
+                                    </div>
+                                </div> 
+                                @endforeach
+                                @endif
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[bank][name][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[bank][desc][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='tab tab5' style="display:none" name="tab5">
+                            @if (!empty($house->map['casual']))
+                                @foreach($house->map['casual'] as $item)
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[casual][name][]" value="{{$item['name']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[casual][desc][]" value="{{$item['desc']}}">
+                                    </div>
+                                </div> 
+                                @endforeach
+                                @endif
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[casual][name][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[casual][desc][]" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='tab tab6' style="display:none" name="tab6">
+
+                            @if (!empty($house->map['food']))
+                                @foreach($house->map['food'] as $item)
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[food][name][]" value="{{$item['name']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[food][desc][]" value="{{$item['desc']}}">
+                                    </div>
+                                </div> 
+                                @endforeach
+                                @endif
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[food][name][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[food][desc][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='tab tab7' style="display:none" name="tab7">
+                            @if (!empty($house->map['shopping']))
+                                @foreach($house->map['shopping'] as $item)
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[shopping][name][]" value="{{$item['name']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[shopping][desc][]" value="{{$item['desc']}}">
+                                    </div>
+                                </div> 
+                                @endforeach
+                                @endif
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[shopping][name][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[shopping][desc][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='tab tab8' style="display:none" name="tab8">
+                            @if (!empty($house->map['fitness']))
+                                @foreach($house->map['fitness'] as $item)
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[fitness][name][]" value="{{$item['name']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[fitness][desc][]" value="{{$item['desc']}}">
+                                    </div>
+                                </div> 
+                                @endforeach
+                                @endif
+                                <div>
+                                    <div class="form-group">
+                                        <label for="">地址</label>
+                                        <input type="text" class="form-control" name="map[fitness][name][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">描述</label>
+                                        <input type="text" class="form-control" name="map[fitness][desc][]" value="{{isset($house->map['traffic']['name']) ?$house->map['traffic']['name']: ''}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top:20px">
+                                <div class="col-xs-3">
+                                    <button class="btn" type="button" id="add_tab">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row" style="margin-top:20px">
+                            <div class="col-xs-3">
+                                <button class="btn" type="button" id="add_house_types">+</button>
+                            </div>
+                        </div> -->
+
                     </div>
                 </div>
 
@@ -372,5 +634,14 @@
             $('.' + name).show();
 
         })
+
+        $("#add_tab").click(function() {
+        var tab = $(this).parent().parent().parent().find('.tab').filter(function() {
+            return $(this).css('display') != 'none';
+        })
+        var node = tab.children(":first");
+       
+        tab.append(node.html());
+    })
 </script>
 @endsection

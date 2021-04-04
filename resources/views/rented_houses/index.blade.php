@@ -40,7 +40,6 @@
                                     <th>租赁方式</th>
                                     <th>建筑面积</th>
                                     <th>楼层</th>
-                                    <th>交通</th>
                                     <th>创建时间</th>
                                     <th>设置</th>
                                 </tr>
@@ -54,7 +53,6 @@
                                         <td>{{$item->rent_type}}</td>
                                         <td>{{$item->area}}</td>
                                         <td>{{$item->floor}}</td>
-                                        <td>{{$item->traffic}}</td>
                                         <td>{{$item->created_at}}</td>
                                         <td>
                                             <a href="{{route('rentedHouse.edit', ['id' => $item->id])}}">

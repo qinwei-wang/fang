@@ -4,12 +4,32 @@ namespace App\Services;
 
 use App\Models\Mongo\RentedHouseModel;
 use Carbon\Carbon;
+use App\Models\VisaTypeModel;
+use App\Models\TagModel;
+use App\Models\UserTypeModel;
 
 class RentedHouseService
 {
     public function save($params)
     {
         $id = array_get($params, 'id');
+
+          //map
+          $map = array_get($params, 'map');
+        
+          $map = collect($map)->map(function ($item) {
+              $value = array_map(function ($name, $desc) {
+                  if ($name) {
+                      return [
+                          'name' => $name,
+                          'desc' => $desc,
+                      ];
+                  }
+                 
+              }, $item['name'], $item['desc']);
+  
+              return array_filter($value);
+          })->toArray();
 
         //图片
         $image = array_get($params, 'image');
@@ -19,6 +39,7 @@ class RentedHouseService
         $data = $params;
         $data['image'] = $image;
         $data['images'] = $images;
+        $data['map'] = $map;
         unset($data['token']);
 
         if ($id) {
@@ -68,13 +89,19 @@ class RentedHouseService
             return img_url($v);
         }, $house->images);
         
+        if (is_string($house->community)) {
+            $house->community = explode(',', $house->community);
+        }
+
+      
         if (is_string($house->facilities)) {
             $house->facilities = explode(',', $house->facilities);
         }
 
-        if (is_string($house->facilities)) {
-            $house->facilities = explode(',', $house->facilities);
+        if (is_string($house->traffic)) {
+            $house->traffic = explode(',', $house->traffic);
         }
+
 
         return $house;
     }
@@ -100,15 +127,45 @@ class RentedHouseService
         $page = array_get($params, 'page');
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = RentedHouseModel::select('title',   'image', 'price', 'traffic', 'house_type', 'location', 'facilities', 'addr')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
-        foreach ($data as $item) {
-            $item->traffic = array_filter(explode(',', $item->traffic));
-            $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
+        $sort = array_get($params, 'sort', 0);
+        $model = RentedHouseModel::select('title',   'image', 'price', 'traffic', 'house_type', 'location', 'facilities', 'addr', 'community')->orderBy('updated_at', 'desc')->skip($offset)->take($size);
 
-            $item->image = img_url($item->image);
+        $regionIndex = array_get($params, 'region_index');
+        if (isset($regionIndex)) {
+            $regionIndex = explode(',', $regionIndex);
+            $model->whereIn('region_index', $regionIndex);
+        }
+        
+        $priceIndex = array_get($params, 'price_index');
+        if (isset($priceIndex)) {
+            $priceIndex = explode(',', $priceIndex);
+            $model->whereIn('price_index', $priceIndex);
+        }
+        $areaIndex = array_get($params,'area_index');
+        if (isset($areaIndex)) {
+            $areaIndex = explode(',', $areaIndex);
+            $model->whereIn('area_index', $areaIndex);
+        }
+        $houseIndex = array_get($params, 'house_index');
+        if (isset($houseIndex)) {
+            $houseIndex = explode(',', $houseIndex);
+            $model->whereIn('house_index', $houseIndex);
+        }
+        if ($sort == 1) {
+            $model->orderBy('price');
+        } elseif ($sort == 2) {
+            $model->orderBy('price', 'desc');
+        } elseif ($sort == 3) {
+            $model->orderBy('area');
+        } elseif ($sort == 4) {
+            $model->orderBy('area', 'desc');
+        } else {
+            $model->orderBy('updated_at', 'desc');
         }
 
-        $total = RentedHouseModel::count();
+        $total = $model->count();
+        $data = $model->skip($offset)->take($size)->get();
+        $data =  $this->transform($data);
 
         return ['rented_houses' => $data, 'total' => $total];
     }
@@ -122,14 +179,40 @@ class RentedHouseService
             return img_url($v);
         }, $house->images));    
 
-        $house->image = img_url($house->image);
-        $house->traffic = array_filter(explode(',', $house->traffic));
-        $house->facilities = is_string($house->facilities) ? array_filter(explode(',', $house->facilities)) : $house->facilities;
+        $recommendIds =  array_filter(explode(',', $house->recommmend_ids));
+        $house->recommend = RentedHouseModel::whereIn('id', $recommendIds)->limit(10)->get();
+        $house->recommend = $this->transform($house->recommend); 
 
-        $house->surrounding_facilities = array_filter(explode(',', $house->surrounding_facilities));
-        $house->community = array_filter(explode(',', $house->community));
+        $this->transforms($house);
 
         return $house;
 
+    }
+
+    public function transform($data)
+    {
+        foreach ($data as $item) {
+            $this->transforms($item);
+        }
+
+        return $data;
+    }
+
+    public function transforms($item) 
+    {
+            $item->traffic = is_string($item->traffic) ? array_filter(explode(',', $item->traffic)) : $item->traffic;
+            $item->traffic = VisaTypeModel::whereIn('id', $item->traffic)->get();
+            $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
+            $item->facilities = UserTypeModel::whereIn('id', $item->facilities)->get();
+            $item->community = is_string($item->community) ? array_filter(explode(',', $item->community)) : $item->community;
+            $item->community = TagModel::whereIn('id', $item->community)->pluck('name');
+            $item->title_tags = array_filter(explode(',', $item->title_tags));
+            $item->image = img_url($item->image);
+            $item->house_tags = array_filter(explode(',', $item->house_tags));
+            $item->finish_at = Carbon::parse($item->finish_at)->toDateString();
+            $item->start_at = Carbon::parse($item->start_at)->toDateString();
+            $item->surrounding_facilities = array_filter(explode(',', $item->surrounding_facilities));
+
+            return $item;
     }
 }

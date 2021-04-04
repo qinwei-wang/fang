@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Mongo\BusinessHouseModel;
 use Carbon\Carbon;
+use App\Models\VisaTypeModel;
+use App\Models\TagModel;
 
 class BusinessHouseService
 {
@@ -70,6 +72,11 @@ class BusinessHouseService
         if (is_string($house->facilities)) {
             $house->facilities = explode(',', $house->facilities);
         }
+
+        if (is_string($house->traffic)) {
+            $house->traffic = explode(',', $house->traffic);
+        }
+
 
         return $house;
     }
@@ -155,9 +162,7 @@ class BusinessHouseService
         }
        
 
-        $house->image = img_url($house->image);
-        $house->traffic = array_filter(explode(',', $house->traffic));
-        $house->facilities = array_filter(explode(',', $house->facilities));
+        $house = $this->transforms($house);
         
 
         return $house;
@@ -176,6 +181,17 @@ class BusinessHouseService
     public function test()
     {
         
+    }
+
+    public function transforms($item) 
+    {
+            $item->traffic = is_string($item->traffic) ? array_filter(explode(',', $item->traffic)) : $item->traffic;
+            $item->traffic = VisaTypeModel::select('name', 'color')->whereIn('id', $item->traffic)->get();
+            $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
+            $item->facilities = TagModel::whereIn('id', $item->facilities)->pluck('name');
+            $item->image = img_url($item->image);
+
+            return $item;
     }
 
 }

@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use App\Services\RentedHouseService;
 use App\Traits\ApiResponse;
 use App\Models\TagModel;
+use App\Models\VisaTypeModel;
+use App\Models\UserTypeModel;
 
 class RentedHouseController extends Controller
 {
@@ -40,8 +42,10 @@ class RentedHouseController extends Controller
      */
     public function create()
     {
+        $userTypes = UserTypeModel::all();
         $tags = TagModel::all();
-        return view('rented_houses.create_or_edit', ['tags' => $tags]);
+        $dities = VisaTypeModel::orderBy('color')->get();
+        return view('rented_houses.create_or_edit', ['tags' => $tags, 'dities' => $dities, 'userTypes' => $userTypes]);
     }
 
     /**
@@ -66,8 +70,11 @@ class RentedHouseController extends Controller
     public function edit(Request $request)
     {
         $tags = TagModel::all();
+        $dities = VisaTypeModel::orderBy('color')->get();
+        $userTypes = UserTypeModel::all();
+
         $house = $this->newHouseService->getItem($request->id);
-        return view('rented_houses.create_or_edit', ['house' => $house, 'tags' => $tags]);
+        return view('rented_houses.create_or_edit', ['house' => $house, 'tags' => $tags, 'dities' => $dities, 'userTypes' => $userTypes]);
     }
 
 
