@@ -102,7 +102,6 @@ class RentedHouseService
             $house->traffic = explode(',', $house->traffic);
         }
 
-
         return $house;
     }
 
