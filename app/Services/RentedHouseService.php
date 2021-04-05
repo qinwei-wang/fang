@@ -211,6 +211,9 @@ class RentedHouseService
             $item->finish_at = Carbon::parse($item->finish_at)->toDateString();
             $item->start_at = Carbon::parse($item->start_at)->toDateString();
             $item->surrounding_facilities = array_filter(explode(',', $item->surrounding_facilities));
+            $item->house_model = array_map(function ($v) {
+                return RentedHouseModel::HOUSE[$v];
+            }, $item->house_index);
 
             return $item;
     }
