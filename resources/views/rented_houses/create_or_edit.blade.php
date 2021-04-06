@@ -34,6 +34,10 @@
                             <input type="text" class="form-control" name="title" value="{{$house->title or ''}}">
                         </div>
                         <div class="form-group">
+                            <label for="">标题tag (逗号分开)</label>
+                            <input type="text" class="form-control" name="title_tags" value="{{$house->title_tags or ''}}">
+                        </div>
+                        <div class="form-group">
                             <label for="">租赁方式</label>
                             <input type="text" class="form-control" name="rent_type" value="{{$house->rent_type or ''}}">
                         </div>
@@ -42,11 +46,11 @@
                             <input type="text" class="form-control" name="house_type" value="{{$house->house_type or ''}}">
                         </div>
                        
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="">主图</label>
                             <div id="cupload-4"></div>
 
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="">套图</label>
                             <div id="cupload-5"></div>
@@ -108,7 +112,7 @@
                         <div class="form-group">
                             <label for="">租期</label>
                             <label class="radio-inline">
-                                <input type="radio" name="lease"  value="0" @if (empty($house)) checked @endif> 半年
+                                <input type="radio" name="lease"  value="0" @if (empty($house->lease)) checked @endif> 半年
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="lease"  value="1" @if (!empty($house->lease) && $house->lease == 1) checked @endif> 一年以上
@@ -180,12 +184,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="">房源介绍</label>
+                            <label for="">户型介绍</label>
                             <textarea class="form-control" name="description" id="" rows="5">{{$house->description or ''}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="">周边配套 (逗号隔开）</label>
-                            <input type="text" class="form-control" name="surrounding_facilities" value="{{$house->surrounding_facilities or ''}}">
+                            <label for="">周边配套</label>
+                            <textarea class="form-control" name="surrounding_facilities" id="" rows="5">{{$house->surrounding_facilities or ''}}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="">小区介绍 (逗号隔开）</label>
@@ -219,93 +223,93 @@
                     <div class="form-group">
                             <label for="">地区</label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('east', $house->region_index)) checked @endif name="region_index[]" value="east">&nbsp;&nbsp;东部
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->region_index) && in_array('east', $house->region_index)) checked @endif name="region_index[]" value="east">&nbsp;&nbsp;东部
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('west',$house->region_index)) checked @endif name="region_index[]" value="west">&nbsp;&nbsp;西部
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->region_index) && in_array('west',$house->region_index)) checked @endif name="region_index[]" value="west">&nbsp;&nbsp;西部
                             </label>
 
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('urban',$house->region_index)) checked @endif name="region_index[]" value="urban">&nbsp;&nbsp;市区
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->region_index) && in_array('urban',$house->region_index)) checked @endif name="region_index[]" value="urban">&nbsp;&nbsp;市区
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('middle', $house->region_index)) checked @endif name="region_index[]" value="middel">&nbsp;&nbsp;中部
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->region_index) && in_array('middle', $house->region_index)) checked @endif name="region_index[]" value="middel">&nbsp;&nbsp;中部
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('south', $house->region_index)) checked @endif name="region_index[]" value="south">&nbsp;&nbsp;南部
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->region_index) && in_array('south', $house->region_index)) checked @endif name="region_index[]" value="south">&nbsp;&nbsp;南部
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('north',$house->region_index)) checked @endif name="region_index[]" value="north">&nbsp;&nbsp;北部
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->region_index) && in_array('north',$house->region_index)) checked @endif name="region_index[]" value="north">&nbsp;&nbsp;北部
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('east_north', $house->region_index)) checked @endif name="region_index[]" value="east_north">&nbsp;&nbsp;东北部
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->region_index) && in_array('east_north', $house->region_index)) checked @endif name="region_index[]" value="east_north">&nbsp;&nbsp;东北部
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('other', $house->region_index)) checked @endif name="region_index[]" value="other">&nbsp;&nbsp;其他地区
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->region_index) && in_array('other', $house->region_index)) checked @endif name="region_index[]" value="other">&nbsp;&nbsp;其他地区
                             </label>
 
                         </div>
                         <div class="form-group">
                             <label for="">价格</label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(1, $house->price_index)) checked @endif name="price_index[]" value="1">&nbsp;&nbsp;100万以下
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->price_index) && in_array(1, $house->price_index)) checked @endif name="price_index[]" value="1">&nbsp;&nbsp;100万以下
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(2,$house->price_index)) checked @endif name="price_index[]" value="2">&nbsp;&nbsp;100万-200万
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->price_index) && in_array(2,$house->price_index)) checked @endif name="price_index[]" value="2">&nbsp;&nbsp;100万-200万
                             </label>
 
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(3, $house->price_index)) checked @endif name="price_index[]" value="3">&nbsp;&nbsp;200万-500万
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->price_index) && in_array(3, $house->price_index)) checked @endif name="price_index[]" value="3">&nbsp;&nbsp;200万-500万
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(4, $house->price_index)) checked @endif name="price_index[]" value="4">&nbsp;&nbsp;500万以上
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->price_index) && in_array(4, $house->price_index)) checked @endif name="price_index[]" value="4">&nbsp;&nbsp;500万以上
                             </label>
                             <!-- <input type="text" class="form-control" name="title_tags" value="{{$house->title_tags or ''}}"> -->
                         </div>
                         <div class="form-group">
                             <label for="">面积</label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(1, $house->area_index)) checked @endif name="area_index[]" value="1">&nbsp;&nbsp;50m2以下
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->area_index) && in_array(1, $house->area_index)) checked @endif name="area_index[]" value="1">&nbsp;&nbsp;50m2以下
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(2, $house->area_index)) checked @endif name="area_index[]" value="2">&nbsp;&nbsp;50m2-70m2
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->area_index) && in_array(2, $house->area_index)) checked @endif name="area_index[]" value="2">&nbsp;&nbsp;50m2-70m2
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(3, $house->area_index)) checked @endif name="area_index[]" value="3">&nbsp;&nbsp;70m2-100m2
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->area_index) && in_array(3, $house->area_index)) checked @endif name="area_index[]" value="3">&nbsp;&nbsp;70m2-100m2
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(4, $house->area_index)) checked @endif name="area_index[]" value="4">&nbsp;&nbsp;100m2-150m2
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->area_index) && in_array(4, $house->area_index)) checked @endif name="area_index[]" value="4">&nbsp;&nbsp;100m2-150m2
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(5, $house->area_index)) checked @endif name="area_index[]" value="5">&nbsp;&nbsp;150m2以上
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->area_index) && in_array(5, $house->area_index)) checked @endif name="area_index[]" value="5">&nbsp;&nbsp;150m2以上
                             </label>
                         </div>
 
                         <div class="form-group">
                             <label for="">户型</label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(1, $house->house_index)) checked @endif name="house_index[]" value="1">&nbsp;&nbsp;studio
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->house_index) && in_array(1, $house->house_index)) checked @endif name="house_index[]" value="1">&nbsp;&nbsp;studio
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(2, $house->house_index)) checked @endif name="house_index[]" value="2">&nbsp;&nbsp;一卧室
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->house_index) && in_array(2, $house->house_index)) checked @endif name="house_index[]" value="2">&nbsp;&nbsp;一卧室
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(3, $house->house_index)) checked @endif name="house_index[]" value="3">&nbsp;&nbsp;2卧室
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->house_index) && in_array(3, $house->house_index)) checked @endif name="house_index[]" value="3">&nbsp;&nbsp;2卧室
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(4, $house->house_index)) checked @endif name="house_index[]" value="4">&nbsp;&nbsp;3卧室
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->house_index) && in_array(4, $house->house_index)) checked @endif name="house_index[]" value="4">&nbsp;&nbsp;3卧室
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(5, $house->house_index)) checked @endif name="house_index[]" value="5">&nbsp;&nbsp;4卧室
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->house_index) && in_array(5, $house->house_index)) checked @endif name="house_index[]" value="5">&nbsp;&nbsp;4卧室
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(6, $house->house_index)) checked @endif name="house_index[]" value="6">&nbsp;&nbsp;5卧室
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->house_index) && in_array(6, $house->house_index)) checked @endif name="house_index[]" value="6">&nbsp;&nbsp;5卧室
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(7, $house->house_index)) checked @endif name="house_index[]" value="7">&nbsp;&nbsp;独栋洋房
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->house_index) && in_array(7, $house->house_index)) checked @endif name="house_index[]" value="7">&nbsp;&nbsp;独栋洋房
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(8, $house->house_index)) checked @endif name="house_index[]" value="8">&nbsp;&nbsp;半独立洋房
+                                <input type="radio" class="table-radio minimal" @if (!empty($house->house_index) && in_array(8, $house->house_index)) checked @endif name="house_index[]" value="8">&nbsp;&nbsp;半独立洋房
                             </label>
                         </div>
                     </div>
@@ -589,12 +593,12 @@
         data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
     });
 
-    var cupload4 = new Cupload({
-        ele: '#cupload-4',
-        num: 1,
-        name: "image",
-        data: "{{!empty($house)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
-    });
+    // var cupload4 = new Cupload({
+    //     ele: '#cupload-4',
+    //     num: 1,
+    //     name: "image",
+    //     data: "{{!empty($house)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
+    // });
     // toastr.success('保存成功!');
     $('#submit').click(function() {
         $.ajax({
