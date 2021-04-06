@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\VisaTypeModel;
 use App\Models\TagModel;
 use App\Models\UserTypeModel;
+use App\Models\Mongo\NewHouseModel;
 
 class RentedHouseService
 {
@@ -213,6 +214,14 @@ class RentedHouseService
             $item->house_model = array_map(function ($v) {
                 return RentedHouseModel::HOUSE[$v];
             }, $item->house_index);
+
+            $item->region_ch = array_map(function ($v) {
+                return NewHouseModel::REGION[$v];
+            }, $item->region_index);
+            $map = [];
+            foreach ($item->map as $k => $v) {
+                $map[NewHouseModel::MAP[$k]] = $v;
+            }
 
             return $item;
     }

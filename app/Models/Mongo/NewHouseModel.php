@@ -20,6 +20,7 @@ class NewHouseModel extends Model
         'south' => '南部',
         'north' => '北部',
         'middle' => '中部',
+        'urban' => '市区',
         'east_north' => '东北部',
         'other' => '其他地区',
     ];
