@@ -188,9 +188,9 @@ class SecondHandHouseService
     public function getApiSecondHandedHouseList()
     {
        
-        $data = SecondHandHouseModel::select('title',  'image', 'price', 'house_types')->orderBy('updated_at', 'desc')->limit(8)->get();
+        $data = SecondHandHouseModel::select('title',  'images', 'price', 'house_types')->orderBy('updated_at', 'desc')->limit(8)->get();
         foreach ($data as $item) {
-            $item->image = img_url($item->image);
+            $item->image = img_url($item->images[0]);
         }
 
         return $data;
@@ -241,7 +241,7 @@ class SecondHandHouseService
             $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
             $item->facilities = TagModel::whereIn('id', $item->facilities)->pluck('name');
             $item->title_tags = array_filter(explode(',', $item->title_tags));
-            $item->image = img_url($item->image);
+            $item->image = img_url($item->images[0]);
             $item->house_tags = array_filter(explode(',', $item->house_tags));
             $item->finish_at = Carbon::parse($item->finish_at)->toDateString();
             $item->start_at = Carbon::parse($item->start_at)->toDateString();

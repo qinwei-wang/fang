@@ -146,7 +146,7 @@ class NewHouseService
         $page = array_get($params, 'page', 1);
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $model = NewHouseModel::select('title', 'title_tags','house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr', 'created_at');
+        $model = NewHouseModel::select('title', 'title_tags','house_tags', 'images', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr', 'created_at');
         $sort = array_get($params, 'sort', 0);
         $regionIndex = array_get($params, 'region_index');
         if (isset($regionIndex)) {
@@ -191,9 +191,9 @@ class NewHouseService
     public function getApiNewHouseList()
     {
         
-        $data = NewHouseModel::select('title', 'image', 'price',  'house_types')->orderBy('updated_at', 'desc')->limit(8)->get();
+        $data = NewHouseModel::select('title', 'images', 'price',  'house_types')->orderBy('updated_at', 'desc')->limit(8)->get();
         foreach ($data as $item) {
-            $item->image = img_url($item->image);
+            $item->image = img_url($item->images[0]);
         }
 
         return $data;
@@ -239,9 +239,9 @@ class NewHouseService
 
         // }
 
-        $recommend = NewHouseModel::select('title','image',  'price')->orderBy('updated_at', 'desc')->limit(2)->get();
+        $recommend = NewHouseModel::select('title','images',  'price')->orderBy('updated_at', 'desc')->limit(2)->get();
         foreach ($recommend as $item) {
-            $item->image = img_url($item->image);
+            $item->image = img_url($item->images[0]);
         }
 
         return ['recommend' => $recommend];
@@ -282,7 +282,7 @@ class NewHouseService
             $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
             $item->facilities = TagModel::whereIn('id', $item->facilities)->pluck('name');
             $item->title_tags = array_filter(explode(',', $item->title_tags));
-            $item->image = img_url($item->image);
+            $item->image = img_url($item->images[0]);
             $item->house_tags = array_filter(explode(',', $item->house_tags));
             $item->finish_at = Carbon::parse($item->finish_at)->toDateString();
             $item->start_at = Carbon::parse($item->start_at)->toDateString();

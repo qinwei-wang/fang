@@ -38,11 +38,11 @@
                         </div>
                        
                        
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="">主图</label>
                             <div id="cupload-4"></div>
 
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="">套图</label>
                             <div id="cupload-5"></div>
@@ -110,12 +110,12 @@
     images = images.replace(new RegExp('&quot;', "gm"), '"')
    
 
-    var cupload4 = new Cupload({
-        ele: '#cupload-4',
-        num: 1,
-        name: "image",
-        data: "{{!empty($house->image)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
-    });
+    // var cupload4 = new Cupload({
+    //     ele: '#cupload-4',
+    //     num: 1,
+    //     name: "image",
+    //     data: "{{!empty($house->image)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
+    // });
 
     var cupload5 = new Cupload({
         ele: '#cupload-5',

@@ -74,7 +74,6 @@ class BusinessHouseController extends Controller
         $userTypes = UserTypeModel::all();
 
         $house = $this->newHouseService->getItem($request->id);
-        dd($tags);
         return view('estate.create_or_edit', compact('house', 'tags', 'user_types'));
     }
 

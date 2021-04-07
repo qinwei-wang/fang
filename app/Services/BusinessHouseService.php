@@ -109,9 +109,9 @@ class BusinessHouseService
         $page = array_get($params, 'page');
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = BusinessHouseModel::select('title',  'image', 'addr')->where('type', '5')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
+        $data = BusinessHouseModel::select('title',  'images', 'addr')->where('type', '5')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
-            $item->image = img_url($item->image);
+            $item->image = img_url($item->images[0]);
         }
 
         $total = BusinessHouseModel::where('type', '5')->count();
@@ -124,9 +124,9 @@ class BusinessHouseService
         $page = array_get($params, 'page');
         $size = (int) array_get($params, 'size', 10);
         $offset = ($page - 1) * $size;
-        $data = BusinessHouseModel::select('title',  'image')->where('type', '6')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
+        $data = BusinessHouseModel::select('title',  'images')->where('type', '6')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
-            $item->image = img_url($item->image);
+            $item->image = img_url($item->images[0]);
         }
 
         $total = BusinessHouseModel::where('type', '6')->count();
@@ -143,9 +143,9 @@ class BusinessHouseService
 
     public function getApiBusinessHouseList()
     {
-        $data = BusinessHouseModel::select('title',  'image', 'price', 'addr')->where('type', '5')->orderBy('updated_at', 'desc')->limit(8)->get();
+        $data = BusinessHouseModel::select('title',  'images', 'price', 'addr')->where('type', '5')->orderBy('updated_at', 'desc')->limit(8)->get();
         foreach ($data as $item) {
-            $item->image = img_url($item->image);
+            $item->image = img_url($item->images[0]);
         }
 
 
@@ -189,8 +189,8 @@ class BusinessHouseService
             $item->traffic = is_string($item->traffic) ? array_filter(explode(',', $item->traffic)) : $item->traffic;
             $item->traffic = VisaTypeModel::select('name', 'color')->whereIn('id', $item->traffic)->get();
             $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
-            $item->facilities = UserTypeModel::whereIn('id', $item->facilities)->pluck('name');
-            $item->image = img_url($item->image);
+            $item->facilities = UserTypeModel::whereIn('id', $item->facilities)->pluck('title');
+            $item->image = img_url($item->images[0]);
 
             return $item;
     }
