@@ -99,7 +99,7 @@
                             <label for="">便利设施 (逗号隔开）</label>
                             @foreach ($tags as $tag)
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox1" value="{{$tag->id}}" name="facilities[]" @if (!empty($house) && in_array($tag->id, $house->facilities)) checked @endif> {{$tag->name}}
+                                <input type="checkbox" id="inlineCheckbox1" value="{{$tag->id}}" name="facilities[]" @if (!empty($house) && in_array($tag->id, $house->facilities)) checked @endif> {{$tag->title}}
                             </label>
                             @endforeach
                         </div>
