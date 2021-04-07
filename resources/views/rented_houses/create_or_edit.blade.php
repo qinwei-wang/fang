@@ -630,13 +630,14 @@
     })
 
     var isEdit = '{{$house->id or ""}}';
-    if (!isEdit) {
-        $('#datepicker').datepicker({
+    $('#datepicker').datepicker({
             autoclose: true
         })
         $('#datepicker1').datepicker({
             autoclose: true
         })
+    if (!isEdit) {
+       
     } else {
         $('#datepicker').datepicker("setViewDate", new Date('{{$house->finish_at or ""}}'));
         $('#datepicker1').datepicker("setViewDate", new Date('{{$house->start_at or ""}}'));

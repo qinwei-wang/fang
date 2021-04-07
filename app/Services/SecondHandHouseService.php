@@ -245,13 +245,17 @@ class SecondHandHouseService
             $item->house_tags = array_filter(explode(',', $item->house_tags));
             $item->finish_at = Carbon::parse($item->finish_at)->toDateString();
             $item->start_at = Carbon::parse($item->start_at)->toDateString();
-            $item->region_ch = array_map(function ($v) {
+            $item->region_index && $item->region_ch = array_map(function ($v) {
                 return NewHouseModel::REGION[$v];
             }, $item->region_index);
-            $map = [];
-            foreach ($item->map as $k => $v) {
-                $map[NewHouseModel::MAP[$k]] = $v;
+            if (!empty($item->map)) {
+                $map = [];
+                foreach ($item->map as $k => $v) {
+                    $map[NewHouseModel::MAP[$k]] = $v;
+                }
+                $item->map = $map;
             }
+            
 
             return $item;
     }

@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="">预计落成日期</label>
+                            <label for="">落成日期</label>
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
@@ -631,7 +631,6 @@
 <script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- <script src='{{asset("imgLunbo/upload.js")}}' type="text/javascript"></script> -->
 <script src="{{asset('static/js/cupload.js')}}"></script>
-<script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-colorpicker.js"></script>
 <script type="text/javascript">
     var effectImages = '{{isset($house) ? json_encode($house->effect_images) : ""}}'
@@ -710,17 +709,18 @@
     })
 
     var isEdit = '{{$house->_id or ""}}';
-    if (!isEdit) {
-        $('#datepicker').datepicker({
+    $('#datepicker').datepicker({
             autoclose: true,
-            format: "yyyy-mm-dd",
+            format: "yyyy-mm",
             pickTime: true
         })
         $('#datepicker1').datepicker({
             autoclose: true,
-            format: "yyyy-mm-dd",
+            format: "yyyy-mm",
             pickTime: true
         })
+    if (!isEdit) {
+      
     } else {
         $('#datepicker').datepicker("setDate", '{{$house->finish_at or ""}}');
         $('#datepicker1').datepicker("setDate", '{{$house->start_at or ""}}');
