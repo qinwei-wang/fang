@@ -68,6 +68,10 @@
                             <label for="">店屋地址</label>
                             <input type="text" class="form-control" name="addr" value="{{$house->addr or ''}}">
                         </div>
+                        <div class="form-group">
+                            <label for="">地契</label>
+                            <input type="text" class="form-control" name="deed" value="{{$house->deed or ''}}">
+                        </div>
                         
                         <div class="form-group">
                             <label for="">交通 (逗号隔开）</label>
