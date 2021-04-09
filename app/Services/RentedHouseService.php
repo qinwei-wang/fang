@@ -114,7 +114,7 @@ class RentedHouseService
 
     public function getApiRentedHouseList()
     {
-        $data = RentedHouseModel::select('title',  'images', 'price', 'house_types')->orderBy('updated_at', 'desc')->limit(8)->get();
+        $data = RentedHouseModel::select('title',  'images', 'price', 'house_types', 'vr_link')->orderBy('updated_at', 'desc')->limit(8)->get();
         foreach ($data as $item) {
             $item->image = img_url($item->images[0]);
         }
