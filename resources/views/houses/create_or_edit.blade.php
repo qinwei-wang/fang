@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">坐标地址</label>
-                            <input type="text" class="form-control" name="title" value="{{$house->coordinate or ''}}">
+                            <input type="text" class="form-control" name="coordinate" value="{{$house->coordinate or ''}}">
                         </div>
                         <div class="form-group">
                             <label for="">楼盘名称</label>
@@ -633,6 +633,7 @@
 </section>
 @endsection
 @section('scripts')
+<script charset="utf-8" src="{{asset('/bower_components/kindediter/kindeditor.js')}}"></script>
 <script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- <script src='{{asset("imgLunbo/upload.js")}}' type="text/javascript"></script> -->
 <script src="{{asset('static/js/cupload.js')}}"></script>
@@ -779,5 +780,40 @@
        
         tab.append(node.html());
     })
+
+    $(document).ready(function(){
+            //初始化editor
+            initEditor('textarea[name=description]');
+
+        });
+
+        /**
+         * 设置editor
+         * @param el
+         */
+        function initEditor(el)
+        {
+            KindEditor.ready(function(K) {
+                editor = K.create(el, {
+                    cssPath : '{{asset("/bower_components/kindediter/plugins/code/prettify.css")}}',
+                    uploadJson : '{{URL::route("kindediter.upload")}}?_token={{csrf_token()}}',
+                    fileManagerJson : '{{asset("/bower_components/kindediter/php/file_manager_json.php")}}',
+                    allowFileManager : true,
+                    syncType: true,
+                    afterCreate : function() {
+                        var self = this;
+                        K.ctrl(document, 13, function() {
+                            self.sync();
+                            K('form[name=example]')[0].submit();
+                        });
+                        K.ctrl(self.edit.doc, 13, function() {
+                            self.sync();
+                            K('form[name=example]')[0].submit();
+                        });
+                    },
+                    afterBlur: function () { this.sync(); }
+                });
+            });
+        }
 </script>
 @endsection

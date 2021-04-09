@@ -49,7 +49,7 @@
                                     <tr data-id="{{$item->_id}}">
                                         <td>{{$item->_id}}</td>
                                         <td>{{$item->title}}</td>
-                                        <td><img src="{{img_url($item->image)}}" alt="" width="100"></td>
+                                        <td><img src="{{img_url($item->images[0])}}" alt="" width="100"></td>
                                         <td>{{$item->price}}</td>
                                         <td>{{$item->location}}</td>
                                         <td>{{$item->area}}</td>
