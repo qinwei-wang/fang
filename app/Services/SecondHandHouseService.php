@@ -145,23 +145,23 @@ class SecondHandHouseService
         $model = SecondHandHouseModel::select('title', 'title_tags', 'house_tags', 'image', 'price', 'traffic', 'house_types', 'location', 'facilities', 'addr')->orderBy('updated_at', 'desc');
 
         $regionIndex = array_get($params, 'region_index');
-        if (isset($regionIndex)) {
+        if (!empty($regionIndex)) {
             $regionIndex = explode(',', $regionIndex);
             $model->whereIn('region_index', $regionIndex);
         }
         
         $priceIndex = array_get($params, 'price_index');
-        if (isset($priceIndex)) {
+        if (!empty($priceIndex)) {
             $priceIndex = explode(',', $priceIndex);
             $model->whereIn('price_index', $priceIndex);
         }
         $areaIndex = array_get($params,'area_index');
-        if (isset($areaIndex)) {
+        if (!empty($areaIndex)) {
             $areaIndex = explode(',', $areaIndex);
             $model->whereIn('area_index', $areaIndex);
         }
         $houseIndex = array_get($params, 'house_index');
-        if (isset($houseIndex)) {
+        if (!empty($houseIndex)) {
             $houseIndex = explode(',', $houseIndex);
             $model->whereIn('house_index', $houseIndex);
         }

@@ -137,17 +137,17 @@ class RentedHouseService
         }
         
         $priceIndex = array_get($params, 'price_index');
-        if (isset($priceIndex)) {
+        if (!empty($priceIndex)) {
             $priceIndex = explode(',', $priceIndex);
             $model->whereIn('price_index', $priceIndex);
         }
         $areaIndex = array_get($params,'area_index');
-        if (isset($areaIndex)) {
+        if (!empty($areaIndex)) {
             $areaIndex = explode(',', $areaIndex);
             $model->whereIn('area_index', $areaIndex);
         }
         $houseIndex = array_get($params, 'house_index');
-        if (isset($houseIndex)) {
+        if (!empty($houseIndex)) {
             $houseIndex = explode(',', $houseIndex);
             $model->whereIn('house_index', $houseIndex);
         }
