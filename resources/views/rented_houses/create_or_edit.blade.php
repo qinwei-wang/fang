@@ -42,6 +42,10 @@
                             <input type="text" class="form-control" name="title" value="{{$house->coordinate or ''}}">
                         </div>
                         <div class="form-group">
+                            <label for="">楼盘tags (逗号隔开）</label>
+                            <input type="text" class="form-control" name="house_tags" value="{{$house->house_tags or ''}}">
+                        </div>
+                        <div class="form-group">
                             <label for="">租赁方式</label>
                             <input type="text" class="form-control" name="rent_type" value="{{$house->rent_type or ''}}">
                         </div>
