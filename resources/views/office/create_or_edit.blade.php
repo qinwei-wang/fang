@@ -37,6 +37,10 @@
                             <input type="text" class="form-control" name="title" value="{{$house->title or ''}}">
                         </div>
                         <div class="form-group">
+                            <label for="">坐标地址</label>
+                            <input type="text" class="form-control" name="title" value="{{$house->coordinate or ''}}">
+                        </div>
+                        <div class="form-group">
                             <label for="">vr看房</label>
                             <input type="text" class="form-control" name="vr_link" value="{{$house->vr_link or ''}}">
                         </div>

@@ -38,6 +38,10 @@
                             <input type="text" class="form-control" name="title_tags" value="{{$house->title_tags or ''}}">
                         </div>
                         <div class="form-group">
+                            <label for="">坐标地址</label>
+                            <input type="text" class="form-control" name="title" value="{{$house->coordinate or ''}}">
+                        </div>
+                        <div class="form-group">
                             <label for="">租赁方式</label>
                             <input type="text" class="form-control" name="rent_type" value="{{$house->rent_type or ''}}">
                         </div>
