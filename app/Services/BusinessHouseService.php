@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\VisaTypeModel;
 use App\Models\TagModel;
 use App\Models\UserTypeModel;
+use App\Models\Mongo\NewHouseModel;
 
 class BusinessHouseService
 {
@@ -16,6 +17,22 @@ class BusinessHouseService
        
         $data = $params;
 
+        $map = array_get($params, 'map');
+        
+        $map = collect($map)->map(function ($item) {
+            $value = array_map(function ($name, $desc) {
+                if ($name) {
+                    return [
+                        'name' => $name,
+                        'desc' => $desc,
+                    ];
+                }
+               
+            }, $item['name'], $item['desc']);
+
+            return array_filter($value);
+        })->toArray();
+
         //图片
         $image = array_get($params, 'image');
         $image = $this->handleBase64Images($image)[0];
@@ -23,6 +40,7 @@ class BusinessHouseService
         $images = $this->handleBase64Images($images);
         $data['image'] = $image;
         $data['images'] = $images;
+        $data['map'] = $map;
         unset($data['token']);
 
         if ($id) {
@@ -191,6 +209,13 @@ class BusinessHouseService
             $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
             $item->facilities = UserTypeModel::whereIn('id', $item->facilities)->pluck('title');
             $item->image = img_url($item->images[0]);
+            if ($item->map) {
+                $map = [];
+                foreach ($item->map as $k => $v) {
+                    $map[NewHouseModel::MAP[$k]] = $v;
+                }
+                $item->map = $map;
+            }
 
             return $item;
     }
