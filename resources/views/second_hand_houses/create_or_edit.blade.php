@@ -650,20 +650,20 @@
     images = images.replace(new RegExp('&quot;', "gm"), '"')
     var cupload1 = new Cupload({
         ele: '#cupload-1',
-        num: 20,
+        num: 100,
         name: "effect_images",
         data: "{{!empty($house)}}" ? JSON.parse(effectImages) : null,
     });
     var cupload2 = new Cupload({
         ele: '#cupload-2',
-        num: 20,
+        num: 100,
         name: "demo_images",
         data: "{{!empty($house)}}" ? JSON.parse(demoImages) : null,
 
     });
     var cupload3 = new Cupload({
         ele: '#cupload-3',
-        num: 20,
+        num: 100,
         name: "surrounding_images",
         data: "{{!empty($house)}}" ? JSON.parse(surroundingImages) : null,
     });
@@ -677,7 +677,7 @@
 
     var cupload5 = new Cupload({
         ele: '#cupload-5',
-        num: 20,
+        num: 100,
         name: "images",
         data: "{{!empty($house)}}" ? JSON.parse(images) : null,
     });

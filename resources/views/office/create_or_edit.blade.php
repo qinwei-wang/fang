@@ -411,7 +411,7 @@
 
     var cupload5 = new Cupload({
         ele: '#cupload-5',
-        num: 20,
+        num: 100,
         name: "images",
         data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
     });

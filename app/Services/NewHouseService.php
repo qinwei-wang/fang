@@ -256,11 +256,11 @@ class NewHouseService
     public function search($type, $keyword)
     {
         if ($type == 'new_house') {
-           $data = NewHouseModel::where('location', $keyword)->get(); 
+           $data = NewHouseModel::where('title','like', '%' . $keyword . '%')->orWhereIn('traffic.0', $keyword)->get(); 
         } elseif ($type == 'second_hand_house') {
-           $data = SecondHandHouseModel::where('location', $keyword)->get();
+           $data = SecondHandHouseModel::where('title', $keyword)->orWhereIn('traffic', $keyword)->get();
         } elseif ($type == 'rented_house') {
-            $data = RentedHouseModel::where('location', $keyword)->get();
+            $data = RentedHouseModel::where('title', $keyword)->orWhereIn('traffic', $keyword)->get();
         }
 
         $data = $this->transform($data);
