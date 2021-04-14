@@ -204,6 +204,10 @@ class RentedHouseService
             $item->traffic = VisaTypeModel::whereIn('id', $item->traffic)->get();
             $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
             $item->facilities = UserTypeModel::whereIn('id', $item->facilities)->get();
+            $item->facilities = collect($item->facilities)->map(function ($item) {
+                $item->image = img_url($item->image);
+                return $item;
+            });
             $item->community = is_string($item->community) ? array_filter(explode(',', $item->community)) : $item->community;
             $item->community = TagModel::whereIn('id', $item->community)->pluck('name');
             $item->title_tags = array_filter(explode(',', $item->title_tags));

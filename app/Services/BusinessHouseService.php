@@ -179,7 +179,6 @@ class BusinessHouseService
                 return img_url($v);
             }, $house->images));    
         }
-       
 
         $house = $this->transforms($house);
         
@@ -207,7 +206,11 @@ class BusinessHouseService
             $item->traffic = is_string($item->traffic) ? array_filter(explode(',', $item->traffic)) : $item->traffic;
             $item->traffic = VisaTypeModel::select('name', 'color')->whereIn('id', $item->traffic)->get();
             $item->facilities = is_string($item->facilities) ? array_filter(explode(',', $item->facilities)) : $item->facilities;
-            $item->facilities = UserTypeModel::whereIn('id', $item->facilities)->pluck('title');
+            $item->facilities = UserTypeModel::select('title', 'image')->whereIn('id', $item->facilities)->get();
+            $item->facilities = collect($item->facilities)->map(function ($item) {
+                $item->image = img_url($item->image);
+                return $item;
+            });
             $item->image = img_url($item->images[0]);
             if ($item->map) {
                 $map = [];
