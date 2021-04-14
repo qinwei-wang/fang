@@ -114,6 +114,12 @@
                             <textarea class="form-control" name="description" id="" rows="5">{{$house->description or ''}}</textarea>
                         </div>
 
+                        <div class="form-group">
+                            <label for="">推荐id</label>
+                         
+                            <input type="text" class="form-control" name="recommend_ids" value="{{$house->recommend_ids or ''}}">
+                        </div>
+
                     </div>
                 </div>
 

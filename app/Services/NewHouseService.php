@@ -231,15 +231,16 @@ class NewHouseService
 
     public function getApiRecommend($params)
     {
-        // if ($params['type'] == 'second_hand_house') {
+        $type = array_get($params, 'type');
+        if ($type == 'second_hand_house') {
+            $recommend = SecondHandHouseModel::select('title','images',  'price')->orderBy('updated_at', 'desc')->limit(8)->get();
+        } elseif ($type == 'rented_house') {
+            $recommend = RentedHouseModel::select('title','images',  'price')->orderBy('updated_at', 'desc')->limit(8)->get();
+        } else {
+            $recommend = NewHouseModel::select('title','images',  'price')->orderBy('updated_at', 'desc')->limit(8)->get();
+        }
 
-        // } elseif ($params['type'] == 'rented_house') {
-
-        // } else {
-
-        // }
-
-        $recommend = NewHouseModel::select('title','images',  'price')->orderBy('updated_at', 'desc')->limit(2)->get();
+       
         foreach ($recommend as $item) {
             $item->image = img_url($item->images[0]);
         }

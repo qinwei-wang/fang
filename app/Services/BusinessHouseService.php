@@ -180,10 +180,24 @@ class BusinessHouseService
             }, $house->images));    
         }
 
+        $recommendIds =  array_filter(explode(',', $house->recommmend_ids));
+        $house->recommend = BusinessHouseModel::whereIn('id', $recommendIds)->limit(10)->get();
+        $house->recommend = $this->transform($house->recommend); 
+        
+
         $house = $this->transforms($house);
         
 
         return $house;
+    }
+
+    public function transform($data)
+    {
+        foreach ($data as $item) {
+            $this->transforms($item);
+        }
+
+        return $data;
     }
 
     public function getApiRecommend()
