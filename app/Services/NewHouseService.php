@@ -255,12 +255,15 @@ class NewHouseService
 
     public function search($type, $keyword)
     {
+        $id = VisaTypeModel::where('name', 'like' , '%' . $keyword . '%')->value('id');
+        $id = (string) $id;
         if ($type == 'new_house') {
-           $data = NewHouseModel::where('title','like', '%' . $keyword . '%')->orWhereIn('traffic.0', $keyword)->get(); 
+           $data = NewHouseModel::where('title','like', '%' . $keyword . '%')->orWhere('traffic.0', $id)->get(); 
         } elseif ($type == 'second_hand_house') {
-           $data = SecondHandHouseModel::where('title', $keyword)->orWhereIn('traffic', $keyword)->get();
+            $data = SecondHandHouseModel::where('title','like', '%' . $keyword . '%')->orWhere('traffic.0', $id)->get(); 
         } elseif ($type == 'rented_house') {
-            $data = RentedHouseModel::where('title', $keyword)->orWhereIn('traffic', $keyword)->get();
+            $data = RentedHouseModel::where('title','like', '%' . $keyword . '%')->orWhere('traffic.0', $id)->get(); 
+
         }
 
         $data = $this->transform($data);
