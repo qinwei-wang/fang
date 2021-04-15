@@ -258,11 +258,11 @@ class NewHouseService
         $id = VisaTypeModel::where('name', 'like' , '%' . $keyword . '%')->value('id');
         $id = (string) $id;
         if ($type == 'new_house') {
-           $data = NewHouseModel::where('title','like', '%' . $keyword . '%')->orWhere('traffic.0', $id)->get(); 
+           $data = NewHouseModel::where('title','like', '%' . $keyword . '%')->orWhere('addr', 'like', '%' . $keyword . '%')->orWhere('traffic.0', $id)->get(); 
         } elseif ($type == 'second_hand_house') {
-            $data = SecondHandHouseModel::where('title','like', '%' . $keyword . '%')->orWhere('traffic.0', $id)->get(); 
+            $data = SecondHandHouseModel::where('title','like', '%' . $keyword . '%')->orWhere('addr', 'like', '%' . $keyword . '%')->orWhere('traffic.0', $id)->get(); 
         } elseif ($type == 'rented_house') {
-            $data = RentedHouseModel::where('title','like', '%' . $keyword . '%')->orWhere('traffic.0', $id)->get(); 
+            $data = RentedHouseModel::where('title','like', '%' . $keyword . '%')->orWhere('addr', 'like', '%' . $keyword . '%')->orWhere('traffic.0', $id)->get(); 
 
         }
 
