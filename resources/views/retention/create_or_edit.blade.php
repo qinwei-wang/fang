@@ -47,10 +47,49 @@
                             <div id="cupload-4"></div>
 
                         </div> -->
+                        @if (empty($house->images))
                         <div class="form-group">
                             <label for="">套图</label>
-                            <div id="cupload-5"></div>
+                            <div>
+                                <div>
+                                    <img src="" height="50" alt="">
+                                </div>
+                                <input type="file" class="upload_file">
+
+                                <input class="file_path" type="hidden" name="images[]" value="">
+                                <button class="btn image_delete" type="button">x</button>
+
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                <div class="col-xs-3">
+                                    <button class="btn add_image" type="button" class="add_image">+</button>
+                                </div>
+                            </div>
                         </div>
+                        @else
+                       
+                        <div class="form-group">
+                            <label for="">套图</label>
+                            @foreach ($house->images as $k => $image)
+                            <div>
+                                <div>
+                                    <img src="{{$image}}" height="50" alt="">
+                                </div>
+                                <input type="file" class="upload_file">
+                                <button class="btn image_delete" type="button">x</button>
+
+                                <input class="file_path" type="hidden" name="images[]" value="{{$image}}">
+
+                            </div>
+                            @endforeach 
+
+                            <div class="row" style="margin-top:20px">
+                                <div class="col-xs-3">
+                                    <button class="btn add_image" type="button" class="add_image">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        @endif 
                         <div class="form-group">
                             <label for="">vr看房</label>
                             <input type="text" class="form-control" name="vr_link" value="{{$house->vr_link or ''}}">
@@ -367,8 +406,7 @@
 <script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/jquery-1.11.0.min.js"></script>
 
 <script type="text/javascript">
-  
-  $(document).on('click', '.image_delete', function () {
+   $(document).on('click', '.image_delete', function () {
         console.log($(this).parent().html())
         console.log(33);
         $(this).parent().remove(); 
@@ -380,23 +418,7 @@
         console.log(houseTypesHtml);
     })
 
-    var images = '{{isset($house) ? json_encode($house->images) : ""}}'
-    images = images.replace(new RegExp('&quot;', "gm"), '"')
    
-
-    // var cupload4 = new Cupload({
-    //     ele: '#cupload-4',
-    //     num: 1,
-    //     name: "image",
-    //     data: "{{!empty($house->image)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
-    // });
-
-    var cupload5 = new Cupload({
-        ele: '#cupload-5',
-        num: 100,
-        name: "images",
-        data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
-    });
     // toastr.success('保存成功!');
     $('#submit').click(function() {
         $.ajax({
