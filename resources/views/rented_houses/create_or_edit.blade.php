@@ -59,10 +59,49 @@
                             <div id="cupload-4"></div>
 
                         </div> -->
+                        @if (empty($house->images))
                         <div class="form-group">
                             <label for="">套图</label>
-                            <div id="cupload-5"></div>
+                            <div>
+                                <div>
+                                    <img src="" height="50" alt="">
+                                </div>
+                                <input type="file" class="upload_file">
+
+                                <input class="file_path" type="hidden" name="images[]" value="">
+                                <button class="btn image_delete">x</button>
+
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                <div class="col-xs-3">
+                                    <button class="btn add_image" type="button" class="add_image">+</button>
+                                </div>
+                            </div>
                         </div>
+                        @else
+                       
+                        <div class="form-group">
+                            <label for="">套图</label>
+                            @foreach ($house->images as $k => $image)
+                            <div>
+                                <div>
+                                    <img src="{{$image}}" height="50" alt="">
+                                </div>
+                                <input type="file" class="upload_file">
+                                <button class="btn image_delete">x</button>
+
+                                <input class="file_path" type="hidden" name="images[]" value="{{$image}}">
+
+                            </div>
+                            @endforeach 
+
+                            <div class="row" style="margin-top:20px">
+                                <div class="col-xs-3">
+                                    <button class="btn add_image" type="button" class="add_image">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         <div class="form-group">
                             <label for="">vr看房</label>
                             <input type="text" class="form-control" name="vr_link" value="{{$house->vr_link or ''}}">
@@ -597,14 +636,18 @@
 <script src="{{asset('static/js/cupload.js')}}"></script>
 <script type="text/javascript">
     
-    var images = '{{isset($house) ? json_encode($house->images) : ""}}'
-    images = images.replace(new RegExp('&quot;', "gm"), '"')
-    var cupload5 = new Cupload({
-        ele: '#cupload-5',
-        num: 100,
-        name: "images",
-        data: "{{!empty($house)}}" ? JSON.parse(images) : null, 
-    });
+    $(document).on('click', '.image_delete', function () {
+        console.log($(this).parent().html())
+        console.log(33);
+        $(this).parent().remove(); 
+    })
+  $(".add_image").click(function() {
+        console.log(33);
+        var houseTypesHtml = $(this).parent().parent().prev().html();
+        $(this).parent().parent().before('<div>' + houseTypesHtml + '</div> ');
+        console.log(houseTypesHtml);
+    })
+   
 
     // var cupload4 = new Cupload({
     //     ele: '#cupload-4',
@@ -705,5 +748,35 @@
                 });
             });
         }
+        $(document).on('change', '.upload_file', function() {
+        var _this = $(this);
+        console.log(this);
+        var formData = new FormData();
+        formData.append("file", this.files[0]);
+        formData.append("_token", '{{csrf_token()}}');
+        $.ajax({
+            'type': 'POST',
+            'url': '{{route("upload")}}',
+            'data': formData,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            success: function(msg) {
+                if (msg.status == 'success') {
+                    toastr.success('上传成功!');
+                    _this.parent().find('.file_path').val(msg.data);
+                    _this.parent().find('img').attr('src', msg.data);
+                } else {
+                    toastr.error('上传失败:' + msg.message);
+                }
+            },
+        })
+    })
 </script>
 @endsection
