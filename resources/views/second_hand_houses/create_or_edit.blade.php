@@ -83,7 +83,7 @@
                             @foreach ($house->images as $k => $image)
                             <div>
                                 <div>
-                                    <img src="{{$image}}" height="50" alt="">
+                                    <img src="{{img_url($image)}}" height="50" alt="">
                                 </div>
                                 <input type="file" class="upload_file">
                                
@@ -669,7 +669,7 @@
                             @foreach ($house->effect_images as $k => $image)
                             <div>
                                 <div>
-                                    <img src="{{$image}}" height="50" alt="">
+                                    <img src="{{img_url($image)}}" height="50" alt="">
                                 </div>
                                 <input type="file" class="upload_file">
 
@@ -712,7 +712,7 @@
                             @foreach ($house->demo_images as $k => $image)
                             <div>
                                 <div>
-                                    <img src="{{$image}}" height="50" alt="">
+                                    <img src="{{img_url($image)}}" height="50" alt="">
                                 </div>
                                 <input type="file" class="upload_file">
 
@@ -755,7 +755,7 @@
                             @foreach ($house->surrounding_images as $k => $image)
                             <div>
                                 <div>
-                                    <img src="{{$image}}" height="50" alt="">
+                                    <img src="{{img_url($image)}}" height="50" alt="">
                                 </div>
                                 <input type="file" class="upload_file">
 
