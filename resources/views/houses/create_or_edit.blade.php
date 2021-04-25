@@ -5,6 +5,9 @@
 <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 <link href="/bower_components/bootstrap-datepicker/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
 <link href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-colorpicker.css" type="text/css" rel="stylesheet">
+<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 
 @endsection
 <section class="content-header">
@@ -52,6 +55,9 @@
                         <div class="form-group">
                             <label for="">楼盘tags (逗号隔开）</label>
                             <input type="text" class="form-control" name="house_tags" value="{{$house->house_tags or ''}}">
+                        </div>
+                        <div class="form-group">
+                            <input id="input-id" type="file" name="test_images[]" class="file  file-loading" multiple data-browse-on-zone-click="true">
                         </div>
                         <!-- <div class="form-group">
                             <label for="">主图</label>
@@ -792,9 +798,36 @@
 <script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- <script src='{{asset("imgLunbo/upload.js")}}' type="text/javascript"></script> -->
 <script src="{{asset('static/js/cupload.js')}}"></script>
-<script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-colorpicker.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you 
+    wish to resize images before upload. This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/piexif.min.js" type="text/javascript"></script>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
+    This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
+    HTML files. This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/purify.min.js" type="text/javascript"></script>
+<!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js 
+   3.3.x versions without popper.min.js. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
+    dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- the main fileinput plugin file -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/fileinput.min.js"></script>
+<!-- optionally if you need a theme like font awesome theme you can include it as mentioned below -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/themes/fa/theme.js"></script>
+<!-- optionally if you need translation for your language then include  locale file as mentioned below -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/locales/zh.js"></script>
 <script type="text/javascript">
     
+    $("#input-id").fileinput({
+        browseLabel: "选择图片", 
+        uploadUrl: "http://localhost/file-upload-single/1",
+        maxImageWidth: 300,//图片的最大宽度
+        maxImageHeight: 300,//图片的最大高度
+    });  
     
 
     // toastr.success('保存成功!');
@@ -844,20 +877,21 @@
     // })
 
     var isEdit = '{{$house->_id or ""}}';
-    $('#datepicker').datepicker({
-            autoclose: true,
-            format: "yyyy-mm",
-            pickTime: true
-        })
-        $('#datepicker1').datepicker({
-            autoclose: true,
-            format: "yyyy-mm",
-            pickTime: true
-        })
-    if (!isEdit) {
+    console.log(isEdit)
+    // $('#datepicker').datepicker({
+    //     autoclose: true,
+    //     format: "yyyy-mm",
+    //     pickTime: true
+    // });
+    
+    // $('#datepicker1').datepicker({
+    //     autoclose: true,
+    //     format: "yyyy-mm",
+    //     pickTime: true
+    // })
        
+    if (!isEdit) {
     } else {
-        
         $('#datepicker').datepicker("setDate", '{{$house->finish_at or ""}}');
         $('#datepicker1').datepicker("setDate", '{{$house->start_at or ""}}');
     }
