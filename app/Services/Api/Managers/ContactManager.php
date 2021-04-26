@@ -39,7 +39,8 @@ class ContactManager
             'house_number' => '门牌unit',
             'big_house_number' => '大牌block',
             'tel' => '号码',
-            'message' => '留言'
+            'message' => '留言',
+            'email_title' => '标题',
         ];
         $data = [];
         foreach ($params as $k => $item) {
@@ -49,7 +50,7 @@ class ContactManager
 
         Mail::send('emails.house', ['params' => $data], function ($m) use ($params) {
             $m->from(env('MAIL_USERNAME'));
-            $m->to('1187756010@qq.com')->subject($params['type']);
+            $m->to('1187756010@qq.com')->subject($params['email_title']);
         });
        
         return $this->customerService->contact($params);
