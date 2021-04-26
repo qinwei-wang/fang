@@ -21,7 +21,7 @@
 
 
 <div class="block">
-    <label class="col-sm-2 control-label"><b>时间:</b></label>
+    <label class="col-sm-2 control-label"><b>反馈日期:</b></label>
     {{ date("Y-m-d") }}
 </div>
 </body>

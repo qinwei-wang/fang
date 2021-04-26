@@ -28,13 +28,13 @@ class ContactManager
     {
 
         $map = [
-            'type' => '类型',
+            'type' => '咨询方向',
             'name' => '名称',
             'property_location' => '物业所在位置',
             'expected_price' => '期望价格',
             'address' => '位置',
             'name' => '姓名',
-            'email' => '邮箱',
+            'email' => '邮箱地址',
             'contact' => '联系方式',
             'house_number' => '门牌unit',
             'big_house_number' => '大牌block',
