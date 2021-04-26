@@ -191,7 +191,7 @@ class HomeController extends Controller
                 $path = 'images/default/';
                 request()->file('file_data')->move($path, $file_name);
                 $fileName = asset($path . $file_name);
-                // return $this->success(asset($path . $file_name));
+                return $this->success(asset($path . $file_name));
                 return ['status' => 'success', 'code' => 200, 'initialPreview' => [$fileName], 'append' => true];
 
             } else {

@@ -47,7 +47,6 @@ class NewHouseService
         $effectImages = array_get($params, 'effect_images');
         $demoImages = array_get($params, 'demo_images');
         $surroundingImages = array_get($params, 'surrounding_images');
-
         $effectImages = $this->handleBase64Images($effectImages);
         $demoImages = $this->handleBase64Images($demoImages);
         $surroundingImages = $this->handleBase64Images($surroundingImages);

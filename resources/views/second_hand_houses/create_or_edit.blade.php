@@ -646,11 +646,14 @@
 <script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-colorpicker.js"></script>
 <script type="text/javascript">
  
-    var images = "{{!empty($house->images) ? json_encode($house->images) : '[]'}}";
+ var images = "{{!empty($house->images) ? json_encode($house->images) : '[]'}}";
     images = JSON.parse(images.replace(new RegExp('&quot;', "gm"), '"'))
     var imagestr = [];
     for (const item of images) {
         imagestr.push(['<img src="' + item + '" class="file-preview-image">']);
+        var input = $('<input type="hidden" name="images[]">');
+        input.attr('value', item);
+        $('form').append(input);
     }
     $("#upload1").fileinput({
         uploadUrl: "{{route('home.upload')}}",
@@ -661,10 +664,11 @@
 
     $('#upload1').on('fileuploaded', function(event, data, previewId, index) {
         var url = data.jqXHR.responseJSON.data;
+        console.log(url)
         images.push(url);
-        console.log(images);
         var input = $('<input type="hidden" name="images[]">');
         input.attr('value', url);
+       
         $('form').append(input);
     });
 
@@ -673,6 +677,9 @@
     var imagestr2 = [];
     for (const item of images2) {
         imagestr2.push(['<img src="' + item + '" class="file-preview-image">']);
+        var input = $('<input type="hidden" name="effect_images[]">');
+        input.attr('value', item);
+        $('form').append(input);
     }
     $("#upload2").fileinput({
         uploadUrl: "{{route('home.upload')}}",
@@ -695,6 +702,9 @@
     var imagestr3 = [];
     for (const item of images3) {
         imagestr3.push(['<img src="' + item + '" class="file-preview-image">']);
+        var input = $('<input type="hidden" name="demo_images[]">');
+        input.attr('value', item);
+        $('form').append(input);
     }
     $("#upload3").fileinput({
         uploadUrl: "{{route('home.upload')}}",
@@ -716,21 +726,23 @@
     var imagestr4 = [];
     for (const item of images4) {
         imagestr4.push(['<img src="' + item + '" class="file-preview-image">']);
+        var input = $('<input type="hidden" name="surrounding_images[]">');
+        input.attr('value', item);
+        $('form').append(input);
     }
     $("#upload4").fileinput({
         uploadUrl: "{{route('home.upload')}}",
-        initialPreview: images,
+        initialPreview: images4,
         initialPreviewAsData: true,
         overwriteInitial: false,
        
     });  
-
-   
     $('#upload4').on('fileuploaded', function(event, data, previewId, index) {
         var url = data.jqXHR.responseJSON.data;
         images4.push(url);
         var input = $('<input type="hidden" name="surrounding_images[]">');
         input.attr('value', url);
+        console.log(images4);
         $('form').append(input);
     });
  
