@@ -655,33 +655,42 @@
 
 <script type="text/javascript">
     
-    $(".file-loading").fileinput({
-        uploadUrl: "{{route('home.upload')}}",
-        initialPreview: [
-        ]
-       
-    });  
- 
-
-    var images = "{{$house}}" ? "{{json_encode($house->images)}}" : [];
-    console.log(images);
+    var images = "{{!empty($house->images) ? json_encode($house->images) : '[]'}}";
+    images = JSON.parse(images.replace(new RegExp('&quot;', "gm"), '"'))
+    
+    var imagestr = [];
+    for (const item of images) {
+        imagestr.push(['<img src="' + item + '" class="file-preview-image">']);
+    }
     $("#upload1").fileinput({
         uploadUrl: "{{route('home.upload')}}",
-        initialPreview: [
-   
-        ],
+        initialPreview: imagestr,
+        initialPreviewAsData: false,
        
     });  
 
     $('#upload1').on('fileuploaded', function(event, data, previewId, index) {
         var url = data.jqXHR.responseJSON.data;
+       
         images.push(url);
+        
         var input = $('<input type="hidden" name="images[]">');
-        input.attr('value', images);
+        input.attr('value', url);
         $('form').append(input);
     });
 
-    var images2 = [];
+    var images2 = "{{!empty($house->effect_images) ? json_encode($house->effect_images) : '[]'}}";
+    images2 = JSON.parse(images2.replace(new RegExp('&quot;', "gm"), '"'))
+    var imagestr2 = [];
+    for (const item of images2) {
+        imagestr2.push(['<img src="' + item + '" class="file-preview-image">']);
+    }
+    $("#upload2").fileinput({
+        uploadUrl: "{{route('home.upload')}}",
+        initialPreview: imagestr2
+       
+    });  
+
     $('#upload2').on('fileuploaded', function(event, data, previewId, index) {
         var url = data.jqXHR.responseJSON.data;
         images2.push(url);
@@ -690,7 +699,17 @@
         $('form').append(input);
     });
 
-    var images3 = [];
+    var images3 =  "{{!empty($house->demo_images) ? json_encode($house->demo_images) : '[]'}}";
+    images3 = JSON.parse(images3.replace(new RegExp('&quot;', "gm"), '"'))
+    var imagestr3 = [];
+    for (const item of images3) {
+        imagestr3.push(['<img src="' + item + '" class="file-preview-image">']);
+    }
+    $("#upload3").fileinput({
+        uploadUrl: "{{route('home.upload')}}",
+        initialPreview: imagestr3
+       
+    });  
     $('#upload3').on('fileuploaded', function(event, data, previewId, index) {
         var url = data.jqXHR.responseJSON.data;
         images3.push(url);
@@ -699,7 +718,19 @@
         $('form').append(input);
     });
 
-    var images4 = [];
+    var images4 = "{{!empty($house->surrounding_images)  ? json_encode($house->surrounding_images) : '[]'}}";
+    images4 = JSON.parse(images4.replace(new RegExp('&quot;', "gm"), '"'))
+    var imagestr4 = [];
+    for (const item of images4) {
+        imagestr4.push(['<img src="' + item + '" class="file-preview-image">']);
+    }
+    $("#upload4").fileinput({
+        uploadUrl: "{{route('home.upload')}}",
+        initialPreview: imagestr4
+       
+    });  
+
+   
     $('#upload4').on('fileuploaded', function(event, data, previewId, index) {
         var url = data.jqXHR.responseJSON.data;
         images4.push(url);
@@ -707,7 +738,6 @@
         input.attr('value', images4);
         $('form').append(input);
     });
-    
 
     // toastr.success('保存成功!');
     $('#submit').click(function() {
