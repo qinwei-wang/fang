@@ -46,10 +46,12 @@ class ContactManager
             $key = isset($map[$k]) ? $map[$k] : $k;
             $data[$key] = $item;
         }
+
         Mail::send('emails.house', ['params' => $data], function ($m) use ($params) {
             $m->from(env('MAIL_USERNAME'));
-            $m->to('ipoprince.wang@gmail.com')->subject($params['type']);
+            $m->to('1187756010@qq.com')->subject($params['type']);
         });
+       
         return $this->customerService->contact($params);
     }
 }
