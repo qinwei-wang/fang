@@ -182,4 +182,26 @@ class HomeController extends Controller
 
     }
 
+    public function upload(Request $request)
+    {
+        try {
+            if ($request->file('file_data')->isValid()) {
+                $file = $request->file('file_data');
+                $file_name = uniqid() . '.' . $file->extension();
+                $path = 'images/default/';
+                request()->file('file_data')->move($path, $file_name);
+                $fileName = asset($path . $file_name);
+                return $this->success(asset($path . $file_name));
+                return ['status' => 'success', 'code' => 200, 'initialPreview' => ["<img src='" . $fileName  . "' class='file-preview-image' alt='Desert' title='Desert'>",]];
+
+            } else {
+                throw new \Exception('文件上传失败');
+            }
+        } catch(\Exception $e) {
+           \Log::error($e->getMessage());
+           \Log::error($e->getTrace());
+           $this->failed($e->getMessage());
+        }
+    }
+
 }

@@ -43,13 +43,11 @@ class NewHouseService
 
 
         //图片
-        $image = array_get($params, 'image');
         $images = array_get($params, 'images');
         $effectImages = array_get($params, 'effect_images');
         $demoImages = array_get($params, 'demo_images');
         $surroundingImages = array_get($params, 'surrounding_images');
 
-        $image = $this->handleBase64Images($image)[0];
         $effectImages = $this->handleBase64Images($effectImages);
         $demoImages = $this->handleBase64Images($demoImages);
         $surroundingImages = $this->handleBase64Images($surroundingImages);
@@ -59,7 +57,6 @@ class NewHouseService
         $data['effect_images'] = $effectImages;
         $data['demo_images'] = $demoImages;
         $data['surrounding_images'] = $surroundingImages;
-        $data['image'] = $image;
         $data['images'] = $images;
         $data['map'] = $map;
 

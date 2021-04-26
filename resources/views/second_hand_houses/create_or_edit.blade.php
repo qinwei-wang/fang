@@ -57,50 +57,11 @@
                             <div id="cupload-4"></div>
 
                         </div> -->
-                        @if (empty($house->images))
                         <div class="form-group">
                             <label for="">套图</label>
-                            <div>
-                                <div>
-                                    <img src="" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-
-                                <input class="file_path" type="hidden" name="images[]" value="">
-                                <button class="btn image_delete" type="button">x</button>
-
-                            </div>
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="add_image">+</button>
-                                </div>
-                            </div>
+                            <input id="upload1" type="file" class="file  file-loading sin-upload" multiple>
                         </div>
-                        @else
                        
-                        <div class="form-group">
-                            <label for="">套图</label>
-                            @foreach ($house->images as $k => $image)
-                            <div>
-                                <div>
-                                    <img src="{{img_url($image)}}" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-                               
-
-                                <input class="file_path" type="hidden" name="images[]" value="{{$image}}">
-                                <button class="btn image_delete" type="button">x</button>
-
-                            </div>
-                            @endforeach 
-
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="add_image">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        @endif 
                         <div class="form-group">
                             <label for="">vr看房</label>
                             <input type="text" class="form-control" name="vr_link" value="{{$house->vr_link or ''}}">
@@ -643,137 +604,26 @@
                     <div class="box-body">
 
                         
-                        @if (empty($house->effect_images))
-                        <div class="form-group">
-                            <label for="">上传效果图片</label>
-                            <div>
-                                <div>
-                                    <img src="" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-
-                                <input class="file_path" type="hidden" name="effect_images[]" value="">
-                                <button class="btn image_delete" type="button">x</button>
-
-                            </div>
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="add_image">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        @else
                        
                         <div class="form-group">
                             <label for="">上传效果图片</label>
-                            @foreach ($house->effect_images as $k => $image)
-                            <div>
-                                <div>
-                                    <img src="{{img_url($image)}}" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-
-                                <input class="file_path" type="hidden" name="effect_images[]" value="{{$image}}">
-                                <button class="btn image_delete" type="button">x</button>
-
-                            </div>
-                            @endforeach 
-
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="add_image">+</button>
-                                </div>
-                            </div>
+                            <input type="file" id="upload2" class="file  file-loading sin-upload" multiple> 
                         </div>
-                        @endif
-                        @if (empty($house->demo_images))
-                        <div class="form-group">
-                            <label for="">上传样板间图片</label>
-                            <div>
-                                <div>
-                                    <img src="" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-
-                                <input class="file_path" type="hidden" name="demo_images[]" value="">
-                                <button class="btn image_delete" type="button">x</button>
-
-                            </div>
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="add_image">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        @else
+                       
                        
                         <div class="form-group">
                             <label for="">上传样板间图片</label>
-                            @foreach ($house->demo_images as $k => $image)
-                            <div>
-                                <div>
-                                    <img src="{{img_url($image)}}" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-
-                                <input class="file_path" type="hidden" name="demo_images[]" value="{{$image}}">
-                                <button class="btn image_delete" type="button">x</button>
-
-                            </div>
-                            @endforeach 
-
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="">+</button>
-                                </div>
-                            </div>
+                            <input type="file" id="upload3" class="file  file-loading sin-upload" multiple>  
                         </div>
-                        @endif
-                        @if (empty($house->surrounding_images))
-                        <div class="form-group">
-                            <label for="">上传周边配套图片</label>
-                            <div>
-                                <div>
-                                    <img src="" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-
-                                <input class="file_path" type="hidden" name="surrounding_images[]" value="">
-                                <button class="btn image_delete" type="button">x</button>
-
-                            </div>
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="add_image">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        @else
+                     
                        
                         <div class="form-group">
                             <label for="">上传周边配套图片</label>
-                            @foreach ($house->surrounding_images as $k => $image)
-                            <div>
-                                <div>
-                                    <img src="{{img_url($image)}}" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-
-                                <input class="file_path" type="hidden" name="surrounding_images[]" value="{{$image}}">
-                                <button class="btn image_delete" type="button">x</button>
-
-                            </div>
-                            @endforeach 
-
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="add_image">+</button>
-                                </div>
-                            </div>
+                            <input type="file" id="upload4" class="file  file-loading sin-upload" multiple> 
                         </div>
-                        @endif
+                        
                     </div>
-                </div> 
+                </div>
 
                 <div>
                     {!! csrf_field() !!}
@@ -796,17 +646,48 @@
 <script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-colorpicker.js"></script>
 <script type="text/javascript">
  
- $(document).on('click', '.image_delete', function () {
-        console.log($(this).parent().html())
-        console.log(33);
-        $(this).parent().remove(); 
-    })
-  $(".add_image").click(function() {
-        console.log(33);
-        var houseTypesHtml = $(this).parent().parent().prev().html();
-        $(this).parent().parent().before('<div>' + houseTypesHtml + '</div> ');
-        console.log(houseTypesHtml);
-    })
+ $(".file-loading").fileinput({
+        uploadUrl: "{{route('home.upload')}}"
+       
+    });  
+ 
+
+    var images = [];
+    $('#upload1').on('fileuploaded', function(event, data, previewId, index) {
+        var url = data.jqXHR.responseJSON.data;
+        images.push(url);
+        var input = $('<input type="hidden" name="images[]">');
+        input.attr('value', images);
+        $('form').append(input);
+    });
+
+    var images2 = [];
+    $('#upload2').on('fileuploaded', function(event, data, previewId, index) {
+        var url = data.jqXHR.responseJSON.data;
+        images2.push(url);
+        var input = $('<input type="hidden" name="effect_images[]">');
+        input.attr('value', images2);
+        $('form').append(input);
+    });
+
+    var images3 = [];
+    $('#upload3').on('fileuploaded', function(event, data, previewId, index) {
+        var url = data.jqXHR.responseJSON.data;
+        images3.push(url);
+        var input = $('<input type="hidden" name="demo_images[]">');
+        input.attr('value', images3);
+        $('form').append(input);
+    });
+
+    var images4 = [];
+    $('#upload4').on('fileuploaded', function(event, data, previewId, index) {
+        var url = data.jqXHR.responseJSON.data;
+        images4.push(url);
+        var input = $('<input type="hidden" name="surrounding_images[]">');
+        input.attr('value', images4);
+        $('form').append(input);
+    });
+ 
     $('#submit').click(function() {
         $.ajax({
             'type': 'POST',

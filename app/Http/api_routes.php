@@ -39,6 +39,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/business/{id}', 'HomeController@getBusinessDetail')->name('home.second_hand_house.detail');
 
     Route::post('/search', 'HomeController@search')->name('home.search');
+    Route::post('/upload', 'HomeController@upload')->name('home.upload');
+
 
 
 
