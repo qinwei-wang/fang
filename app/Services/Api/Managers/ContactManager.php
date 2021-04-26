@@ -32,7 +32,6 @@ class ContactManager
             'name' => '名称',
             'property_location' => '物业所在位置',
             'expected_price' => '期望价格',
-            'address' => '位置',
             'name' => '姓名',
             'email' => '邮箱地址',
             'contact' => '联系方式',
@@ -40,17 +39,22 @@ class ContactManager
             'big_house_number' => '大牌block',
             'tel' => '号码',
             'message' => '留言',
-            'email_title' => '标题',
         ];
         $data = [];
         foreach ($params as $k => $item) {
-            $key = isset($map[$k]) ? $map[$k] : $k;
-            $data[$key] = $item;
+            if ($k == 'address_type') {
+                $data[$item] = $params['address'];
+            } else {
+                $key = isset($map[$k]) ? $map[$k] : $k;
+                $data[$key] = $item;
+            }
         }
+
+        unset($data['address']);
 
         Mail::send('emails.house', ['params' => $data], function ($m) use ($params) {
             $m->from(env('MAIL_USERNAME'));
-            $m->to('1187756010@qq.com')->subject($params['email_title']);
+            $m->to('156738818@qq.com')->subject($params['email_title']);
         });
        
         return $this->customerService->contact($params);
