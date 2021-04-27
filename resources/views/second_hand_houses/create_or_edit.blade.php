@@ -330,10 +330,10 @@
                                 <input type="checkbox" class="table-radio minimal" @if(!empty($house->house_index) && in_array(6, $house->house_index)) checked @endif name="house_index[]" value="6">&nbsp;&nbsp;一厅+书房
                             </label> -->
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if(!empty($house->house_index) && in_array(6, $house->house_index)) checked @endif name="house_index[]" value="10">&nbsp;&nbsp;三室一厅
+                                <input type="checkbox" class="table-radio minimal" @if(!empty($house->house_index) && in_array(10, $house->house_index)) checked @endif name="house_index[]" value="10">&nbsp;&nbsp;三室一厅
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if(!empty($house->house_index) && in_array(6, $house->house_index)) checked @endif name="house_index[]" value="11">&nbsp;&nbsp;三室一厅+书房
+                                <input type="checkbox" class="table-radio minimal" @if(!empty($house->house_index) && in_array(11, $house->house_index)) checked @endif name="house_index[]" value="11">&nbsp;&nbsp;三室一厅+书房
                             </label>
                             <label class="item_label">
                                 <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(7, $house->house_index)) checked @endif name="house_index[]" value="7">&nbsp;&nbsp;四室一厅
