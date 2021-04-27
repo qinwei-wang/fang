@@ -261,7 +261,7 @@
                                 <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('urban',$house->region_index)) checked @endif name="region_index[]" value="urban">&nbsp;&nbsp;市区
                             </label>
                             <label class="item_label">
-                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('middel', $house->region_index)) checked @endif name="region_index[]" value="middel">&nbsp;&nbsp;中部
+                                <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('middle', $house->region_index)) checked @endif name="region_index[]" value="middle">&nbsp;&nbsp;中部
                             </label>
                             <label class="item_label">
                                 <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('south', $house->region_index)) checked @endif name="region_index[]" value="south">&nbsp;&nbsp;南部

@@ -246,7 +246,7 @@ class SecondHandHouseService
             $item->finish_at = Carbon::parse($item->finish_at)->toDateString();
             $item->start_at = Carbon::parse($item->start_at)->toDateString();
             $item->region_index && $item->region_ch = array_map(function ($v) {
-                return NewHouseModel::REGION[$v];
+                return NewHouseModel::REGION[$v] ?? '其他地区';
             }, $item->region_index);
             if (!empty($item->map)) {
                 $map = [];
