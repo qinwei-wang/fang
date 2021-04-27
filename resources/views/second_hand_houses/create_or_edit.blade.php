@@ -249,7 +249,6 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="">地区</label>
                             <label class="item_label">
                                 <input type="checkbox" class="table-radio minimal" @if (!empty($house->region_index) && in_array('east', $house->region_index)) checked @endif name="region_index[]" value="east">&nbsp;&nbsp;东部
                             </label>
@@ -278,7 +277,6 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="">价格</label>
                             <label class="item_label">
                                 <input type="checkbox" class="table-radio minimal" @if (!empty($house->price_index) && in_array(1, $house->price_index)) checked @endif name="price_index[]" value="1">&nbsp;&nbsp;100万以下
                             </label>
@@ -295,7 +293,6 @@
                             <!-- <input type="text" class="form-control" name="title_tags" value="{{$house->title_tags or ''}}"> -->
                         </div>
                         <div class="form-group">
-                            <label for="">面积</label>
                             <label class="item_label">
                                 <input type="checkbox" class="table-radio minimal" @if (!empty($house->area_index) && in_array(1, $house->area_index)) checked @endif name="area_index[]" value="1">&nbsp;&nbsp;50m2以下
                             </label>
@@ -314,7 +311,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="">户型</label>
                             <label class="item_label">
                                 <input type="checkbox" class="table-radio minimal" @if (!empty($house->house_index) && in_array(1, $house->house_index)) checked @endif name="house_index[]" value="1">&nbsp;&nbsp;一卧室
                             </label>
