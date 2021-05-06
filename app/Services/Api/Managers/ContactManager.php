@@ -39,6 +39,7 @@ class ContactManager
             'big_house_number' => '大牌block',
             'tel' => '号码',
             'message' => '留言',
+            'advisory_type' => '类型',
         ];
         $data = [];
         foreach ($params as $k => $item) {
@@ -51,10 +52,11 @@ class ContactManager
         }
 
         unset($data['address']);
+        unset($data['email_title']);
 
         Mail::send('emails.house', ['params' => $data], function ($m) use ($params) {
             $m->from(env('MAIL_USERNAME'));
-            $m->to('156738818@qq.com')->subject($params['email_title']);
+            $m->to('peterwusg@gmail.com')->subject($params['email_title']);
         });
        
         return $this->customerService->contact($params);
