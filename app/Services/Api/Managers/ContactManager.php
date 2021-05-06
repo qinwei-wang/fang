@@ -53,6 +53,7 @@ class ContactManager
 
         unset($data['address']);
         unset($data['email_title']);
+        unset($data['protocol']);
 
         Mail::send('emails.house', ['params' => $data], function ($m) use ($params) {
             $m->from(env('MAIL_USERNAME'));
