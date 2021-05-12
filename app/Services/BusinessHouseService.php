@@ -96,7 +96,6 @@ class BusinessHouseService
             $house->traffic = explode(',', $house->traffic);
         }
 
-
         return $house;
     }
 

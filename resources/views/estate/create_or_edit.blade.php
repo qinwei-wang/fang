@@ -37,12 +37,10 @@
                             <input type="text" class="form-control" name="title" value="{{$house->title or ''}}">
                         </div>
                        
-                      
                         <div class="form-group">
-                            <label for="">主图</label>
-                            <div id="cupload-4"></div>
-
-                        </div>
+                            <label for="">套图</label>
+                            <input id="upload1" type="file" class="file  file-loading sin-upload" multiple>
+                        </div> 
                       
                         <div class="form-group">
                             <label for="">介绍</label>
@@ -77,11 +75,30 @@
 
   
 
-    var cupload4 = new Cupload({
-        ele: '#cupload-4',
-        num: 1,
-        name: "image",
-        data: "{{!empty($house->image)}}" ? ["{{!empty($house->image) ? img_url($house->image) : ''}}"] : null,
+   var images = "{{!empty($house->images) ? json_encode($house->images) : '[]'}}";
+    images = JSON.parse(images.replace(new RegExp('&quot;', "gm"), '"'))
+    var imagestr = [];
+    for (const item of images) {
+        imagestr.push(['<img src="' + item + '" class="file-preview-image">']);
+        var input = $('<input type="hidden" name="images[]">');
+        input.attr('value', item);
+        $('form').append(input);
+    }
+    $("#upload1").fileinput({
+        uploadUrl: "{{route('home.upload')}}",
+        initialPreview: images,
+        initialPreviewAsData: true,
+        overwriteInitial: false,
+    });  
+
+    $('#upload1').on('fileuploaded', function(event, data, previewId, index) {
+        var url = data.jqXHR.responseJSON.data;
+        console.log(url)
+        images.push(url);
+        var input = $('<input type="hidden" name="images[]">');
+        input.attr('value', url);
+       
+        $('form').append(input);
     });
 
    

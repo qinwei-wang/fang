@@ -47,49 +47,10 @@
                             <div id="cupload-4"></div>
 
                         </div> -->
-                        @if (empty($house->images))
                         <div class="form-group">
                             <label for="">套图</label>
-                            <div>
-                                <div>
-                                    <img src="" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-
-                                <input class="file_path" type="hidden" name="images[]" value="">
-                                <button class="btn image_delete" type="button">x</button>
-
-                            </div>
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="add_image">+</button>
-                                </div>
-                            </div>
+                            <input id="upload1" type="file" class="file  file-loading sin-upload" multiple>
                         </div>
-                        @else
-                       
-                        <div class="form-group">
-                            <label for="">套图</label>
-                            @foreach ($house->images as $k => $image)
-                            <div>
-                                <div>
-                                    <img src="{{img_url($image)}}" height="50" alt="">
-                                </div>
-                                <input type="file" class="upload_file">
-                                <button class="btn image_delete" type="button">x</button>
-
-                                <input class="file_path" type="hidden" name="images[]" value="{{$image}}">
-
-                            </div>
-                            @endforeach 
-
-                            <div class="row" style="margin-top:20px">
-                                <div class="col-xs-3">
-                                    <button class="btn add_image" type="button" class="add_image">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        @endif 
                         <div class="form-group">
                             <label for="">vr看房</label>
                             <input type="text" class="form-control" name="vr_link" value="{{$house->vr_link or ''}}">
@@ -406,17 +367,31 @@
 <script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/jquery-1.11.0.min.js"></script>
 
 <script type="text/javascript">
-   $(document).on('click', '.image_delete', function () {
-        console.log($(this).parent().html())
-        console.log(33);
-        $(this).parent().remove(); 
-    })
-  $(".add_image").click(function() {
-        console.log(33);
-        var houseTypesHtml = $(this).parent().parent().prev().html();
-        $(this).parent().parent().before('<div>' + houseTypesHtml + '</div> ');
-        console.log(houseTypesHtml);
-    })
+    var images = "{{!empty($house->images) ? json_encode($house->images) : '[]'}}";
+    images = JSON.parse(images.replace(new RegExp('&quot;', "gm"), '"'))
+    var imagestr = [];
+    for (const item of images) {
+        imagestr.push(['<img src="' + item + '" class="file-preview-image">']);
+        var input = $('<input type="hidden" name="images[]">');
+        input.attr('value', item);
+        $('form').append(input);
+    }
+    $("#upload1").fileinput({
+        uploadUrl: "{{route('home.upload')}}",
+        initialPreview: images,
+        initialPreviewAsData: true,
+        overwriteInitial: false,
+    });  
+
+    $('#upload1').on('fileuploaded', function(event, data, previewId, index) {
+        var url = data.jqXHR.responseJSON.data;
+        console.log(url)
+        images.push(url);
+        var input = $('<input type="hidden" name="images[]">');
+        input.attr('value', url);
+       
+        $('form').append(input);
+    });
 
    
     // toastr.success('保存成功!');
