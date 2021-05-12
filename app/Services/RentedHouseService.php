@@ -212,6 +212,11 @@ class RentedHouseService
             $item->community = TagModel::whereIn('id', $item->community)->pluck('name');
             $item->title_tags = array_filter(explode(',', $item->title_tags));
             $item->image = img_url($item->images[0]);
+            $images = [];
+            foreach ($item->images as $k => $image) {
+                $images[] = img_url($image);
+            }
+            $item->images = $images;
             $item->house_tags = array_filter(explode(',', $item->house_tags));
             $item->finish_at = Carbon::parse($item->finish_at)->toDateString();
             $item->start_at = Carbon::parse($item->start_at)->toDateString();
