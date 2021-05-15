@@ -27,6 +27,8 @@ class ContactManager
     public function run($params)
     {
 
+        $params['email_title'] = $params['email_title'] ?? '';
+
         $map = [
             'type' => '咨询方向',
             'name' => '名称',
@@ -54,6 +56,8 @@ class ContactManager
         unset($data['address']);
         unset($data['email_title']);
         unset($data['protocol']);
+
+        
 
         Mail::send('emails.house', ['params' => $data], function ($m) use ($params) {
             $m->from(env('MAIL_USERNAME'));
