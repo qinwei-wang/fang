@@ -57,7 +57,7 @@ class ContactManager
 
         Mail::send('emails.house', ['params' => $data], function ($m) use ($params) {
             $m->from(env('MAIL_USERNAME'));
-            $m->to('peterwusg@gmail.com')->subject($params['email_title']);
+            $m->to('pwzcapital@hotmail.com')->subject($params['email_title']);
         });
        
         return $this->customerService->contact($params);
