@@ -61,7 +61,7 @@ class ContactManager
 
         Mail::send('emails.house', ['params' => $data], function ($m) use ($params) {
             $m->from(env('MAIL_USERNAME'));
-            $m->to('156738818@qq.com')->subject($params['email_title']);
+            $m->to('pwzcapital@hotmail.com')->subject('有一封新邮件');
         });
        
         return $this->customerService->contact($params);
