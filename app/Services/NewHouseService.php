@@ -285,9 +285,12 @@ class NewHouseService
             $item->image = img_url($item->images[0]);
 
             $images = [];
-            foreach ($item->images as $k => $image) {
-                $images[] = img_url($image);
+            if (!empty($item->images)) {
+                foreach ($item->images as $k => $image) {
+                    $images[] = img_url($image);
+                }
             }
+            
             $item->images = $images;
             $item->house_tags = array_filter(explode(',', $item->house_tags));
             $item->finish_at = Carbon::parse($item->finish_at)->toDateString();

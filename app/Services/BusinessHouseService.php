@@ -143,7 +143,7 @@ class BusinessHouseService
         $offset = ($page - 1) * $size;
         $data = BusinessHouseModel::select('title',  'images')->where('type', '6')->orderBy('updated_at', 'desc')->skip($offset)->take($size)->get();
         foreach ($data as $item) {
-            $item->image = img_url($item->images[0]);
+            $item->image = img_url(array_get($item->images, 0));
         }
 
         $total = BusinessHouseModel::where('type', '6')->count();
@@ -162,7 +162,7 @@ class BusinessHouseService
     {
         $data = BusinessHouseModel::select('title',  'images', 'price', 'addr')->where('type', '5')->orderBy('updated_at', 'desc')->limit(8)->get();
         foreach ($data as $item) {
-            $item->image = img_url($item->images[0]);
+            $item->image = img_url(array_get($item->images, 0));
         }
 
 
@@ -224,7 +224,7 @@ class BusinessHouseService
                 $item->image = img_url($item->image);
                 return $item;
             });
-            $item->image = img_url($item->images[0]);
+            $item->image = img_url(array_get($item->images, 0));
             if ($item->map) {
                 $map = [];
                 foreach ($item->map as $k => $v) {
