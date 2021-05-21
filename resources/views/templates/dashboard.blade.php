@@ -24,6 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="{{asset('bower_components/admin-lte/dist/css/skins/skin-blue.min.css')}}">
     <link href="{{asset('bower_components/toastr/toastr.min.css')}}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
   
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
