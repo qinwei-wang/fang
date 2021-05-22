@@ -10,8 +10,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>cms</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+     
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('bower_components/bootstrap-fileinput-master/css/fileinput.css')}}">
+
+
+     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" /> -->
     <!-- <link rel="stylesheet" href="{{asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}"> -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
@@ -24,7 +31,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="{{asset('bower_components/admin-lte/dist/css/skins/skin-blue.min.css')}}">
     <link href="{{asset('bower_components/toastr/toastr.min.css')}}" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    
+    <!-- <link rel="stylesheet" href="https://c.disquscdn.com/next/embed/styles/lounge.305cef62f65d619287ed5bfd8a11158b.css"> -->
   
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -84,10 +92,11 @@ desired effect
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
-<script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<!-- <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script> -->
 <!-- Bootstrap 3.3.7 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
-
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('bower_components/admin-lte/dist/js/adminlte.min.js')}}"></script>
 <script src="{{asset('bower_components/toastr/toastr.min.js')}}"></script>
@@ -95,18 +104,19 @@ desired effect
 
 <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
     This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/js/plugins/sortable.min.js" type="text/javascript"></script> -->
+<script src="{{asset('bower_components/bootstrap-fileinput-master/js/plugins/sortable.js')}}" type="text/javascript"></script>
 <!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js 
    3.3.x versions without popper.min.js. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
     dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
 <!-- the main fileinput plugin file -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/js/fileinput.min.js"></script>
+<script src="{{asset('bower_components/bootstrap-fileinput-master/js/fileinput.js')}}"></script>
 <!-- optionally if you need a theme like font awesome theme you can include it as mentioned below -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/themes/fa/theme.js"></script>
+<script src="{{asset('bower_components/bootstrap-fileinput-master/themes/fas/theme.js')}}"></script>
 <!-- optionally if you need translation for your language then include  locale file as mentioned below -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/js/locales/zh.js"></script>
+<script src="{{asset('bower_components/bootstrap-fileinput-master/js/locales/zh.js')}}"></script>
 <script>
     toastr.options = {
         closeButton: false,
